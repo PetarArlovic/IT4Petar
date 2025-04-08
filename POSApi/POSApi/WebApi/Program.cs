@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
@@ -17,7 +17,11 @@ using POSApi.Infrastructure.Data;
 using POSApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting; // Add this using directive
 
-var builder = WebApplication.CreateBuilder(args);
+var logger = NLog.LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
+
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -61,7 +65,14 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 
-    string connectionString = builder.Configuration.GetConnectionString("POSdb")!;
+    var connectionString = builder.Configuration.GetConnectionString("POSdb")!;
+    if (string.IsNullOrEmpty(connectionString))
+    {
+        logger.Error("Connection string 'POSdb' nije pronađen u appsettings.json!");
+        throw new InvalidOperationException("Connection string nije inicijaliziran.");
+    }
+
+    logger.Debug($"Connection string uspješno učitan: {connectionString}");
     options.UseSqlServer(connectionString);
 
 });
@@ -85,3 +96,14 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+}
+catch (Exception ex)
+{
+    logger.Error(ex, "Fatalna greška prilikom pokretanja aplikacije");
+    throw;
+}
+finally
+{
+    NLog.LogManager.Shutdown();
+}
