@@ -12,7 +12,7 @@ using POSApi.Infrastructure.Data;
 namespace POSApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250408230911_First_migration")]
+    [Migration("20250408232943_First_migration")]
     partial class First_migration
     {
         /// <inheritdoc />
