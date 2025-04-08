@@ -27,6 +27,7 @@
   <ItemGroup>
     <Folder Include="Domain\Models\" />
     <Folder Include="Domain\Interface\" />
+    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>
