@@ -32,8 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Domain\Models\" />
     <Folder Include="Application\" />
+    <Folder Include="WebApi\Controllers\" />
   </ItemGroup>
 
 </Project>

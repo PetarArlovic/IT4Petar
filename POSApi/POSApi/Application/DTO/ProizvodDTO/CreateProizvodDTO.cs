@@ -1,4 +1,8 @@
-﻿namespace POSApi.Application.DTO.ProizvodDTO
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace POSApi.Application.DTO.ProizvodDTO
 {
     public class CreateProizvodDTO
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace POSApi.Application.DTO.ProizvodDTO
 {
-    public class UpdateKupacDTO
+    public class UpdateProizvodDTO
     {
 
         [Required]
