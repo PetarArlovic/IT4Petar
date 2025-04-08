@@ -2,7 +2,7 @@
 
 namespace POSApi.Application.Services.Interfaces
 {
-    public interface IProizvodService
+    public interface IProizvodiService
     {
 
         Task<List<GetProizvodDTO>> GetAllAsync();
