@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Domain\Interface\**" />
+    <Content Remove="Domain\Interface\**" />
+    <EmbeddedResource Remove="Domain\Interface\**" />
+    <None Remove="Domain\Interface\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.3" />
@@ -26,7 +33,6 @@
 
   <ItemGroup>
     <Folder Include="Domain\Models\" />
-    <Folder Include="Domain\Interface\" />
     <Folder Include="Application\" />
   </ItemGroup>
 
