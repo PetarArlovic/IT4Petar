@@ -2,11 +2,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using WEBapi1.Data;
-using WEBapi1.Interfaces;
-using WEBapi1.Mappings;
-using WEBapi1.Repositories;
-using WEBapi1.Services;
+using POSApi.Infrastructure.Data;
+using POSApi.Domain.Interfaces;
+using POSApi.WebApi.Mappings;
+using POSApi.Infrastructure.Repositories;
+using POSApi.Application.Services;
 using NLog;
 using NLog.Web;
 using Microsoft.Extensions.Options;
@@ -15,6 +15,7 @@ using POSApi.Application.Services.Implementations;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Infrastructure.Data;
 using POSApi.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Hosting; // Add this using directive
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IProizvodiService, ProizvodiService>();
@@ -35,9 +36,6 @@ builder.Services.AddAuthorization();
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-//   .AddEntityFrameworkStores<AppDbContext>()
-//  .AddDefaultTokenProviders();
 builder.Services.AddSwaggerGen(c =>
 {
 

@@ -2,7 +2,7 @@
 
 namespace POSApi.Domain.Interfaces
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T> where T : class
     {
 
         Task<List<T>> GetAllAsync();

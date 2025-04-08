@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using POSApi.Domain.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using POSApi.Domain.Models;
 using POSApi.Infrastructure.Data;
 

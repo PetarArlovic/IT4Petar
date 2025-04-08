@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using POSApi.Domain.Interfaces;
 using POSApi.Application.DTO.ProizvodDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;

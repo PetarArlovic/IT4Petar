@@ -7,10 +7,10 @@ using POSApi.Domain.Models;
 
 namespace POSApi.WebApi.Mappings
 {
-    public class AutoMapperProfiles : Profile
+    public class AutoMapperProfile : Profile
     {
 
-        public AutoMapperProfiles()
+        public AutoMapperProfile()
         {
 
             CreateMap<Kupac, CreateKupacDTO>().ReverseMap();
