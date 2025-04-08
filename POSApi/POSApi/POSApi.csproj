@@ -25,6 +25,7 @@
     </PackageReference>
     <PackageReference Include="NLog" Version="5.4.0" />
     <PackageReference Include="NLog.Extensions.Logging" Version="5.4.0" />
+    <PackageReference Include="NSwag.Annotations" Version="14.3.0" />
     <PackageReference Include="NSwag.Core" Version="14.3.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.0" />
@@ -32,10 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Domain\Models\" />
     <Folder Include="Application\" />
-    <Folder Include="WebApi\Controllers\" />
   </ItemGroup>
 
 </Project>

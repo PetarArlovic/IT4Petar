@@ -2,7 +2,7 @@
 
 namespace POSApi.Application.Services.Interfaces
 {
-    public interface IKupacService
+    public interface IKupciService
     {
 
         Task<List<GetKupacDTO>> GetAllAsync();
