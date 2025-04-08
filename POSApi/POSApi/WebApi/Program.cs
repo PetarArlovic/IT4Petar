@@ -61,7 +61,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 
-    string connectionString = builder.Configuration.GetConnectionString("WebDB1")!;
+    string connectionString = builder.Configuration.GetConnectionString("POSdb")!;
     options.UseSqlServer(connectionString);
 
 });
