@@ -17,9 +17,6 @@ using POSApi.Infrastructure.Data;
 using POSApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting; // Add this using directive
 
-var logger = NLog.LogManager.Setup().LoadConfigurationFromFile("nlog.config").GetCurrentClassLogger();
-
-try
 {
     var builder = WebApplication.CreateBuilder(args);
 
@@ -68,11 +65,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("POSdb")!;
     if (string.IsNullOrEmpty(connectionString))
     {
-        logger.Error("Connection string 'POSdb' nije pronađen u appsettings.json!");
         throw new InvalidOperationException("Connection string nije inicijaliziran.");
     }
 
-    logger.Debug($"Connection string uspješno učitan: {connectionString}");
     options.UseSqlServer(connectionString);
 
 });
@@ -97,13 +92,4 @@ app.MapControllers();
 
 app.Run();
 
-}
-catch (Exception ex)
-{
-    logger.Error(ex, "Fatalna greška prilikom pokretanja aplikacije");
-    throw;
-}
-finally
-{
-    NLog.LogManager.Shutdown();
 }
