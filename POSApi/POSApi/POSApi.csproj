@@ -34,6 +34,7 @@
   <ItemGroup>
     <Folder Include="Domain\Models\" />
     <Folder Include="Application\" />
+    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
 
 </Project>
