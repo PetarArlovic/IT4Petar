@@ -81,7 +81,7 @@ namespace POSApi.WebApi.Controllers
         /// Gets "Stavke racuna" by its "broj"
         /// </summary>
         /// <returns></returns>
-        [HttpGet("BROJ {broj}")]
+        [HttpGet("BROJ/{broj}")]
         public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
         {
             try
