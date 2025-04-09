@@ -29,10 +29,10 @@ namespace POSApi.WebApi.Controllers
 
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
+        public async Task<IActionResult> Register([FromBody] RegisterDTO dto)
         {
-            var user = new User { Email = model.EMAIL };
-            var result = await _userManager.CreateAsync(user, model.PASSWORD);
+            var user = new User { Email = dto.EMAIL };
+            var result = await _userManager.CreateAsync(user, dto.PASSWORD);
 
             if (result.Succeeded)
                 return Ok("User registered.");
@@ -43,11 +43,11 @@ namespace POSApi.WebApi.Controllers
 
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+        public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
-            var user = await _userManager.FindByEmailAsync(model.EMAIL);
+            var user = await _userManager.FindByEmailAsync(dto.EMAIL);
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.PASSWORD))
+            if (user != null && await _userManager.CheckPasswordAsync(user, dto.PASSWORD))
             {
                 var token = CreateJWToken(user);
                 return Ok(new { token });
@@ -85,7 +85,9 @@ namespace POSApi.WebApi.Controllers
             return jwt;
         }     
     }
-}        /*[HttpPost("Register")]
+}        
+
+      /*[HttpPost("Register")]
         public IActionResult Register(UserDTO dto)
         {
             var emailCount = context.USER.Count(u => u.EMAIL == dto.EMAIL);
