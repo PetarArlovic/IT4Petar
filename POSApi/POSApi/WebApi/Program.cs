@@ -21,7 +21,9 @@ using POSApi.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies; // Add this using directive
+using Microsoft.AspNetCore.Authentication.Cookies;
+using POSApi;
+using POSApi.Extensions; // Add this using directive
 
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -102,6 +104,7 @@ builder.Services.AddSwaggerGen(c =>
 
 });
 
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
 
@@ -115,8 +118,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 
-
 var app = builder.Build();
+
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var host = app as IHost; 
+        if (host == null)
+        {
+            throw new InvalidOperationException("The application could not be cast to IHost.");
+        }
+        await SeedDataExtensions.SeedData(host); 
+    }
 
 if (app.Environment.IsDevelopment())
 {
@@ -124,6 +137,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 
 }
+
+
 
 // Configure the HTTP request pipeline.
 
