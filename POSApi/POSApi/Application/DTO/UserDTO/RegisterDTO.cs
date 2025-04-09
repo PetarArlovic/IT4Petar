@@ -2,12 +2,8 @@
 
 namespace POSApi.Application.DTO.UserDTO
 {
-    public class UserDTO
+    public class RegisterDTO
     {
-
-        [Required]
-        [MaxLength(100)]
-        public string NAZIV { get; set; } = "";
 
         [Required]
         [MaxLength(100)]

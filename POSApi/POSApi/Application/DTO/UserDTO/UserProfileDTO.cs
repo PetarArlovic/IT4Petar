@@ -2,18 +2,16 @@
 
 namespace POSApi.Application.DTO.UserDTO
 {
-    public class UserProfileDTO
+    public class LoginDTO
     {
 
-        public int Id { get; set; }
-
-        public string NAZIV { get; set; } = "";
-
+        [Required]
+        [MaxLength(100)]
         public string EMAIL { get; set; } = "";
 
-        public string ROLE { get; set; } = "";
-
-        public DateTime CREATED_AT { get; set; }
+        [Required]
+        [MaxLength(100), MinLength(8)]
+        public string PASSWORD { get; set; } = "";
 
     }
 }
