@@ -49,6 +49,10 @@ namespace POSApi.Infrastructure.Data
                 .WithMany(z => z.STAVKE_RACUNA)
                 .HasForeignKey(s => s.ZAGLAVLJE_RACUNAId);
 
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.EMAIL)
+                .IsUnique();
+
         }
     }
 }
