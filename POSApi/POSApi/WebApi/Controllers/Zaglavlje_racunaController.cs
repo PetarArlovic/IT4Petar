@@ -174,14 +174,27 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<GetZaglavlje_racunaDTO>> FindZByBROJ(int broj)
         {
 
-            var proizvod = await _service.FindZByBROJ(broj);
-            if (proizvod == null)
+            try
             {
-                return NotFound($"Proizvod sa šifrom {broj} nije pronađen.");
+
+                var proizvod = await _service.FindZByBROJ(broj);
+
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa brojem: " + broj + " ne postoji");
+                    return NotFound($"Proizvod sa šifrom {broj} nije pronađen.");
+                }
+
+                return Ok(proizvod);
             }
 
-            return Ok(proizvod);
+            catch (Exception ex)
+            {
 
+                _logger.LogError("Greška prilikom učitavanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
+                return BadRequest("Greška prilikom učitavanja zaglavlja: " + ex.Message);
+
+            }
         }
     }
 }

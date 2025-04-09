@@ -97,7 +97,7 @@ namespace POSApi.Application.Services.Implementations
             var zaglavlje = await _repo.FindZByBROJ(broj);
             if (zaglavlje == null)
             {
-                throw new Exception("Kupac sa šifrom: " + broj + " ne postoji");
+                throw new Exception("Zaglavlje sa šifrom: " + broj + " ne postoji");
             }
             return _mapper.Map<GetZaglavlje_racunaDTO>(zaglavlje);
 

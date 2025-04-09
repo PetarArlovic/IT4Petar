@@ -8,9 +8,6 @@ namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
         [Required]
         public int BROJ { get; set; }
 
-        [Required]
-        public DateTime DATUM { get; set; } = DateTime.Now;
-
         [MaxLength(100)]
         public string NAPOMENA { get; set; }
 
