@@ -97,7 +97,7 @@ namespace POSApi.Application.Services.Implementations
             var kupac = await _repo.FindPBySIFRA(sifra);
             if (kupac == null)
             {
-                throw new Exception("Kupac sa šifrom: " + sifra + " ne postoji");
+                throw new Exception("Proizvod sa šifrom: " + sifra + " ne postoji");
             }
             return _mapper.Map<GetProizvodDTO>(kupac);
 

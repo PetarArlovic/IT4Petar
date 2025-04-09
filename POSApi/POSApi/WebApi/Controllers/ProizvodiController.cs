@@ -184,15 +184,27 @@ namespace POSApi.WebApi.Controllers
         [HttpGet("sifra/{sifra}")]
         public async Task<ActionResult<GetKupacDTO>> FindPBySIFRA(int sifra)
         {
-
-            var proizvod = await _service.FindPBySIFRA(sifra);
-            if (proizvod == null)
+            try
             {
-                return NotFound($"Proizvod sa šifrom {sifra} nije pronađen.");
+
+                var proizvod = await _service.FindPBySIFRA(sifra);
+
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa sifrom: " + sifra + " ne postoji");
+                    return NotFound($"Proizvod sa šifrom {sifra} nije pronađen.");
+                }
+
+                return Ok(proizvod);
             }
 
-            return Ok(proizvod);
+            catch(Exception ex)
+            {
 
+                _logger.LogError("Greška prilikom učitavanja proizvoda: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
+                return BadRequest("Greška prilikom učitavanja proizvoda: " + ex.Message);
+
+            }
         }
     }
 }
