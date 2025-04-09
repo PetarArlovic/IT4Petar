@@ -16,12 +16,16 @@ using POSApi.Application.Services.Interfaces;
 using POSApi.Infrastructure.Data;
 using POSApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting;
-using Swashbuckle.AspNetCore.Filters; // Add this using directive
+using Swashbuckle.AspNetCore.Filters;
+using POSApi.Domain.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text; // Add this using directive
 
 {
     var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+    // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -47,9 +51,33 @@ builder.Services.AddScoped<IStavke_racunaService, Stavke_racunaService>();
 builder.Services.AddScoped<IZaglavlje_racunaService, Zaglavlje_racunaService>();
 
 builder.Services.AddAuthorization();
-builder.Logging.ClearProviders();
+builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidIssuer = "tvoja-aplikacija",
+        ValidAudience = "tvoja-aplikacija",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_tajna_lozinka123"))
+    };
+});
+
+    builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
+
 builder.Services.AddSwaggerGen(c =>
 {
 

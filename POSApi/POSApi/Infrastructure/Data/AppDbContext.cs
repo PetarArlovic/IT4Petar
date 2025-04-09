@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using POSApi.Domain.Models;
 
 namespace POSApi.Infrastructure.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
@@ -49,10 +50,6 @@ namespace POSApi.Infrastructure.Data
                 .HasOne(s => s.ZAGLAVLJE_RACUNA)
                 .WithMany(z => z.STAVKE_RACUNA)
                 .HasForeignKey(s => s.ZAGLAVLJE_RACUNAId);
-
-            modelBuilder.Entity<User>()
-                .HasIndex(u => u.EMAIL)
-                .IsUnique();
 
         }
     }
