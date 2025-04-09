@@ -15,7 +15,8 @@ using POSApi.Application.Services.Implementations;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Infrastructure.Data;
 using POSApi.Infrastructure.Repositories;
-using Microsoft.AspNetCore.Hosting; // Add this using directive
+using Microsoft.AspNetCore.Hosting;
+using Swashbuckle.AspNetCore.Filters; // Add this using directive
 
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +25,19 @@ using Microsoft.AspNetCore.Hosting; // Add this using directive
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen( options =>
+{
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description= "Please enter token",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+});
+
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
