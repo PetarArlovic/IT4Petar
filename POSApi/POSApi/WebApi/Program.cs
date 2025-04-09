@@ -20,7 +20,8 @@ using Swashbuckle.AspNetCore.Filters;
 using POSApi.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text; // Add this using directive
+using System.Text;
+using Microsoft.AspNetCore.Authentication.Cookies; // Add this using directive
 
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -51,7 +52,8 @@ builder.Services.AddScoped<IStavke_racunaService, Stavke_racunaService>();
 builder.Services.AddScoped<IZaglavlje_racunaService, Zaglavlje_racunaService>();
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication().AddCookie(IdentityConstants.ApplicationScheme);
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        .AddCookie();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -68,9 +70,9 @@ builder.Services.AddAuthentication(options =>
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidIssuer = "tvoja-aplikacija",
-        ValidAudience = "tvoja-aplikacija",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super_tajna_lozinka123"))
+        ValidIssuer = "POSApi",
+        ValidAudience = "POSApi",
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryimportantandverysecretkey123"))
     };
 });
 

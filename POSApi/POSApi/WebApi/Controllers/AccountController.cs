@@ -27,7 +27,7 @@ namespace POSApi.WebApi.Controllers
         }
 
 
-        [HttpPost("Register")]
+        /*[HttpPost("Register")]
         public IActionResult Register(UserDTO dto)
         {
             var emailCount = context.USER.Count(u => u.EMAIL == dto.EMAIL);
@@ -144,13 +144,11 @@ namespace POSApi.WebApi.Controllers
         private string CreateJWToken(User user)
         {
 
-            List<Claim> claims = new List<Claim>
-            {
-
-                new Claim ("id", "" + user.Id),
-                new Claim ("role", user.ROLE),
-
-            };
+            var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
+        };
 
             string strKey = configuration["Jwt:Key"]!;
 
