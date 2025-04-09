@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using POSApi.Application.DTO.UserDTO;
 using POSApi.Domain.Models;
+using POSApi.Infrastructure.Data;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -14,12 +17,60 @@ namespace POSApi.WebApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IConfiguration configuration;
+        private readonly AppDbContext context;
 
-        public AccountController(IConfiguration configuration)
+        public AccountController(IConfiguration configuration, AppDbContext context)
         {
             this.configuration = configuration;
+            this.context = context;
         }
 
+        [HttpPost("Register")]
+        public IActionResult Register(UserDTO dto)
+        {
+            var emailCount = context.USER.Count(u => u.EMAIL == dto.EMAIL);
+            if (emailCount > 0)
+            {
+                ModelState.AddModelError("Email", "Email already exists");
+                return BadRequest("Email already exists");
+            }
+
+            var passwordHasher = new PasswordHasher<User>();
+            var encryptedPassword = passwordHasher.HashPassword(new User(), dto.PASSWORD);
+
+
+            User user = new User()
+            {
+
+                NAZIV = dto.NAZIV,
+                EMAIL = dto.EMAIL,
+                PASSWORD = encryptedPassword,
+                ROLE = "client",
+                CREATED_AT = DateTime.Now
+
+            };
+
+            context.USER.Add(user);
+            context.SaveChanges();
+
+            var jwt = CreateJWToken(user);
+            UserProfileDTO userProfileDTO = new UserProfileDTO()
+            {
+                Id = user.Id,
+                NAZIV = user.NAZIV,
+                EMAIL = user.EMAIL,
+                ROLE = user.ROLE,
+                CREATED_AT = user.CREATED_AT
+            };
+
+            var reponse = new
+            {
+                UserProfile = userProfileDTO,
+                JWToken = jwt
+            };
+
+            return Ok(reponse);
+        }
         /*
         [HttpGet("TestToken")]
         public IActionResult TestToken()
