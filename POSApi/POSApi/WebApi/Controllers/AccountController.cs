@@ -25,6 +25,7 @@ namespace POSApi.WebApi.Controllers
             this.context = context;
         }
 
+
         [HttpPost("Register")]
         public IActionResult Register(UserDTO dto)
         {
@@ -54,6 +55,7 @@ namespace POSApi.WebApi.Controllers
             context.SaveChanges();
 
             var jwt = CreateJWToken(user);
+
             UserProfileDTO userProfileDTO = new UserProfileDTO()
             {
                 Id = user.Id,
@@ -70,6 +72,50 @@ namespace POSApi.WebApi.Controllers
             };
 
             return Ok(reponse);
+        }
+
+
+        [HttpPost("Login")]
+        public IActionResult Login(string email, string password)
+        {
+
+            var user = context.USER.FirstOrDefault(u => u.EMAIL == email);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("Email", "Email not found");
+                return BadRequest("Email not found");
+            }
+
+            var passwordHasher = new PasswordHasher<User>();
+            var result = passwordHasher.VerifyHashedPassword(new Domain.Models.User(), user.PASSWORD, password);
+
+            if (result == PasswordVerificationResult.Failed)
+            {
+                ModelState.AddModelError("Password", "Invalid password");
+                return BadRequest("Invalid password");
+            }
+
+            var jwt = CreateJWToken(user);
+
+            UserProfileDTO userProfileDTO = new UserProfileDTO()
+            {
+                Id = user.Id,
+                NAZIV = user.NAZIV,
+                EMAIL = user.EMAIL,
+                ROLE = user.ROLE,
+                CREATED_AT = user.CREATED_AT
+            };
+
+            var reponse = new
+            {
+                UserProfile = userProfileDTO,
+                JWToken = jwt
+            };
+
+            return Ok(reponse);
+
+
         }
         /*
         [HttpGet("TestToken")]
@@ -96,7 +142,6 @@ namespace POSApi.WebApi.Controllers
             string strKey = configuration["Jwt:Key"]!;
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(strKey));
-
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(
@@ -121,4 +166,4 @@ namespace POSApi.WebApi.Controllers
 // {}
 //  <>
 //  []
-
+// =>
