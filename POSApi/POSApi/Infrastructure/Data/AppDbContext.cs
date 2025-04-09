@@ -16,6 +16,7 @@ namespace POSApi.Infrastructure.Data
         public DbSet<Proizvod> PROIZVOD { get; set; }
         public DbSet<Zaglavlje_racuna> ZAGLAVLJE_RACUNA { get; set; }
         public DbSet<Stavke_racuna> STAVKE_RACUNA { get; set; }
+        public DbSet<User> USER { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
