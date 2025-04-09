@@ -17,17 +17,75 @@ namespace POSApi.WebApi.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IConfiguration configuration;
-        private readonly AppDbContext context;
 
-        public AccountController(IConfiguration configuration, AppDbContext context)
+        private readonly UserManager<User> _userManager;
+        private readonly IConfiguration _config;
+
+        public AccountController(UserManager<User> userManager, IConfiguration config)
         {
-            this.configuration = configuration;
-            this.context = context;
+            _userManager = userManager;
+            _config = config;
         }
 
 
-        /*[HttpPost("Register")]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterDTO model)
+        {
+            var user = new User { Email = model.EMAIL };
+            var result = await _userManager.CreateAsync(user, model.PASSWORD);
+
+            if (result.Succeeded)
+                return Ok("User registered.");
+
+            return BadRequest(result.Errors);
+
+        }
+
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDTO model)
+        {
+            var user = await _userManager.FindByEmailAsync(model.EMAIL);
+
+            if (user != null && await _userManager.CheckPasswordAsync(user, model.PASSWORD))
+            {
+                var token = CreateJWToken(user);
+                return Ok(new { token });
+            }
+
+            return Unauthorized("Invalid credentials.");
+
+        }
+
+
+        private string CreateJWToken(User user)
+        {
+
+            var claims = new[]
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+            new Claim(ClaimTypes.NameIdentifier, user.Id)
+        };
+
+            string strKey = "Jwt:Key";
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(strKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(
+                issuer: "Jwt:Issuer",
+                audience: "Jwt:Audience",
+                claims: claims,
+                expires: DateTime.Now.AddDays(1),
+                signingCredentials: creds
+
+                );
+
+            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+            return jwt;
+        }     
+    }
+}        /*[HttpPost("Register")]
         public IActionResult Register(UserDTO dto)
         {
             var emailCount = context.USER.Count(u => u.EMAIL == dto.EMAIL);
@@ -141,34 +199,8 @@ namespace POSApi.WebApi.Controllers
         }
         */
 
-        private string CreateJWToken(User user)
-        {
+        
 
-            var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id)
-        };
-
-            string strKey = configuration["Jwt:Key"]!;
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(strKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: configuration["Jwt:Issuer"],
-                audience: configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds
-
-                );
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
-        }
-    }
-}
 
 
 

@@ -10,7 +10,7 @@ namespace POSApi.Application.DTO.UserDTO
         public string EMAIL { get; set; } = "";
 
         [Required]
-        [MaxLength(100), MinLength(8)]
+        [MaxLength(100)]
         public string PASSWORD { get; set; } = "";
 
     }
