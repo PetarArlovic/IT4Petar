@@ -84,17 +84,22 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<bool> UpdateAsync(int id, UpdateStavke_racunaDTO dto)
+        public async Task<bool> UpdateAsync(int broj, UpdateStavke_racunaDTO dto)
         {
 
-            var stavke = await _repo.GetByIdAsync(id);
-            if (stavke == null)
+            var stavke = await _repo.GetStavkeByBROJ(broj);
+
+            if (stavke == null || stavke.Count == 0)
             {
-                throw new Exception("Stavka sa id-jem: " + id + " ne postoji");
+                throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
             }
 
-            _mapper.Map(dto, stavke);
-            await _repo.UpdateAsync(stavke);
+            foreach (var stavka in stavke)
+            {
+                _mapper.Map(dto, stavka);
+                await _repo.UpdateAsync(stavka);
+            }
+
             return true;
 
         }
