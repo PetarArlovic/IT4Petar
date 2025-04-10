@@ -23,7 +23,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using POSApi;
-using POSApi.Extensions; // Add this using directive
+using POSApi.Infrastructure.Extensions; 
 
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -120,16 +120,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-    using (var scope = app.Services.CreateScope())
-    {
-        var services = scope.ServiceProvider;
-        var host = app as IHost; 
-        if (host == null)
-        {
-            throw new InvalidOperationException("The application could not be cast to IHost.");
-        }
-        await SeedDataExtensions.SeedData(host); 
-    }
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await SeedDataExtensions.SeedData(services);
+}
 
 if (app.Environment.IsDevelopment())
 {
