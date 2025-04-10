@@ -32,19 +32,6 @@ using POSApi.Infrastructure.Extensions;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen( options =>
-{
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
-    {
-        Description= "Please enter token",
-        In = ParameterLocation.Header,
-        Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
-    });
-
-    options.OperationFilter<SecurityRequirementsOperationFilter>();
-});
-
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -83,11 +70,20 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddSwaggerGen(options =>
 {
+    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Please enter token",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
 
-    c.EnableAnnotations();
-    c.SwaggerDoc("v1", new OpenApiInfo
+    options.OperationFilter<SecurityRequirementsOperationFilter>();
+
+    options.EnableAnnotations();
+    options.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "API Dokumentacija",
         Version = "v1",
@@ -101,7 +97,7 @@ builder.Services.AddSwaggerGen(c =>
 
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
-    c.IncludeXmlComments(xmlPath);
+    options.IncludeXmlComments(xmlPath);
 
 });
 
@@ -137,9 +133,18 @@ if (app.Environment.IsDevelopment())
 
 }
 
+app.UseDefaultFiles();
+app.UseStaticFiles();  
 
+app.UseRouting();
 
-// Configure the HTTP request pipeline.
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapFallbackToFile("index.html");
+});
+
+    // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
 
