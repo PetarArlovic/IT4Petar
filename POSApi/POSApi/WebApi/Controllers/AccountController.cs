@@ -19,11 +19,13 @@ namespace POSApi.WebApi.Controllers
     {
 
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
 
-        public AccountController(UserManager<User> userManager, IConfiguration config)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _config = config;
         }
 
@@ -31,11 +33,21 @@ namespace POSApi.WebApi.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO dto)
         {
-            var user = new User { Email = dto.EMAIL };
+            var user = new User 
+            {
+                UserName = dto.EMAIL,
+                Email = dto.EMAIL,
+                Ime = dto.IME,
+                Prezime = dto.PREZIME
+            };
+
             var result = await _userManager.CreateAsync(user, dto.PASSWORD);
 
             if (result.Succeeded)
+            {
+                await _userManager.AddToRoleAsync(user, "User");
                 return Ok("User registered.");
+            }
 
             return BadRequest(result.Errors);
 
@@ -64,7 +76,8 @@ namespace POSApi.WebApi.Controllers
             var claims = new[]
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id)
+            new Claim(ClaimTypes.NameIdentifier, user.Id),
+            new Claim(ClaimTypes.Role, "User")
         };
 
             string strKey = "Jwt:Key";
@@ -81,8 +94,7 @@ namespace POSApi.WebApi.Controllers
 
                 );
 
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }     
     }
 }        

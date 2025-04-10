@@ -66,6 +66,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -78,7 +79,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-    builder.Logging.ClearProviders();
+builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 
@@ -120,7 +121,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
+
+//Adding the DataSeed
+
+using (var scope = app.Services.CreateScope()) 
 {
     var services = scope.ServiceProvider;
     await SeedDataExtensions.SeedData(services);

@@ -7,6 +7,14 @@ namespace POSApi.Application.DTO.UserDTO
 
         [Required]
         [MaxLength(100)]
+        public string IME { get; set; } = "";
+
+        [Required]
+        [MaxLength(100)]
+        public string PREZIME { get; set; } = "";
+
+        [Required]
+        [MaxLength(100)]
         public string EMAIL { get; set; } = "";
 
         [Required]
