@@ -61,14 +61,14 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<bool> UpdateAsync(int id, UpdateZaglavlje_racunaDTO dto)
+        public async Task<bool> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO dto)
         {
 
-            var zaglavlje = await _repo.GetByIdAsync(id);
+            var zaglavlje = await _repo.FindZByBROJ(broj);
 
             if (zaglavlje == null)
             {
-                throw new Exception("Zaglavlje_racuna sa id-jem: " + id + " ne postoji");
+                throw new Exception("Zaglavlje_racuna sa brojem: " + broj + " ne postoji");
             }
 
             _mapper.Map(dto, zaglavlje);
@@ -78,13 +78,13 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int broj)
         {
 
-            var zaglavlje = await _repo.GetByIdAsync(id);
+            var zaglavlje = await _repo.FindZByBROJ(broj);
             if (zaglavlje == null)
             {
-                throw new Exception("Zaglavlje_racuna sa id-jem: " + id + " ne postoji");
+                throw new Exception("Zaglavlje_racuna sa brojem: " + broj + " ne postoji");
             }
 
             await _repo.DeleteAsync(zaglavlje);

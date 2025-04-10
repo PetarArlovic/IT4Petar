@@ -105,16 +105,17 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int broj)
         {
 
-            var stavke = await _repo.GetByIdAsync(id);
+            var stavke = await _repo.GetStavkeByBROJ(broj);
             if (stavke == null)
             {
-                throw new Exception("Stavka sa id-jem: " + id + " ne postoji");
+                throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
             }
 
-            await _repo.DeleteAsync(stavke);
+            var stavka = stavke.First();
+            await _repo.DeleteAsync(stavka);
             return true;
 
         }
