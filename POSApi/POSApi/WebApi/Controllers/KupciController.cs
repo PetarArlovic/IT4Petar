@@ -8,6 +8,7 @@ using NSwag.Annotations;
 using Swashbuckle.AspNetCore.Annotations;
 using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.KupacDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace POSApi.WebApi.Controllers
 {
@@ -58,6 +59,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
         {
             try
@@ -88,6 +90,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AddAsync(CreateKupacDTO dto)
         {
 
@@ -115,6 +118,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAsync(int id, UpdateKupacDTO dto)
         {
             try
@@ -146,6 +150,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             try
