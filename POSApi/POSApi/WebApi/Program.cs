@@ -40,14 +40,11 @@ builder.Services.AddScoped<IKupciService, KupciService>();
 builder.Services.AddScoped<IStavke_racunaService, Stavke_racunaService>();
 builder.Services.AddScoped<IZaglavlje_racunaService, Zaglavlje_racunaService>();
 
-builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        .AddCookie();
-
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -115,7 +112,18 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendApp",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200") // Adresa Angular aplikacije
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
+    var app = builder.Build();
 
 
 //Adding the DataSeed
@@ -137,6 +145,7 @@ app.UseDefaultFiles();
 app.UseStaticFiles();  
 
 app.UseRouting();
+app.UseCors("AllowFrontendApp");
 
 app.UseEndpoints(endpoints =>
 {
