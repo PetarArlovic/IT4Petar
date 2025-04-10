@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.Stavke_racunaDTO;
@@ -27,6 +28,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
         {
 
@@ -52,6 +54,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<GetStavke_racunaDTO>> GetByIdAsync(int id)
         {
             try
@@ -82,6 +85,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("BROJ/{broj}")]
+        [Authorize]
         public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
         {
             try
@@ -110,6 +114,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AddAsync(CreateStavke_racunaDTO dto)
         {
 
@@ -137,6 +142,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAsync(int id, UpdateStavke_racunaDTO dto)
         {
             try
@@ -168,6 +174,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
 

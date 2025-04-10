@@ -9,6 +9,7 @@ using POSApi.Application.DTO.ProizvodDTO;
 using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.ProizvodDTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace POSApi.WebApi.Controllers
 {
@@ -33,6 +34,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<GetProizvodDTO>>> GetAllAsync()
         {
             try
@@ -59,6 +61,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<ActionResult<GetProizvodDTO>> GetByIdAsync(int id)
         {
             try
@@ -90,6 +93,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AddAsync(CreateProizvodDTO dto)
         {
 
@@ -117,6 +121,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAsync(int id, UpdateProizvodDTO dto)
         {
 
@@ -149,6 +154,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteAsync(int id)
         {
 
@@ -182,6 +188,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("sifra/{sifra}")]
+        [Authorize]
         public async Task<ActionResult<GetKupacDTO>> FindPBySIFRA(int sifra)
         {
             try

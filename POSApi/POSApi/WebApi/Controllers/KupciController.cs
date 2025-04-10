@@ -34,6 +34,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
         {
             try
@@ -59,7 +60,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
         {
             try
@@ -184,6 +185,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("sifra/{sifra}")]
+        [Authorize]
         public async Task<ActionResult<GetKupacDTO>> FindKBySIFRA(int sifra)
         {
 
