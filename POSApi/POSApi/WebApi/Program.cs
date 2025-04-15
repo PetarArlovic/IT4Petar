@@ -117,13 +117,13 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontendApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200") // Adresa Angular aplikacije
+            builder.WithOrigins("http://localhost:4200") // Angular app adress
                    .AllowAnyHeader()
                    .AllowAnyMethod();
         });
 });
 
-    var app = builder.Build();
+var app = builder.Build();
 
 
 //Adding the DataSeed
@@ -156,6 +156,8 @@ app.UseEndpoints(endpoints =>
     // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularClient");
 
 app.UseAuthorization();
 

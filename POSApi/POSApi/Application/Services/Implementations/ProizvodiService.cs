@@ -92,6 +92,7 @@ namespace POSApi.Application.Services.Implementations
 
         }
 
+
         public async Task<GetProizvodDTO> FindPBySIFRA(int sifra)
         {
             var kupac = await _repo.FindPBySIFRA(sifra);
@@ -102,7 +103,6 @@ namespace POSApi.Application.Services.Implementations
             return _mapper.Map<GetProizvodDTO>(kupac);
 
         }
-
     }
 }
 

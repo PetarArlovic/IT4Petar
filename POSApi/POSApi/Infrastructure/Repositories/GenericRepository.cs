@@ -51,6 +51,7 @@ namespace POSApi.Infrastructure.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+
         public async Task<Kupac?> FindKBySIFRA(int sifra)
         {
             return await _context.KUPAC.FirstOrDefaultAsync(k => k.SIFRA == sifra);
