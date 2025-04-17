@@ -1,9 +1,9 @@
 <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
     <p-card header="Prijava"  [style]="{width: '500px'}" class="login-card">
         <div class="field">
-            <label for="email">Email</label> 
+            <label for="email">Email</label>
+
             <input type="text" pInputText formControlName="email" placeholder="Unesite svoj email"/>
-            
             <small *ngIf="email.invalid && (email.dirty || email.touched)" class="block p-error">
 
                 <div *ngIf="email.errors?.['required']">Potrebno je upisati email </div>
@@ -13,7 +13,7 @@
 
 
         <div class="field">
-            <label for="password">Sifra</label> 
+            <label for="password">Sifra</label>
             <input type="password" pInputText formControlName="password" class="w-full"  placeholder="Unesite sifru"/>
 
             <small *ngIf="password.invalid && (password.dirty || password.touched)" class="block p-error">

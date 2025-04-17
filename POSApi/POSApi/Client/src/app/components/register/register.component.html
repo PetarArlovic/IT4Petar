@@ -1,4 +1,3 @@
-<p-toast></p-toast>
 <form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
     <p-card header="Registracija"  [style]="{width: '500px'}" class="register-card">
 
@@ -36,7 +35,7 @@
 
 
         <div class="field">
-            <label for="password">Sifra</label> 
+            <label for="password">Sifra</label>
             <input type="password" pInputText formControlName="password" class="w-full" placeholder="Unesite sifru"/>
 
             <small *ngIf="password.invalid && (password.dirty || password.touched)" class="block p-error">
@@ -46,7 +45,7 @@
 
 
         <div class="field">
-            <label for="password">Potvrdi sifru</label> 
+            <label for="password">Potvrdi sifru</label>
             <input type="password" pInputText formControlName="potvrdiSifru" class="w-full" placeholder="Potvrdite sifru"/>
 
             <small *ngIf="potvrdiSifru.invalid && (potvrdiSifru.dirty || potvrdiSifru.touched)" class="block p-error">

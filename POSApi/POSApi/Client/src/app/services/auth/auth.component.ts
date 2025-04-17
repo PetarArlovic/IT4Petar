@@ -19,7 +19,7 @@ export class AuthComponent {
     return this.http.post(`${this.baseUrl}/api/account/register`, userDetails);
   }
 ////////////////////////
-  loginUser(loginData: { EMAIL: string, PASSWORD: string }) {
+  loginUser(loginData: { email: string, password: string }) {
     return this.http.post<{ token: string }>(`${this.baseUrl}/api/account/login`, loginData);
   }
 }

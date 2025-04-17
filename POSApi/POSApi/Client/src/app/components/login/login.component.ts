@@ -21,10 +21,10 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
-    private authComponent: AuthComponent, 
-    private router: Router, 
-    private messageService: MessageService) 
+    private fb: FormBuilder,
+    private authComponent: AuthComponent,
+    private router: Router,
+    private messageService: MessageService)
     {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,10 +37,10 @@ export class LoginComponent {
 
   loginUser() {
     const {email, password} = this.loginForm.value;
-    this.authComponent.loginUser({EMAIL: email, PASSWORD: password}).subscribe(
+    this.authComponent.loginUser({email: email, password: password}).subscribe(
       (response: any) => {
           sessionStorage.setItem('token', response.token);
-          this.router.navigate(['/home'])        
+          this.router.navigate(['/home'])
       },
       (error: HttpErrorResponse) => {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Nesto nije u redu', life: 3000 });

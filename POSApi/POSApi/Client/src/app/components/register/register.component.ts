@@ -19,10 +19,10 @@ import { MessageService } from 'primeng/api';
   imports: [
     CardModule,
     InputTextModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     ButtonModule,
     RouterModule,
-    CommonModule, 
+    CommonModule,
     ToastModule,],
 
   providers: [MessageService],
@@ -35,18 +35,18 @@ export class RegisterComponent {
   registerForm: FormGroup;
 
   constructor(
-    private fb: FormBuilder, 
-    private authComponent:AuthComponent, 
-    private messageService: MessageService, 
-    private router: Router) 
-    
+    private fb: FormBuilder,
+    private authComponent:AuthComponent,
+    private messageService: MessageService,
+    private router: Router)
+
   {
     this.registerForm = this.fb.group(
     {
       ime: ['', [Validators.required, Validators.pattern(/^[a-zA-ZćčžšđĆČŽŠĐ]+$/)]],
       prezime: ['', [Validators.required, Validators.pattern(/^[a-zA-ZćčžšđĆČŽŠĐ]+$/)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
       potvrdiSifru: ['', [Validators.required,]],
     },
     {
