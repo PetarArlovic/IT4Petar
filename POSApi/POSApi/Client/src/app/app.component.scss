@@ -1,7 +1,21 @@
-/* Styles for app.component.scss */
+/* Styles for app.component.scss 
 .title {
     font-size: 3rem;
     font-weight: bold;
     text-underline-offset: 0.2em;
 }
 
+*/
+
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .fullscreen-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

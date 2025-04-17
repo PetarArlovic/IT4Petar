@@ -2,3 +2,16 @@
 //@use 'primeng/resources/primeng' as *;
 //@use 'primeicons/primeicons' as *;
 //@use 'font-awesome/css/font-awesome' as *;
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #0e0d0d;
+  }
+  
+  app-root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }

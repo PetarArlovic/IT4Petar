@@ -94,11 +94,13 @@ namespace POSApi.Application.Services.Implementations
 
         public async Task<GetZaglavlje_racunaDTO> FindZByBROJ(int broj)
         {
+
             var zaglavlje = await _repo.FindZByBROJ(broj);
             if (zaglavlje == null)
             {
                 throw new Exception("Zaglavlje sa šifrom: " + broj + " ne postoji");
             }
+
             return _mapper.Map<GetZaglavlje_racunaDTO>(zaglavlje);
 
         }

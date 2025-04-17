@@ -100,6 +100,7 @@ namespace POSApi.Application.Services.Implementations
             {
                 throw new Exception("Proizvod sa šifrom: " + sifra + " ne postoji");
             }
+
             return _mapper.Map<GetProizvodDTO>(kupac);
 
         }

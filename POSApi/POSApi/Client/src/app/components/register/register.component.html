@@ -1,1 +1,73 @@
-<p>register works!</p>
+<p-toast></p-toast>
+<form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
+    <p-card header="Registracija"  [style]="{width: '500px'}" class="register-card">
+
+        <div class="field">
+            <label for="ime">Ime</label> 
+            <input type="text" pInputText formControlName="ime" placeholder="Unesite svoje ime"/>
+
+            <small *ngIf="ime.invalid && (ime.dirty || ime.touched)" class="block p-error">
+                <div *ngIf="ime.errors?.['required']">Potrebno je upisati ime </div>
+                <div *ngIf="ime.errors?.['pattern']">Ime mora biti korektno </div>
+            </small>
+        </div>
+
+
+        <div class="field">
+            <label for="prezime">Prezime</label> 
+            <input type="text" pInputText formControlName="prezime" placeholder="Unesite svoje prezime"/>
+
+            <small *ngIf="prezime.invalid && (prezime.dirty || prezime.touched)" class="block p-error">
+                <div *ngIf="prezime.errors?.['required']">Potrebno je upisati prezime </div>
+                <div *ngIf="prezime.errors?.['pattern']">Prezime mora biti korektno </div>
+            </small>
+        </div>
+
+        
+        <div class="field">
+            <label for="email">Email</label> 
+            <input type="text" pInputText formControlName="email" placeholder="Unesite svoj email"/>
+
+            <small *ngIf="email.invalid && (email.dirty || email.touched)" class="block p-error">
+                <div *ngIf="email.errors?.['required']">Potrebno je upisati email </div>
+                <div *ngIf="email.errors?.['email']">Nevazeci email </div>
+            </small>
+        </div>
+
+
+        <div class="field">
+            <label for="password">Sifra</label> 
+            <input type="password" pInputText formControlName="password" class="w-full" placeholder="Unesite sifru"/>
+
+            <small *ngIf="password.invalid && (password.dirty || password.touched)" class="block p-error">
+                <div *ngIf="password.errors?.['required']">Potrebno je upisati sifru  </div>
+            </small>
+        </div>
+
+
+        <div class="field">
+            <label for="password">Potvrdi sifru</label> 
+            <input type="password" pInputText formControlName="potvrdiSifru" class="w-full" placeholder="Potvrdite sifru"/>
+
+            <small *ngIf="potvrdiSifru.invalid && (potvrdiSifru.dirty || potvrdiSifru.touched)" class="block p-error">
+                <div *ngIf="potvrdiSifru.errors?.['required']">Potrebno je potvrditi sifru </div>
+            </small>
+
+            <small class="block p-error" *ngIf="registerForm.errors?.['sifraPogresna'] && potvrdiSifru.valid && password.valid">
+                Potrebno je potvrditi sifru
+            </small>
+        </div>
+
+        <p-button label="Registriraj se" styleClass="full-button custom-button" [disabled]="registerForm.invalid" type="submit"/>
+
+        <div class="mt -2">
+            Vec imas racun? <a routerLink="/login">Logiraj se</a>
+        </div>
+
+
+    </p-card>
+</form>
+
+
+
+<!--  ' '  <div>  []  {}  || -->

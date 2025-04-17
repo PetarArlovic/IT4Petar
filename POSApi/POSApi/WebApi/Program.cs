@@ -117,9 +117,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontendApp",
         builder =>
         {
-            builder.WithOrigins("http://localhost:4200") // Angular app adress
+            builder.WithOrigins("https://localhost:4200") // Angular app address
                    .AllowAnyHeader()
-                   .AllowAnyMethod();
+                   .AllowAnyMethod()
+                   .AllowCredentials();
         });
 });
 
@@ -142,26 +143,24 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseDefaultFiles();
+
 app.UseStaticFiles();  
 
 app.UseRouting();
+
 app.UseCors("AllowFrontendApp");
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
     endpoints.MapFallbackToFile("index.html");
 });
-
-    // Configure the HTTP request pipeline.
-
-app.UseHttpsRedirection();
-
-app.UseCors("AllowAngularClient");
-
-app.UseAuthorization();
-
-app.MapControllers();
 
 app.Run();
 

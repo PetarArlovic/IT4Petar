@@ -1,8 +1,8 @@
-<app-header></app-header>
+<app-header *ngIf="!['/login', '/register'].includes(router.url)"></app-header>
 
-<h1 class="title" >Welcome to {{title}}</h1>
-<div class="flex justify-content-center">
-    <router-outlet></router-outlet>
+<div class="fullscreen-container">
+  <router-outlet></router-outlet>
+  <p-toast></p-toast>
 </div>
 
 

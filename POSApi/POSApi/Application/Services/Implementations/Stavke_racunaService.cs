@@ -119,9 +119,6 @@ namespace POSApi.Application.Services.Implementations
             return true;
 
         }
-
-
-
     }
 }
 

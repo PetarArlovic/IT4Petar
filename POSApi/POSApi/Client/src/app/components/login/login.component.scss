@@ -1,0 +1,67 @@
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  
+    .p-card header {
+        margin-top: 20px; /* Povećaj ovu vrijednost prema potrebi */
+        padding-top: 100px; /* Povećaj ovu vrijednost prema potrebi */
+        font-size: 40px; /* Promjeni ovu vrijednost prema želji */
+        margin-bottom: 1000px !important;
+
+      }
+    
+    .login-card {
+      width: 100%;
+      max-width: 600px;
+      padding: 2rem;
+      margin-top: 20px; /* Povećaj ovu vrijednost prema potrebi */
+      padding-top: 10px; /* Povećaj ovu vrijednost prema potrebi */
+      font-size: 20px; /* Promjeni ovu vrijednost prema želji */
+  
+      .field {
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+  
+        label {
+          margin-bottom: 0.5rem;
+          color: #ffffff;
+        }
+  
+        input {
+          padding: 0.75rem;
+          font-size: 1rem;
+        }
+      }
+  
+      .full-button {
+        width: 100%;
+        margin-top: 1rem;
+      }
+  
+      .custom-button {
+        background-color: #10633c;
+        color: white;
+        border: none;
+      }
+  
+      .custom-button:hover {
+        background-color: #0d4d2f;
+      }
+  
+      .register-link {
+        margin-top: 2rem;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      
+    }
+  }
+  
+  ::ng-deep .p-card .p-card-header {
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+  }

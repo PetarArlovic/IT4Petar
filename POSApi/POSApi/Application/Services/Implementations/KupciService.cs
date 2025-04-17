@@ -58,7 +58,6 @@ namespace POSApi.Application.Services.Implementations
             await _repo.AddAsync(kupac);
             return _mapper.Map<CreateKupacDTO>(kupac);
 
-
         }
 
 
@@ -96,12 +95,14 @@ namespace POSApi.Application.Services.Implementations
 
         public async Task<GetKupacDTO> FindKBySIFRA(int sifra)
         {
+
             var kupac = await _repo.FindKBySIFRA(sifra);
 
             if (kupac == null)
             {
                 throw new Exception("Kupac sa šifrom: " + sifra + " ne postoji");
             }
+
             return _mapper.Map<GetKupacDTO>(kupac);
 
         }
