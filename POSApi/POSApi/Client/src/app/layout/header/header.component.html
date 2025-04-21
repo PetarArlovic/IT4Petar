@@ -1,15 +1,14 @@
-<p>header works!</p>
-<header class="tra"> 
-        <div class="logo"> 
-            <img src="assets/logo.png" alt="Logo" class="logo-image">
-            <nav class="links">
-                <a routerLink="/">Home</a>
-                <a routerLink="/products">Products</a>
-                <a routerLink="/cart">Cart</a>
-            </nav>
-            <div class ="nesto">
-                
-
-            </div>
-        </div>
-</header>
+<header class="header">
+    <div class="container">
+      <img src="assets/logo.png" alt="Logo" class="logo">
+      <nav class="navigation">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/products" class="nav-link">Shop</a>
+        <a href="/cart" class="nav-link">Contacts</a>
+      </nav>
+      <div class="badge-container">
+        <span class="badge">2</span>
+        <p-button label="Odjavi se" (onClick)="logOut()"></p-button>
+      </div>
+    </div>
+  </header>

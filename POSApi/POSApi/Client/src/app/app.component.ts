@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./layout/header/header.component";
 import { ButtonModule } from 'primeng/button';
@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -17,7 +18,18 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppComponent {
+  baseUrl = 'https://localhost:4000/api/'
+  private http = inject(HttpClient);
   title = 'Client';
+
   constructor(public router: Router) {}
+
+  ngOnInit(): void {
+    this.http.get(this.baseUrl + 'Proizvodi').subscribe({
+      next: data => console.log(data),
+      error: error => console.log(error),
+      complete: () => console.log('complete')
+    })
+  }
 }
 

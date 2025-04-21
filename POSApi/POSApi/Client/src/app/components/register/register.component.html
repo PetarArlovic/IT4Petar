@@ -1,5 +1,8 @@
 <form [formGroup]="registerForm" (ngSubmit)="submitDetails()">
-    <p-card header="Registracija"  [style]="{width: '500px'}" class="register-card">
+    <p-card class="register-card">
+        <ng-template pTemplate="header">
+            <div class="register-header">Registracija</div>
+        </ng-template>
 
         <div class="field">
             <label for="ime">Ime</label> 
@@ -57,9 +60,9 @@
             </small>
         </div>
 
-        <p-button label="Registriraj se" styleClass="full-button custom-button" [disabled]="registerForm.invalid" type="submit"/>
+        <p-button label="Registriraj se" styleClass="custom-register-button" [disabled]="registerForm.invalid" type="submit"/>
 
-        <div class="mt -2">
+        <div class="login-link">
             Vec imas racun? <a routerLink="/login">Logiraj se</a>
         </div>
 

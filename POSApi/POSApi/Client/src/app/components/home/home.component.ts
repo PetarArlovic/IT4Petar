@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -10,12 +9,8 @@ import { ButtonModule } from 'primeng/button';
 })
 export class HomeComponent {
 
-  constructor (private router: Router) {}
+  constructor () {}
 
-  logOut() {
-    sessionStorage.clear();
-    this.router.navigate(['login']);
-  }
 }
 
 
