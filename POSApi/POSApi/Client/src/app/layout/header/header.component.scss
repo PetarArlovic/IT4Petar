@@ -3,14 +3,14 @@
     margin: 0;
     padding: 0;
   }
-  
+
 
   .header {
     border-bottom: 1px solid #183cdb;
     padding: 16px;
     width: 100%;
   }
-  
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -18,12 +18,12 @@
     max-width: 1280px;
     margin: 0 auto;
   }
-  
+
 
   .logo {
     max-height: 64px;
   }
-  
+
 
   .navigation {
     display: flex;
@@ -31,17 +31,17 @@
     text-transform: uppercase;
     font-size: 1.25rem;
   }
-  
+
   .nav-link {
     text-decoration: none;
     color: #f5f1f1;
     font-weight: bold;
   }
-  
+
   .nav-link:hover {
     color: #007bff;
   }
-  
+
 
   .badge-container {
     display: flex;

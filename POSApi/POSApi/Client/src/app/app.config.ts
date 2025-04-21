@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 
 
 import { routes } from './app.routes';
-import { AuthService } from './services/auth/auth.component';
+import { AuthService } from './core/services/auth.component';
 
 export const appConfig: ApplicationConfig = {
   providers: [
