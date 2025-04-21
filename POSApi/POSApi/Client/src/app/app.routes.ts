@@ -5,7 +5,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ButtonDemo } from './button-test/button-test.component';
 import { authGuard } from './guards/auth.guard';
 
-export const routes: Routes = [ 
+export const routes: Routes = [
     {
     path: 'login',
     component: LoginComponent
@@ -26,7 +26,7 @@ export const routes: Routes = [
     path: 'Button',
     component: ButtonDemo
     },
-    
+
     {
     path: '', redirectTo: '/home', pathMatch: 'full'
     }

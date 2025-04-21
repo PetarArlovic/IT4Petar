@@ -4,8 +4,10 @@
             <div class="register-header">Registracija</div>
         </ng-template>
 
+
+        <!-- Ime field -->
         <div class="field">
-            <label for="ime">Ime</label> 
+            <label for="ime">Ime</label>
             <input type="text" pInputText formControlName="ime" placeholder="Unesite svoje ime"/>
 
             <small *ngIf="ime.invalid && (ime.dirty || ime.touched)" class="block p-error">
@@ -15,8 +17,9 @@
         </div>
 
 
+        <!-- Prezime field -->
         <div class="field">
-            <label for="prezime">Prezime</label> 
+            <label for="prezime">Prezime</label>
             <input type="text" pInputText formControlName="prezime" placeholder="Unesite svoje prezime"/>
 
             <small *ngIf="prezime.invalid && (prezime.dirty || prezime.touched)" class="block p-error">
@@ -25,9 +28,10 @@
             </small>
         </div>
 
-        
+
+        <!-- Email field -->
         <div class="field">
-            <label for="email">Email</label> 
+            <label for="email">Email</label>
             <input type="text" pInputText formControlName="email" placeholder="Unesite svoj email"/>
 
             <small *ngIf="email.invalid && (email.dirty || email.touched)" class="block p-error">
@@ -37,6 +41,7 @@
         </div>
 
 
+        <!-- Sifra field -->
         <div class="field">
             <label for="password">Sifra</label>
             <input type="password" pInputText formControlName="password" class="w-full" placeholder="Unesite sifru"/>
@@ -47,6 +52,7 @@
         </div>
 
 
+        <!-- "Potvrdi sifru" field -->
         <div class="field">
             <label for="password">Potvrdi sifru</label>
             <input type="password" pInputText formControlName="potvrdiSifru" class="w-full" placeholder="Potvrdite sifru"/>
@@ -60,6 +66,8 @@
             </small>
         </div>
 
+
+        <!-- Registracija button -->
         <p-button label="Registriraj se" styleClass="custom-register-button" [disabled]="registerForm.invalid" type="submit"/>
 
         <div class="login-link">

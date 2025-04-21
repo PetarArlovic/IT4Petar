@@ -21,11 +21,12 @@ export class AppComponent {
   baseUrl = 'https://localhost:4000/api/'
   private http = inject(HttpClient);
   title = 'Client';
+  products: any[] = [];
 
   constructor(public router: Router) {}
 
   ngOnInit(): void {
-    this.http.get(this.baseUrl + 'Proizvodi').subscribe({
+    this.http.get<any>(this.baseUrl + 'Proizvodi').subscribe({
       next: data => console.log(data),
       error: error => console.log(error),
       complete: () => console.log('complete')
