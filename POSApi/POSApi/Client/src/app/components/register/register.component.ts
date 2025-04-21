@@ -7,7 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { potvrdaSifreV } from '../../shared/potvrda-sifre.directive';
-import { AuthComponent } from '../../services/auth/auth.component';
+import { AuthService } from '../../services/auth/auth.component';
 import { User } from '../../interfaces/auth';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -36,7 +36,7 @@ export class RegisterComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authComponent:AuthComponent,
+    private authService: AuthService,
     private messageService: MessageService,
     private router: Router)
 
@@ -65,7 +65,7 @@ export class RegisterComponent {
   submitDetails() {
     const postData = { ...this.registerForm.value};
     delete postData.potvrdiSifru;
-    this.authComponent.registerUser(postData as User).subscribe(
+    this.authService.registerUser(postData as User).subscribe(
       response => {console.log(response);
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Registracija uspjesna', life: 3000 });
       this.router.navigate(['login'])

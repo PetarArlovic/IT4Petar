@@ -1,15 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '../../interfaces/auth';
 import { Observable } from 'rxjs';
 
-@Component({
-  selector: 'app-auth',
-  imports: [],
-  templateUrl: './auth.component.html',
-  styleUrl: './auth.component.scss'
+@Injectable({
+  providedIn: 'root'
 })
-export class AuthComponent {
+
+export class AuthService {
 
   private baseUrl = 'https://localhost:4000';
 
@@ -24,11 +22,3 @@ export class AuthComponent {
   }
 }
 //<!--  ' '  <>  []  {}  || -->
-
-
-
-
-
-
-
-//<!--  ' '  <div>  []  {}  || `-->

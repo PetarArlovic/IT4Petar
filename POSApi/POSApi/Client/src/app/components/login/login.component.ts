@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthComponent } from '../../services/auth/auth.component';
+import { AuthService } from '../../services/auth/auth.component';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -22,7 +22,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
-    private authComponent: AuthComponent,
+    private authService: AuthService,
     private router: Router,
     private messageService: MessageService)
     {
@@ -37,7 +37,7 @@ export class LoginComponent {
 
   loginUser() {
     const {email, password} = this.loginForm.value;
-    this.authComponent.loginUser({email: email, password: password}).subscribe(
+    this.authService.loginUser({email: email, password: password}).subscribe(
       (response: any) => {
           sessionStorage.setItem('token', response.token);
           this.router.navigate(['/home'])

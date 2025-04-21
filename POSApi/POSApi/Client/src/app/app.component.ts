@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { GetProizvodDTO } from './interfaces/proizvodi';
 
 
 @Component({
@@ -21,13 +22,13 @@ export class AppComponent {
   baseUrl = 'https://localhost:4000/api/'
   private http = inject(HttpClient);
   title = 'Client';
-  products: any[] = [];
+  products: GetProizvodDTO[] = [];
 
   constructor(public router: Router) {}
 
   ngOnInit(): void {
-    this.http.get<any>(this.baseUrl + 'Proizvodi').subscribe({
-      next: data => console.log(data),
+    this.http.get<GetProizvodDTO>(this.baseUrl + 'Proizvodi').subscribe({
+      //next: response => this.products = response.data,
       error: error => console.log(error),
       complete: () => console.log('complete')
     })
