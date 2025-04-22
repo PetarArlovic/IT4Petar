@@ -9,12 +9,13 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetProizvodDTO } from './interfaces/proizvodi';
 import { ShopService } from './core/services/shop.service';
+import { ShopComponent } from './features/shop/shop.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, CommonModule, ToastModule],
+  imports: [RouterOutlet, HeaderComponent, CommonModule, ToastModule, ShopComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -23,18 +24,9 @@ export class AppComponent {
 
   baseUrl = 'https://localhost:4000/api/'
   private http = inject(HttpClient);
-  private shopService = inject (ShopService);
   title = 'Client';
-  products: GetProizvodDTO[] = [];
 
   constructor(public router: Router) {}
 
-  ngOnInit(): void {
-    this.shopService.getProizvodi().subscribe({
-      //next: response => this.products = response.data,
-      error: error => console.log(error),
-      complete: () => console.log('complete')
-    })
-  }
 }
 
