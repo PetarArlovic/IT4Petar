@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
+import { ProizvodiService } from '../../core/services/proizvod.service';
+import { GetProizvodDTO } from '../../interfaces/proizvodi';
 
 @Component({
   selector: 'app-home',
@@ -9,8 +11,18 @@ import { ButtonModule } from 'primeng/button';
 })
 export class HomeComponent {
 
-  constructor () {}
+  proizvodi: GetProizvodDTO[] = [];
 
+  constructor (
+    private proizvodiService: ProizvodiService
+  ) {}
+
+  loadProizvodi(): void {
+    this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
+      console.log('Dohvaceni proizvodi: ', proizvodi);
+      this.proizvodi = proizvodi;
+    });
+  }
 }
 
 

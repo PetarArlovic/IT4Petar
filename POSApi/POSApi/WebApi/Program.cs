@@ -13,8 +13,6 @@ using Microsoft.Extensions.Options;
 using System.Reflection;
 using POSApi.Application.Services.Implementations;
 using POSApi.Application.Services.Interfaces;
-using POSApi.Infrastructure.Data;
-using POSApi.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Swashbuckle.AspNetCore.Filters;
 using POSApi.Domain.Models;
@@ -53,13 +51,31 @@ builder.Services.AddAuthentication(options =>
 
 .AddJwtBearer(options =>
 {
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.Events = new JwtBearerEvents
+    {
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"TOKEN ERROR: {context.Exception.Message}");
+            return Task.CompletedTask;
+        },
+        OnTokenValidated = context =>
+        {
+            Console.WriteLine($"TOKEN VALIDATED: {context.SecurityToken}");
+            return Task.CompletedTask;
+        }
+    };
     options.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateIssuerSigningKey = true,
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidIssuer = "POSApi",
-        ValidAudience = "POSApi",
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("veryimportantandverysecretkey123"))
+        ValidateLifetime = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+        ValidAudience = builder.Configuration["Jwt:Audience"],
+        ClockSkew = TimeSpan.Zero,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     };
 });
 
@@ -69,12 +85,29 @@ builder.Host.UseNLog();
 
 builder.Services.AddSwaggerGen(options =>
 {
-    options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "Please enter token",
+        Description = "Please enter your token",
         In = ParameterLocation.Header,
+        Scheme = "Bearer",
         Name = "Authorization",
-        Type = SecuritySchemeType.ApiKey
+        Type = SecuritySchemeType.ApiKey,
+        BearerFormat = "JWT",
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
     });
 
     options.OperationFilter<SecurityRequirementsOperationFilter>();

@@ -11,7 +11,7 @@ import { ShopService } from '../../core/services/shop.service';
 export class ShopComponent implements OnInit {
 
   private shopService = inject(ShopService);
-  products: GetProizvodDTO[] = [];
+  proizvodi: GetProizvodDTO[] = [];
 
   ngOnInit(): void {
     this.shopService.getProizvodi().subscribe({

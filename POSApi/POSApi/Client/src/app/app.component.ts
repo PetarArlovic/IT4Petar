@@ -10,12 +10,18 @@ import { HttpClient } from '@angular/common/http';
 import { GetProizvodDTO } from './interfaces/proizvodi';
 import { ShopService } from './core/services/shop.service';
 import { ShopComponent } from './features/shop/shop.component';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, CommonModule, ToastModule, ShopComponent],
+  imports: [
+    RouterOutlet,
+    HeaderComponent,
+    CommonModule,
+    ToastModule,],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

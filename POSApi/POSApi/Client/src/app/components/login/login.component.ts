@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Card, CardModule } from 'primeng/card';
+import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.component';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule,InputTextModule,ReactiveFormsModule, ButtonModule,RouterModule,CommonModule],
+  imports: [CardModule,InputTextModule,ReactiveFormsModule, ButtonModule,RouterModule,CommonModule, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -39,6 +40,7 @@ export class LoginComponent {
     const {email, password} = this.loginForm.value;
     this.authService.loginUser({email: email, password: password}).subscribe(
       (response: any) => {
+          console.log('Login response:', response);
           sessionStorage.setItem('token', response.token);
           this.router.navigate(['/home'])
       },

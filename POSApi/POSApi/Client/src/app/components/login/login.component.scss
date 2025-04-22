@@ -3,7 +3,7 @@ form {
     justify-content: center;
     align-items: center;
     height: 100vh;
-  
+
 
     .login-card {
       width: 600px;
@@ -12,7 +12,7 @@ form {
       margin-top: 20px; /* Povećaj ovu vrijednost prema potrebi */
       padding-top: 1px; /* Povećaj ovu vrijednost prema potrebi */
       font-size: 20px; /* Promjeni ovu vrijednost prema želji */
-      
+
       .login-header {
         font-size: 2rem;
         margin-bottom: 1rem;
@@ -26,23 +26,23 @@ form {
         margin-top: 1.5rem;
         display: flex;
         flex-direction: column;
-  
+
         label {
           margin-bottom: 0.5rem;
           color: #ffffff;
         }
-  
+
         input {
           padding: 0.75rem;
           font-size: 1rem;
         }
       }
-  
+
       .full-button {
         width: 100%;
         margin-top: 1rem;
       }
-  
+
       .register-link {
         margin-top: 40px;
         text-align: center;
@@ -54,7 +54,7 @@ form {
         font-weight: bold;
         text-decoration: none;
       }
-    
+
       a:hover {
         text-decoration: underline;
       }

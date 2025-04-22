@@ -189,7 +189,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("sifra/{sifra}")]
         [Authorize]
-        public async Task<ActionResult<GetKupacDTO>> FindPBySIFRA(int sifra)
+        public async Task<ActionResult<GetProizvodDTO>> FindPBySIFRA(int sifra)
         {
             try
             {

@@ -7,6 +7,7 @@ using POSApi.Application.DTO.UserDTO;
 using POSApi.Domain.Models;
 using POSApi.Infrastructure.Data;
 using System.Collections.Generic;
+using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -21,12 +22,14 @@ namespace POSApi.WebApi.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
+        private readonly ILogger<User> _logger;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, ILogger<User> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _config = config;
+            _logger = logger;
         }
 
 
@@ -61,25 +64,33 @@ namespace POSApi.WebApi.Controllers
 
             if (user != null && await _userManager.CheckPasswordAsync(user, dto.PASSWORD))
             {
-                var token = CreateJWToken(user);
+                var token = await CreateJWTokenAsync(user);
+                _logger.LogWarning("Pokušaj prijave s nevažećim podacima.");
                 return Ok(new { token });
             }
 
+            _logger.LogWarning("Invalid credentials for user: {Email}", dto.EMAIL);
             return Unauthorized("Invalid credentials.");
 
         }
 
 
-        private string CreateJWToken(User user)
+        private async Task<string> CreateJWTokenAsync(User user)
         {
 
-            var claims = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(ClaimTypes.NameIdentifier, user.Id),
-            new Claim(ClaimTypes.Role, "User")
-        };
+            var roles = await _userManager.GetRolesAsync(user);
 
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
+            };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -88,9 +99,8 @@ namespace POSApi.WebApi.Controllers
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddDays(1),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials: creds
-
                 );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
