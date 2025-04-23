@@ -10,114 +10,187 @@ namespace POSApi.Application.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Stavke_racuna> _repo;
+        private readonly ILogger<Stavke_racunaService> _logger;
 
-        public Stavke_racunaService(IGenericRepository<Stavke_racuna> repo, IMapper mapper)
+        public Stavke_racunaService(IGenericRepository<Stavke_racuna> repo, IMapper mapper, ILogger<Stavke_racunaService> logger)
         {
 
             _repo = repo;
             _mapper = mapper;
-
+            _logger = logger;
         }
 
 
-        public async Task<List<GetKupacDTO>> GetAllAsync()
+        public async Task<List<GetStavke_racunaDTO>> GetAllAsync()
         {
-
-            var stavke = await _repo.GetAllAsync();
-            return _mapper.Map<List<GetKupacDTO>>(stavke);
-
-        }
-
-
-        public async Task<List<GetKupacDTO>> GetStavkeByBROJ(int broj)
-        {
-
-            var stavke = await _repo.GetStavkeByBROJ(broj);
-
-            if (stavke == null)
+            try
             {
-                throw new Exception("Stavka s brojem " + broj + " ne postoji");
+
+                var stavke = await _repo.GetAllAsync();
+                _logger.LogInformation("Stavke su uspješno učitane.");
+                return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
+
             }
 
-            return _mapper.Map<List<GetKupacDTO>>(stavke);
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Greška prilikom učitavanja stavki");
+                throw;
+            }
         }
 
 
-        public async Task<GetKupacDTO> GetByIdAsync(int id)
+        public async Task<List<GetStavke_racunaDTO>> GetStavkeByBROJ(int broj)
         {
-
-            var stavke = await _repo.GetByIdAsync(id);
-
-            if (stavke == null)
+            try
             {
-                throw new Exception("Stavka sa id-jem: " + id + " ne postoji");
+
+                var stavke = await _repo.GetStavkeByBROJ(broj);
+
+                if (stavke == null)
+                {
+                    _logger.LogWarning("Stavka sa brojem: " + broj + " ne postoji");
+                    throw new Exception("Stavka s brojem " + broj + " ne postoji");
+                }
+
+                return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
+
             }
 
-            return _mapper.Map<GetKupacDTO>(stavke);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom učitavanja stavki");
+                throw;
+
+            }
+        }
+
+
+        public async Task<GetStavke_racunaDTO> GetByIdAsync(int id)
+        {
+            try
+            {
+
+                var stavke = await _repo.GetByIdAsync(id);
+
+                if (stavke == null)
+                {
+                    _logger.LogWarning("Stavka sa id-jem: " + id + " ne postoji");
+                    throw new Exception("Stavka sa id-jem: " + id + " ne postoji");
+                }
+
+                return _mapper.Map<GetStavke_racunaDTO>(stavke);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom učitavanja stavki");
+                throw;
+
+            }
         }
 
 
         public async Task<CreateStavke_racunaDTO> AddAsync(CreateStavke_racunaDTO dto)
         {
-
-            var proizvod = await _repo.FindPBySIFRA(dto.SIFRA);
-            if (proizvod == null)
+            try
             {
-                throw new Exception("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
+
+                var proizvod = await _repo.FindPBySIFRA(dto.SIFRA);
+                if (proizvod == null)
+                {
+                    _logger.LogWarning("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
+                    throw new Exception("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
+                }
+
+                var zaglavlje = await _repo.FindZByBROJ(dto.BROJ);
+                if (zaglavlje == null)
+                {
+                    _logger.LogWarning("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
+                    throw new Exception("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
+                }
+
+                var stavke = _mapper.Map<Stavke_racuna>(dto);
+                stavke.ZAGLAVLJE_RACUNAId = zaglavlje.Id;
+                stavke.PROIZVODId = proizvod.Id;
+
+                await _repo.AddAsync(stavke);
+                return _mapper.Map<CreateStavke_racunaDTO>(stavke);
+
             }
 
-            var zaglavlje = await _repo.FindZByBROJ(dto.BROJ);
-            if (zaglavlje == null)
+            catch (Exception ex)
             {
-                throw new Exception("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
+
+                _logger.LogError(ex, "Greška prilikom dodavanja stavki");
+                throw;
+
             }
-
-            var stavke = _mapper.Map<Stavke_racuna>(dto);
-            stavke.ZAGLAVLJE_RACUNAId = zaglavlje.Id;
-            stavke.PROIZVODId = proizvod.Id;
-
-            await _repo.AddAsync(stavke);
-            return _mapper.Map<CreateStavke_racunaDTO>(stavke);
-
         }
 
 
         public async Task<bool> UpdateAsync(int broj, UpdateStavke_racunaDTO dto)
         {
-
-            var stavke = await _repo.GetStavkeByBROJ(broj);
-
-            if (stavke == null || stavke.Count == 0)
+            try
             {
-                throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
+
+                var stavke = await _repo.GetStavkeByBROJ(broj);
+
+                if (stavke == null || stavke.Count == 0)
+                {
+                    _logger.LogWarning("Stavka sa brojem: " + broj + " ne postoji");
+                    throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
+                }
+
+                foreach (var stavka in stavke)
+                {
+                    _mapper.Map(dto, stavka);
+                    await _repo.UpdateAsync(stavka);
+                }
+
+                return true;
+
             }
 
-            foreach (var stavka in stavke)
+            catch (Exception ex)
             {
-                _mapper.Map(dto, stavka);
-                await _repo.UpdateAsync(stavka);
+                _logger.LogError(ex, "Greška prilikom ažuriranja stavki");
+                throw;
             }
-
-            return true;
-
         }
 
 
         public async Task<bool> DeleteAsync(int broj)
         {
-
-            var stavke = await _repo.GetStavkeByBROJ(broj);
-            if (stavke == null)
+            try
             {
-                throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
+
+                var stavke = await _repo.GetStavkeByBROJ(broj);
+                if (stavke == null)
+                {
+                    _logger.LogWarning("Stavka sa brojem: " + broj + " ne postoji");
+                    throw new Exception("Stavka sa brojem: " + broj + " ne postoji");
+                }
+
+                foreach (var stavka in stavke)
+                {
+                    await _repo.DeleteAsync(stavka);
+                }
+
+                return true;
+
             }
 
-            var stavka = stavke.First();
-            await _repo.DeleteAsync(stavka);
-            return true;
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom brisanja stavki");
+                throw;
+
+            }
         }
     }
 }

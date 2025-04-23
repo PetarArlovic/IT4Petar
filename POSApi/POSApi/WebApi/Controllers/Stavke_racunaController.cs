@@ -23,31 +23,21 @@ namespace POSApi.WebApi.Controllers
 
         }
 
+
         /// <summary>
         /// Gets the list of all "Stavke racuna"
         /// </summary>
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<Application.DTO.KupacDTO.GetKupacDTO>>> GetAllAsync()
+        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>>> GetAllAsync()
         {
 
-            try
-            {
+            var stavke = await _service.GetAllAsync();
+            return Ok(stavke);
 
-                var stavke = await _service.GetAllAsync();
-                _logger.LogInformation("Stavke su uspješno učitane.");
-                return Ok(stavke);
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom učitavanja stavki: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja stavki: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Gets "Stavke racuna" by its Id
@@ -55,30 +45,14 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Application.DTO.Stavke_racunaDTO.GetKupacDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>> GetByIdAsync(int id)
         {
-            try
-            {
 
-                var stavke = await _service.GetByIdAsync(id);
+            var stavke = await _service.GetByIdAsync(id);
+            return Ok(stavke);
 
-                if (stavke == null)
-                {
-                    return NotFound("Stavka sa id-jem: " + id + " Ne postoji");
-                }
-
-                return Ok(stavke);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom učitavanja stavke: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja stavke: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Gets "Stavke racuna" by its "broj"
@@ -86,26 +60,12 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("BROJ/{broj}")]
         [Authorize]
-        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetKupacDTO>>> GetStavkeByBROJ(int broj)
+        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
         {
-            try
-            {
+
                 var stavke = await _service.GetStavkeByBROJ(broj);
-
-                if (stavke == null)
-                {
-                    return NotFound("Stavka sa id-jem: " + broj + " Ne postoji");
-                }
-
                 return Ok(stavke);
 
-            }
-
-            catch (Exception ex)
-            {
-                _logger.LogError("Greška prilikom učitavanja stavke: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja stavke: " + ex.Message);
-            }
         }
 
 
@@ -118,87 +78,39 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> AddAsync(CreateStavke_racunaDTO dto)
         {
 
-            try
-            {
+            var stavke = await _service.AddAsync(dto);
+            return CreatedAtAction(nameof(GetStavkeByBROJ), new { broj = stavke.BROJ }, stavke);
 
-                var stavke = await _service.AddAsync(dto);
-
-                _logger.LogInformation("Stavka je uspješno dodana.");
-                return CreatedAtAction(nameof(GetStavkeByBROJ), new { broj = stavke.BROJ }, stavke);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom dodavanja stavke: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom dodavanja stavke: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Updates "Stavke racuna"
         /// </summary>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut("{broj}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateAsync(int id, UpdateStavke_racunaDTO dto)
+        public async Task<ActionResult> UpdateAsync(int broj, UpdateStavke_racunaDTO dto)
         {
-            try
-            {
 
-                var stavka = await _service.UpdateAsync(id, dto);
+            var stavka = await _service.UpdateAsync(broj, dto);
+            return NoContent();
 
-                if (!stavka)
-                {
-                    return NotFound("Stavka sa id-jem: " + id + " ne postoji");
-                }
-
-                _logger.LogInformation("Stavka je uspješno ažurirana.");
-                return NoContent();
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom ažuriranja stavke: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom ažuriranja stavke: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Deletes "Stavke racuna"
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{broj}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int broj)
         {
 
-            try
-            {
-                var proizvod = await _service.DeleteAsync(id);
-
-                if (!proizvod)
-                {
-                    return NotFound("Stavka sa id-jem: " + id + " ne postoji");
-                }
-
-                _logger.LogInformation("Stavka je uspješno obrisana.");
+                var proizvod = await _service.DeleteAsync(broj);
                 return NoContent();
 
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom brisanja stavke: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom brisanja stavke: " + ex.Message);
-
-            }
         }
     }
 }
