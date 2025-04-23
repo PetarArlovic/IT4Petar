@@ -77,7 +77,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
             
-                var existingKupac = await _repo.FindKBySIFRA(dto.SIFRA);
+                var existingKupac = await _kupacRepo.FindKBySIFRA(dto.SIFRA);
 
                 if (existingKupac != null)
                 {
@@ -107,7 +107,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var kupac = await _repo.FindKBySIFRA(sifra);
+                var kupac = await _kupacRepo.FindKBySIFRA(sifra);
 
                 if (kupac == null)
                 {
@@ -165,7 +165,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var kupac = await _repo.FindKBySIFRA(sifra);
+                var kupac = await _kupacRepo.FindKBySIFRA(sifra);
 
                 if (kupac == null)
                 {

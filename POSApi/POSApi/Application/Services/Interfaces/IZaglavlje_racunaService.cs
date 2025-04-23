@@ -10,7 +10,7 @@ namespace POSApi.Application.Services.Interfaces
         Task<CreateZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO entity);
         Task<bool> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO entity);
         Task<bool> DeleteAsync(int broj);
-        Task<GetZaglavlje_racunaDTO> FindZByBROJ(int sifra);
+        Task<GetZaglavlje_racunaDTO> FindZByBROJ(int broj);
 
     }
 }

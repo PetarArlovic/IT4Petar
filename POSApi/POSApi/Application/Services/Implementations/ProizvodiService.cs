@@ -79,7 +79,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var existingproizvod = await _repo.FindPBySIFRA(dto.SIFRA);
+                var existingproizvod = await _proizvodiRepo.FindPBySIFRA(dto.SIFRA);
 
                 if (existingproizvod != null)
                 {
@@ -109,7 +109,7 @@ namespace POSApi.Application.Services.Implementations
             {
 
             
-                var proizvod = await _repo.FindPBySIFRA(sifra);
+                var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
 
                 if (proizvod == null)
                 {
@@ -138,7 +138,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var proizvod = await _repo.FindPBySIFRA(sifra);
+                var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
 
                 if (proizvod == null)
                 {
@@ -166,7 +166,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var proizvod = await _repo.FindPBySIFRA(sifra);
+                var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
                 if (proizvod == null)
                 {
                     _logger.LogError("Proizvod sa sifrom: " + sifra + " ne postoji");

@@ -51,31 +51,6 @@ namespace POSApi.Infrastructure.Repositories
             _context.Entry(entity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
         }
-
-        public async Task<Kupac?> FindKBySIFRA(int sifra)
-        {
-            return await _context.KUPAC.FirstOrDefaultAsync(k => k.SIFRA == sifra);
-        }
-
-        public async Task<Proizvod?> FindPBySIFRA(int sifra)
-        {
-            return await _context.PROIZVOD.FirstOrDefaultAsync(k => k.SIFRA == sifra);
-        }
-
-        public async Task<Zaglavlje_racuna?> FindZByBROJ(int broj)
-        {
-            return await _context.ZAGLAVLJE_RACUNA.FirstOrDefaultAsync(k => k.BROJ == broj);
-        }
-
-        public async Task<List<Stavke_racuna?>> GetStavkeByBROJ(int broj)
-        {
-
-            return await _context.Set<Stavke_racuna>()
-                .Include(s => s.ZAGLAVLJE_RACUNA)
-                .Where(s => s.ZAGLAVLJE_RACUNA.BROJ == broj)
-                .ToListAsync();
-        }
-
     }
 }
 
