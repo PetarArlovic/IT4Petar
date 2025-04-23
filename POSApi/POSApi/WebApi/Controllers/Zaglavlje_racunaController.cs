@@ -72,7 +72,7 @@ namespace POSApi.WebApi.Controllers
         /// Updates "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
-        [HttpPut("{id}")]
+        [HttpPut("{broj}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO dto)
         {
@@ -87,7 +87,7 @@ namespace POSApi.WebApi.Controllers
         /// Deletes "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{broj}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteAsync(int broj)
         {

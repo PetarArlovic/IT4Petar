@@ -8,8 +8,8 @@ namespace POSApi.Application.Services.Interfaces
         Task<List<GetZaglavlje_racunaDTO>> GetAllAsync();
         Task<GetZaglavlje_racunaDTO?> GetByIdAsync(int id);
         Task<CreateZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO entity);
-        Task<bool> UpdateAsync(int id, UpdateZaglavlje_racunaDTO entity);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO entity);
+        Task<bool> DeleteAsync(int broj);
         Task<GetZaglavlje_racunaDTO> FindZByBROJ(int sifra);
 
     }

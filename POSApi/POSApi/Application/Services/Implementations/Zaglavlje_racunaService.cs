@@ -11,13 +11,15 @@ namespace POSApi.Application.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Zaglavlje_racuna> _repo;
         private readonly ILogger<Zaglavlje_racunaService> _logger;
+        private readonly IZaglavlje_racunaRepository _zaglavljeRepo;
 
-        public Zaglavlje_racunaService(IGenericRepository<Zaglavlje_racuna> repo, IMapper mapper, ILogger<Zaglavlje_racunaService> logger)
+        public Zaglavlje_racunaService(IGenericRepository<Zaglavlje_racuna> repo, IMapper mapper, ILogger<Zaglavlje_racunaService> logger, IZaglavlje_racunaRepository zaglavljeRepo)
         {
 
             _repo = repo;
             _mapper = mapper;
             _logger = logger;
+            _zaglavljeRepo = zaglavljeRepo;
         }
 
 
@@ -73,7 +75,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var existingzaglavlje = await _repo.FindZByBROJ(dto.BROJ);
+                var existingzaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.BROJ);
 
                 if (existingzaglavlje != null)
                 {
@@ -103,7 +105,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var zaglavlje = await _repo.FindZByBROJ(broj);
+                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(broj);
 
                 if (zaglavlje == null)
                 {
@@ -133,7 +135,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var zaglavlje = await _repo.FindZByBROJ(broj);
+                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(broj);
                 if (zaglavlje == null)
                 {
                     _logger.LogInformation("Zaglavlje racuna sa brojem" + broj + " ne postoji");
@@ -160,7 +162,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var zaglavlje = await _repo.FindZByBROJ(broj);
+                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(broj);
                 if (zaglavlje == null)
                 {
                     _logger.LogInformation("Zaglavlje racuna sa brojem" + broj + " ne postoji");

@@ -11,13 +11,19 @@ namespace POSApi.Application.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Stavke_racuna> _repo;
         private readonly ILogger<Stavke_racunaService> _logger;
+        private readonly IStavke_racunaRepository _stavkeRepo;
+        private readonly IZaglavlje_racunaRepository _zaglavljeRepo;
+        private readonly IProizvodiRepository _proizvodiRepo;
 
-        public Stavke_racunaService(IGenericRepository<Stavke_racuna> repo, IMapper mapper, ILogger<Stavke_racunaService> logger)
+        public Stavke_racunaService(IGenericRepository<Stavke_racuna> repo, IMapper mapper, ILogger<Stavke_racunaService> logger, IStavke_racunaRepository stavkeRepo, IZaglavlje_racunaRepository zaglavljeRepo, IProizvodiRepository proizvodiRepo)
         {
 
             _repo = repo;
             _mapper = mapper;
             _logger = logger;
+            _stavkeRepo = stavkeRepo;
+            _zaglavljeRepo = zaglavljeRepo;
+            _proizvodiRepo = proizvodiRepo;
         }
 
 
@@ -45,7 +51,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var stavke = await _repo.GetStavkeByBROJ(broj);
+                var stavke = await _stavkeRepo.GetStavkeByBROJ(broj);
 
                 if (stavke == null)
                 {
@@ -99,14 +105,14 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var proizvod = await _repo.FindPBySIFRA(dto.SIFRA);
+                var proizvod = await _proizvodiRepo.FindPBySIFRA(dto.SIFRA);
                 if (proizvod == null)
                 {
                     _logger.LogWarning("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
                     throw new Exception("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
                 }
 
-                var zaglavlje = await _repo.FindZByBROJ(dto.BROJ);
+                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.BROJ);
                 if (zaglavlje == null)
                 {
                     _logger.LogWarning("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
@@ -137,7 +143,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var stavke = await _repo.GetStavkeByBROJ(broj);
+                var stavke = await _stavkeRepo.GetStavkeByBROJ(broj);
 
                 if (stavke == null || stavke.Count == 0)
                 {
@@ -168,7 +174,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var stavke = await _repo.GetStavkeByBROJ(broj);
+                var stavke = await _stavkeRepo.GetStavkeByBROJ(broj);
                 if (stavke == null)
                 {
                     _logger.LogWarning("Stavka sa brojem: " + broj + " ne postoji");

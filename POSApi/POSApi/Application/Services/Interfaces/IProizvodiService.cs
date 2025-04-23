@@ -8,8 +8,8 @@ namespace POSApi.Application.Services.Interfaces
         Task<List<GetProizvodDTO>> GetAllAsync();
         Task<GetProizvodDTO?> GetByIdAsync(int id);
         Task<CreateProizvodDTO> AddAsync(CreateProizvodDTO entity);
-        Task<bool> UpdateAsync(int id, UpdateProizvodDTO entity);
-        Task<bool> DeleteAsync(int id);
+        Task<bool> UpdateAsync(int sifra, UpdateProizvodDTO entity);
+        Task<bool> DeleteAsync(int sifra);
         Task<GetProizvodDTO> FindPBySIFRA(int sifra);
 
     }

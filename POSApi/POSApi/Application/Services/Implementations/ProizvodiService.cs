@@ -12,13 +12,15 @@ namespace POSApi.Application.Services.Implementations
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Proizvod> _repo;
         private readonly ILogger<ProizvodiService> _logger;
+        private readonly IProizvodiRepository _proizvodiRepo;
 
-        public ProizvodiService(IGenericRepository<Proizvod> repo, IMapper mapper, ILogger<ProizvodiService> logger)
+        public ProizvodiService(IGenericRepository<Proizvod> repo, IMapper mapper, ILogger<ProizvodiService> logger, IProizvodiRepository proizvodiRepo)
         {
 
             _repo = repo;
             _mapper = mapper;
             _logger = logger;
+            _proizvodiRepo = proizvodiRepo;
 
         }
 
