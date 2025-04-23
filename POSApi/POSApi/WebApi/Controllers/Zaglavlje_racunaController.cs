@@ -22,6 +22,7 @@ namespace POSApi.WebApi.Controllers
 
         }
 
+
         /// <summary>
         /// Gets the list of all "Zaglavlje racuna"
         /// </summary>
@@ -31,23 +32,11 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<List<GetZaglavlje_racunaDTO>>> GetAllAsync()
         {
 
-            try
-            {
+            var zaglavlja = await _service.GetAllAsync();
+            return Ok(zaglavlja);
 
-                var zaglavlja = await _service.GetAllAsync();
-                _logger.LogInformation("Zaglavlja su uspješno učitana.");
-                return Ok(zaglavlja);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom učitavanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja zaglavlja: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Gets "Zaglavlje racuna" by its Id
@@ -58,28 +47,11 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<GetZaglavlje_racunaDTO>> GetByIdAsync(int id)
         {
 
-            try
-            {
+            var zaglavlje = await _service.GetByIdAsync(id);
+            return Ok(zaglavlje);
 
-                var zaglavlje = await _service.GetByIdAsync(id);
-
-                if (zaglavlje == null)
-                {
-                    return NotFound("Zaglavlje sa id-jem: " + id + " ne postoji");
-                }
-
-                return Ok(zaglavlje);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom učitavanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja zaglavlja: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Adds "Zaglavlje racuna"
@@ -90,23 +62,11 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> AddAsync(CreateZaglavlje_racunaDTO dto)
         {
 
-            try
-            {
+            var zaglavlje = await _service.AddAsync(dto);
+            return CreatedAtAction(nameof(FindZByBROJ), new { broj = zaglavlje.BROJ }, zaglavlje);
 
-                var zaglavlje = await _service.AddAsync(dto);
-                _logger.LogInformation("Zaglavlje je uspješno dodano.");
-                return CreatedAtAction(nameof(FindZByBROJ), new { broj = zaglavlje.BROJ }, zaglavlje);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom dodavanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom dodavanja zaglavlja: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Updates "Zaglavlje racuna"
@@ -114,31 +74,14 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateAsync(int id, UpdateZaglavlje_racunaDTO dto)
+        public async Task<ActionResult> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO dto)
         {
 
-            try
-            {
+            var zaglavlje = await _service.UpdateAsync(broj, dto);
+            return NoContent();
 
-                var zaglavlje = await _service.UpdateAsync(id, dto);
-                if (!zaglavlje)
-                {
-                    return NotFound("Zaglavlje sa id-jem: " + id + " ne postoji");
-                }
-
-                _logger.LogInformation("Zaglavlje je uspješno ažurirano.");
-                return NoContent();
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom ažuriranja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom ažuriranja zaglavlja: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Deletes "Zaglavlje racuna"
@@ -146,31 +89,14 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int broj)
         {
 
-            try
-            {
-
-                var zaglavlje = await _service.DeleteAsync(id);
-                if (!zaglavlje)
-                {
-                    return NotFound("Zaglavlje sa id-jem: " + id + " ne postoji");
-                }
-
-                _logger.LogInformation("Zaglavlje je uspješno obrisano.");
+                var zaglavlje = await _service.DeleteAsync(broj);
                 return NoContent();
 
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom brisanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom brisanja zaglavlja: " + ex.Message);
-
-            }
         }
+
 
         /// <summary>
         /// Gets "Zaglavlje racuna" by "BROJ"
@@ -181,27 +107,9 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<GetZaglavlje_racunaDTO>> FindZByBROJ(int broj)
         {
 
-            try
-            {
-
                 var proizvod = await _service.FindZByBROJ(broj);
-
-                if (proizvod == null)
-                {
-                    _logger.LogError("Proizvod sa brojem: " + broj + " ne postoji");
-                    return NotFound($"Proizvod sa šifrom {broj} nije pronađen.");
-                }
-
                 return Ok(proizvod);
-            }
 
-            catch (Exception ex)
-            {
-
-                _logger.LogError("Greška prilikom učitavanja zaglavlja: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
-                return BadRequest("Greška prilikom učitavanja zaglavlja: " + ex.Message);
-
-            }
         }
     }
 }

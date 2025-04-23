@@ -30,7 +30,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>>> GetAllAsync()
+        public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetAllAsync()
         {
 
             var stavke = await _service.GetAllAsync();
@@ -45,7 +45,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<GetStavke_racunaDTO>> GetByIdAsync(int id)
         {
 
             var stavke = await _service.GetByIdAsync(id);
@@ -60,7 +60,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("BROJ/{broj}")]
         [Authorize]
-        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
+        public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
         {
 
                 var stavke = await _service.GetStavkeByBROJ(broj);
