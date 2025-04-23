@@ -35,7 +35,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
+        public async Task<ActionResult<List<GetStavke_racuanDTO>>> GetAllAsync()
         {
             try
             {
@@ -61,7 +61,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<GetStavke_racuanDTO>> GetByIdAsync(int id)
         {
             try
             {
@@ -186,7 +186,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("sifra/{sifra}")]
         [Authorize]
-        public async Task<ActionResult<GetKupacDTO>> FindKBySIFRA(int sifra)
+        public async Task<ActionResult<GetStavke_racuanDTO>> FindKBySIFRA(int sifra)
         {
 
             var kupac = await _service.FindKBySIFRA(sifra);

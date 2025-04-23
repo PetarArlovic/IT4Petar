@@ -5,7 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
 import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
-import { AuthService } from './core/services/auth.component';
+import { AuthService } from './core/services/auth.service';
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 

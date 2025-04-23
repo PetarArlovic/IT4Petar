@@ -5,12 +5,12 @@ namespace POSApi.Application.Services.Interfaces
     public interface IKupciService
     {
 
-        Task<List<GetKupacDTO>> GetAllAsync();
-        Task<GetKupacDTO?> GetByIdAsync(int id);
+        Task<List<GetStavke_racuanDTO>> GetAllAsync();
+        Task<GetStavke_racuanDTO?> GetByIdAsync(int id);
         Task<CreateKupacDTO> AddAsync(CreateKupacDTO entity);
         Task<bool> UpdateAsync(int id, UpdateKupacDTO entity);
         Task<bool> DeleteAsync(int id);
-        Task<GetKupacDTO> FindKBySIFRA(int sifra);
+        Task<GetStavke_racuanDTO> FindKBySIFRA(int sifra);
 
     }
 }

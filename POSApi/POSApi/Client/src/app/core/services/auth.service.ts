@@ -16,7 +16,7 @@ export class AuthService {
   registerUser(userDetails: User) {
     return this.http.post(`${this.baseUrl}/api/account/register`, userDetails);
   }
-////////////////////////
+
   loginUser(loginData: { email: string, password: string }) {
     return this.http.post<{ token: string }>(`${this.baseUrl}/api/account/login`, loginData);
   }

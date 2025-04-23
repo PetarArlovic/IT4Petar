@@ -21,16 +21,16 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<List<GetKupacDTO>> GetAllAsync()
+        public async Task<List<GetStavke_racuanDTO>> GetAllAsync()
         {
 
             var kupci = await _repo.GetAllAsync();
-            return _mapper.Map<List<GetKupacDTO>>(kupci);
+            return _mapper.Map<List<GetStavke_racuanDTO>>(kupci);
 
         }
 
 
-        public async Task<GetKupacDTO> GetByIdAsync(int id)
+        public async Task<GetStavke_racuanDTO> GetByIdAsync(int id)
         {
 
             var kupac = await _repo.GetByIdAsync(id);
@@ -39,7 +39,7 @@ namespace POSApi.Application.Services.Implementations
                 throw new Exception("Kupac sa id-em: " + id + " ne postoji");
             }
 
-            return _mapper.Map<GetKupacDTO>(kupac);
+            return _mapper.Map<GetStavke_racuanDTO>(kupac);
 
         }
 
@@ -93,7 +93,7 @@ namespace POSApi.Application.Services.Implementations
 
         }
 
-        public async Task<GetKupacDTO> FindKBySIFRA(int sifra)
+        public async Task<GetStavke_racuanDTO> FindKBySIFRA(int sifra)
         {
 
             var kupac = await _repo.FindKBySIFRA(sifra);
@@ -103,7 +103,7 @@ namespace POSApi.Application.Services.Implementations
                 throw new Exception("Kupac sa šifrom: " + sifra + " ne postoji");
             }
 
-            return _mapper.Map<GetKupacDTO>(kupac);
+            return _mapper.Map<GetStavke_racuanDTO>(kupac);
 
         }
     }

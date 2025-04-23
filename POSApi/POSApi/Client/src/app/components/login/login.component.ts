@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.component';
+import { AuthService } from '../../core/services/auth.service';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';

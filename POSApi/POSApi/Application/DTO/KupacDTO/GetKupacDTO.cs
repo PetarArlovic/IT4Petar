@@ -2,7 +2,7 @@
 
 namespace POSApi.Application.DTO.KupacDTO
 {
-    public class GetKupacDTO
+    public class GetStavke_racuanDTO
     {
 
         [Required]

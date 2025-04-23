@@ -29,7 +29,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
+        public async Task<ActionResult<List<GetStavke_racuanDTO>>> GetAllAsync()
         {
 
             try
