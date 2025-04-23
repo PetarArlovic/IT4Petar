@@ -11,100 +11,176 @@ namespace POSApi.Application.Services.Implementations
 
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Kupac> _repo;
+        private readonly ILogger<KupciService> _logger;
 
-        public KupciService(IGenericRepository<Kupac> repo, IMapper mapper)
+        public KupciService(IGenericRepository<Kupac> repo, IMapper mapper, ILogger<KupciService> logger)
         {
 
             _repo = repo;
             _mapper = mapper;
+            _logger = logger;
 
         }
 
 
-        public async Task<List<GetStavke_racuanDTO>> GetAllAsync()
+        public async Task<List<GetKupacDTO>> GetAllAsync()
         {
-
-            var kupci = await _repo.GetAllAsync();
-            return _mapper.Map<List<GetStavke_racuanDTO>>(kupci);
-
-        }
-
-
-        public async Task<GetStavke_racuanDTO> GetByIdAsync(int id)
-        {
-
-            var kupac = await _repo.GetByIdAsync(id);
-            if (kupac == null)
+            try
             {
-                throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+
+                var kupci = await _repo.GetAllAsync();
+                _logger.LogInformation("Kupci su uspješno učitani.");
+                return _mapper.Map<List<GetKupacDTO>>(kupci);
+
             }
 
-            return _mapper.Map<GetStavke_racuanDTO>(kupac);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom učitavanja kupaca: " + ex.Message + " InnerException: " + ex.InnerException?.Message);
+                throw;
+
+            }
+        }
+
+
+        public async Task<GetKupacDTO> GetByIdAsync(int id)
+        {
+            try
+            {
+
+
+                var kupac = await _repo.GetByIdAsync(id);
+                if (kupac == null)
+                {
+                    _logger.LogWarning("Kupac sa id-em: " + id + " ne postoji.");
+                    throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+                }
+                
+                return _mapper.Map<GetKupacDTO>(kupac);
+            }
+            
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom učitavanja kupca");
+                throw;
+
+            }
         }
 
 
         public async Task<CreateKupacDTO> AddAsync(CreateKupacDTO dto)
         {
-
-            var existingKupac = await _repo.FindKBySIFRA(dto.SIFRA);
-
-            if (existingKupac != null)
+            try
             {
-                throw new InvalidOperationException("Kupac sa sifrom " + dto.SIFRA + " već postoji.");
+            
+                var existingKupac = await _repo.FindKBySIFRA(dto.SIFRA);
+
+                if (existingKupac != null)
+                {
+                    _logger.LogInformation("Kupac sa sifrom vec postoji.");
+                    throw new InvalidOperationException("Kupac sa sifrom " + dto.SIFRA + " već postoji.");
+                }
+
+                var kupac = _mapper.Map<Kupac>(dto);
+                await _repo.AddAsync(kupac);
+                return _mapper.Map<CreateKupacDTO>(kupac);
+
             }
 
-            var kupac = _mapper.Map<Kupac>(dto);
-            await _repo.AddAsync(kupac);
-            return _mapper.Map<CreateKupacDTO>(kupac);
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom ucitavanja kupca");
+                throw;
+
+            }
 
         }
 
 
         public async Task<bool> UpdateAsync(int sifra, UpdateKupacDTO dto)
         {
-
-            var kupac = await _repo.FindKBySIFRA(sifra);
-
-            if (kupac == null)
+            try
             {
-                throw new Exception("Kupac sa id-em: " + sifra + " ne postoji");
+
+                var kupac = await _repo.FindKBySIFRA(sifra);
+
+                if (kupac == null)
+                {
+                    _logger.LogWarning("Kupac sa sifrom: " + sifra + " ne postoji.");
+                    throw new Exception("Kupac sa sifrom: " + sifra + " ne postoji");
+                }
+
+                _mapper.Map(dto, kupac);
+                await _repo.UpdateAsync(kupac);
+                return true;
+
             }
 
-            _mapper.Map(dto, kupac);
-            await _repo.UpdateAsync(kupac);
-            return true;
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom ažuriranja kupca");
+                throw;
+
+            }
 
         }
 
 
         public async Task<bool> DeleteAsync(int id)
         {
-
-            var kupac = await _repo.GetByIdAsync(id);
-
-            if (kupac == null)
+            try
             {
-                throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+
+                var kupac = await _repo.GetByIdAsync(id);
+
+                if (kupac == null)
+                {
+                    _logger.LogWarning("Kupac sa id-em: " + id + " ne postoji.");
+                    throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+                }
+
+                await _repo.DeleteAsync(kupac);
+                return true;
+
             }
 
-            await _repo.DeleteAsync(kupac);
-            return true;
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom brisanja kupca");
+                throw;
+
+            }
         }
 
-        public async Task<GetStavke_racuanDTO> FindKBySIFRA(int sifra)
+
+        public async Task<GetKupacDTO> FindKBySIFRA(int sifra)
         {
-
-            var kupac = await _repo.FindKBySIFRA(sifra);
-
-            if (kupac == null)
+            try
             {
-                throw new Exception("Kupac sa šifrom: " + sifra + " ne postoji");
+
+                var kupac = await _repo.FindKBySIFRA(sifra);
+
+                if (kupac == null)
+                {
+                    _logger.LogWarning("Kupac sa sifrom-em: " + sifra + " ne postoji.");
+                    throw new Exception("Kupac sa šifrom: " + sifra + " ne postoji");
+                }
+            
+                return _mapper.Map<GetKupacDTO>(kupac);
             }
 
-            return _mapper.Map<GetStavke_racuanDTO>(kupac);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom učitavanja kupca");
+                throw;
+
+            }
         }
     }
 }

@@ -20,16 +20,16 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<List<GetStavke_racunaDTO>> GetAllAsync()
+        public async Task<List<GetKupacDTO>> GetAllAsync()
         {
 
             var stavke = await _repo.GetAllAsync();
-            return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
+            return _mapper.Map<List<GetKupacDTO>>(stavke);
 
         }
 
 
-        public async Task<List<GetStavke_racunaDTO>> GetStavkeByBROJ(int broj)
+        public async Task<List<GetKupacDTO>> GetStavkeByBROJ(int broj)
         {
 
             var stavke = await _repo.GetStavkeByBROJ(broj);
@@ -39,12 +39,12 @@ namespace POSApi.Application.Services.Implementations
                 throw new Exception("Stavka s brojem " + broj + " ne postoji");
             }
 
-            return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
+            return _mapper.Map<List<GetKupacDTO>>(stavke);
 
         }
 
 
-        public async Task<GetStavke_racunaDTO> GetByIdAsync(int id)
+        public async Task<GetKupacDTO> GetByIdAsync(int id)
         {
 
             var stavke = await _repo.GetByIdAsync(id);
@@ -54,7 +54,7 @@ namespace POSApi.Application.Services.Implementations
                 throw new Exception("Stavka sa id-jem: " + id + " ne postoji");
             }
 
-            return _mapper.Map<GetStavke_racunaDTO>(stavke);
+            return _mapper.Map<GetKupacDTO>(stavke);
 
         }
 

@@ -14,7 +14,7 @@ namespace POSApi.WebApi.Mappings
         {
 
             CreateMap<Kupac, CreateKupacDTO>().ReverseMap();
-            CreateMap<Kupac, GetStavke_racuanDTO>().ReverseMap();
+            CreateMap<Kupac, Application.DTO.KupacDTO.GetKupacDTO>().ReverseMap();
             CreateMap<Kupac, UpdateKupacDTO>().ReverseMap();
 
             CreateMap<Proizvod, CreateProizvodDTO>().ReverseMap();
@@ -26,7 +26,7 @@ namespace POSApi.WebApi.Mappings
             CreateMap<Zaglavlje_racuna, UpdateZaglavlje_racunaDTO>().ReverseMap();
 
             CreateMap<Stavke_racuna, CreateStavke_racunaDTO>().ReverseMap();
-            CreateMap<Stavke_racuna, GetStavke_racunaDTO>()
+            CreateMap<Stavke_racuna, Application.DTO.Stavke_racunaDTO.GetKupacDTO>()
                 .ForMember(dest => dest.BROJ, opt => opt.MapFrom(src => src.ZAGLAVLJE_RACUNA.BROJ));
             CreateMap<Stavke_racuna, UpdateStavke_racunaDTO>().ReverseMap();
 

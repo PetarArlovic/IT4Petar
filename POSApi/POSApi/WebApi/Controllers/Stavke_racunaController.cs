@@ -29,7 +29,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet]
         [Authorize]
-        public async Task<ActionResult<List<GetStavke_racuanDTO>>> GetAllAsync()
+        public async Task<ActionResult<List<Application.DTO.KupacDTO.GetKupacDTO>>> GetAllAsync()
         {
 
             try
@@ -55,7 +55,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<GetStavke_racunaDTO>> GetByIdAsync(int id)
+        public async Task<ActionResult<Application.DTO.Stavke_racunaDTO.GetKupacDTO>> GetByIdAsync(int id)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace POSApi.WebApi.Controllers
         /// <returns></returns>
         [HttpGet("BROJ/{broj}")]
         [Authorize]
-        public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
+        public async Task<ActionResult<List<Application.DTO.Stavke_racunaDTO.GetKupacDTO>>> GetStavkeByBROJ(int broj)
         {
             try
             {
