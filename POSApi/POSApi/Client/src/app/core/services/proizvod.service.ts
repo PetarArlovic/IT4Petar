@@ -12,6 +12,7 @@ export class ProizvodiService {
 
   constructor(private http: HttpClient) {}
 
+
   getAllProizvodi(): Observable<GetProizvodDTO[]> {
     return this.http.get<GetProizvodDTO[]>(`${this.baseUrl}/api/proizvodi`);
   }
