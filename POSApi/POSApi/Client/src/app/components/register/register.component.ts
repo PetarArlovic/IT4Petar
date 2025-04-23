@@ -8,7 +8,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { potvrdaSifreV } from '../../shared/potvrda-sifre.directive';
 import { AuthService } from '../../core/services/auth.service';
-import { User } from '../../interfaces/auth';
+import { User } from '../../models/auth';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 

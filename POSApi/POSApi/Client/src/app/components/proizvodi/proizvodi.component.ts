@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
-import { ProizvodiService } from '../../core/services/proizvod.service';
-import { GetProizvodDTO } from '../../models/proizvodi';
+import { CreateProizvodDTO, GetProizvodDTO, UpdateProizvodDTO } from '../../models/proizvodi';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ProizvodiService } from '../../core/services/proizvod.service';
 import { MessageService } from 'primeng/api';
+import { UpdateKupacDTO } from '../../models/kupci';
 
 @Component({
-  selector: 'app-home',
-  imports: [ButtonModule],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  selector: 'app-proizvodi',
+  imports: [],
+  templateUrl: './proizvodi.component.html',
+  styleUrl: './proizvodi.component.scss'
 })
-export class HomeComponent implements OnInit {
+
+export class ProizvodiComponent implements OnInit{
 
   proizvodi: GetProizvodDTO[] = [];
   selectedProizvod: GetProizvodDTO | null = null;;
@@ -30,10 +31,9 @@ export class HomeComponent implements OnInit {
       SIFRA: [null, Validators.required],
       NAZIV: ['',[Validators.required, Validators.maxLength(100)]],
       JEDINICA_MJERE: [['', [Validators.required, Validators.maxLength(100)]]],
-      CIJENA: [null, [Validators.required]],
-      STANJE: [null, [Validators.required]],
+      CIJENA: [null, [Validators.required, Validators.minLength(0)]],
+      STANJE: [null, [Validators.required, Validators.minLength(0)]],
       PROIZVODSlikaUrl: ['', Validators.required]
-
     });
   }
 
@@ -56,10 +56,23 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  addProizvod(proizvod: CreateProizvodDTO): void{
+    this.proizvodiService.addProizvod(proizvod).subscribe(()=>{
+      this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je dodan.' });
+    });
+  }
 
+  updateProizvod(sifra: number, proizvod:UpdateProizvodDTO): void{
+    this.proizvodiService.updateProizvod(sifra, proizvod).subscribe(()=>{
+      this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je azuriran.' });
+    })
+  }
 
-
-
+  deleteProizvod(id: number): void{
+    this.proizvodiService.deleteProizvod(id).subscribe(()=>{
+      this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je obrisan.' });
+    })
+  }
 }
 
 

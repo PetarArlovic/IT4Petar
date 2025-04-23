@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { GetProizvodDTO } from '../../interfaces/proizvodi';
+import { GetProizvodDTO } from '../../models/proizvodi';
 import { ShopService } from '../../core/services/shop.service';
 
 @Component({
