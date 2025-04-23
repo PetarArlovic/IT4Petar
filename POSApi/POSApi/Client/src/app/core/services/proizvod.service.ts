@@ -21,12 +21,12 @@ export class ProizvodiService {
     return this.http.post<CreateProizvodDTO>(`${this.baseUrl}/api/proizvodi`, proizvod);
   }
 
-  updateProizvod(id: number, proizvod: UpdateProizvodDTO): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/api/proizvodi/${id}`, proizvod);
+  updateProizvod(sifra: number, proizvod: UpdateProizvodDTO): Observable<void> {
+    return this.http.put<void>(`${this.baseUrl}/api/proizvodi/${sifra}`, proizvod);
   }
 
-  deleteProizvod(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/api/proizvodi/${id}`);
+  deleteProizvod(sifra: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/api/proizvodi/${sifra}`);
   }
 
   getProizvodById(id: number): Observable<GetProizvodDTO>{

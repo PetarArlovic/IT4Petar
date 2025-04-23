@@ -67,8 +67,8 @@ export class ProizvodiComponent implements OnInit{
     })
   }
 
-  deleteProizvod(id: number): void{
-    this.proizvodiService.deleteProizvod(id).subscribe(()=>{
+  deleteProizvod(sifra: number): void{
+    this.proizvodiService.deleteProizvod(sifra).subscribe(()=>{
       this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je obrisan.' });
     })
   }
