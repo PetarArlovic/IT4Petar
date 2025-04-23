@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GetKupacDTO } from '../../models/kupci';
 import { KupciService } from '../../core/services/kupci.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-kupci',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './kupci.component.html',
   styleUrl: './kupci.component.scss'
 })
-export class KupciComponent {
+export class KupciComponent implements OnInit {
   kupci: GetKupacDTO[] = [];
 
   constructor(private kupacService: KupciService){}

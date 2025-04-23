@@ -3,7 +3,6 @@ import { CreateProizvodDTO, GetProizvodDTO, UpdateProizvodDTO } from '../../mode
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProizvodiService } from '../../core/services/proizvod.service';
 import { MessageService } from 'primeng/api';
-import { UpdateKupacDTO } from '../../models/kupci';
 
 @Component({
   selector: 'app-proizvodi',

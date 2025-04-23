@@ -4,10 +4,11 @@ import { ProizvodiService } from '../../core/services/proizvod.service';
 import { GetProizvodDTO } from '../../models/proizvodi';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+import { KupciComponent } from '../kupci/kupci.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule],
+  imports: [ButtonModule, KupciComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -55,11 +56,6 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
-
-
-
-
 }
 
 
