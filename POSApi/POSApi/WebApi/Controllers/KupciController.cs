@@ -88,12 +88,12 @@ namespace POSApi.WebApi.Controllers
         /// Deletes "Kupac"
         /// </summary>
         /// <returns></returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{sifra}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteAsync(int id)
+        public async Task<ActionResult> DeleteAsync(int sifra)
         {
 
-            var kupac = await _service.DeleteAsync(id);
+            var kupac = await _service.DeleteAsync(sifra);
             return NoContent();
 
         }

@@ -3,6 +3,7 @@ using POSApi.Domain.Interfaces;
 using POSApi.Application.DTO.ProizvodDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
+using System.Linq.Expressions;
 
 namespace POSApi.Application.Services.Implementations
 {
@@ -10,99 +11,177 @@ namespace POSApi.Application.Services.Implementations
     {
         private readonly IMapper _mapper;
         private readonly IGenericRepository<Proizvod> _repo;
+        private readonly ILogger<ProizvodiService> _logger;
 
-        public ProizvodiService(IGenericRepository<Proizvod> repo, IMapper mapper)
+        public ProizvodiService(IGenericRepository<Proizvod> repo, IMapper mapper, ILogger<ProizvodiService> logger)
         {
 
             _repo = repo;
             _mapper = mapper;
+            _logger = logger;
 
         }
 
 
         public async Task<List<GetProizvodDTO>> GetAllAsync()
         {
+            try
+            {
 
-            var proizvodi = await _repo.GetAllAsync();
-            return _mapper.Map<List<GetProizvodDTO>>(proizvodi);
+                var proizvodi = await _repo.GetAllAsync();
+                _logger.LogInformation("Proizvodi su uspješno učitani.");
+                return _mapper.Map<List<GetProizvodDTO>>(proizvodi);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom učitavanja proizvoda.");
+                throw;
+
+            }
 
         }
 
 
         public async Task<GetProizvodDTO> GetByIdAsync(int id)
         {
-
-            var proizvod = await _repo.GetByIdAsync(id);
-
-            if (proizvod == null)
+            try
             {
-                throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+
+                var proizvod = await _repo.GetByIdAsync(id);
+
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa id-em: " + id + " ne postoji");
+                    throw new Exception("Proizvod sa id-em: " + id + " ne postoji");
+                }
+
+                return _mapper.Map<GetProizvodDTO>(proizvod);
+
             }
 
-            return _mapper.Map<GetProizvodDTO>(proizvod);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom učitavanja proizvoda");
+                throw;
+
+            }
         }
 
 
         public async Task<CreateProizvodDTO> AddAsync(CreateProizvodDTO dto)
         {
-
-            var existingproizvod = await _repo.FindPBySIFRA(dto.SIFRA);
-
-            if (existingproizvod != null)
+            try
             {
-                throw new InvalidOperationException("Proizvod sa sifrom" + dto.SIFRA + " vec postoji");
+
+                var existingproizvod = await _repo.FindPBySIFRA(dto.SIFRA);
+
+                if (existingproizvod != null)
+                {
+                    _logger.LogInformation("Proizvod sa sifrom" + dto.SIFRA + " vec postoji");
+                    throw new InvalidOperationException("Proizvod sa sifrom" + dto.SIFRA + " vec postoji");
+                }
+
+                var proizvod = _mapper.Map<Proizvod>(dto);
+                await _repo.AddAsync(proizvod);
+                return _mapper.Map<CreateProizvodDTO>(proizvod);
+
             }
 
-            var proizvod = _mapper.Map<Proizvod>(dto);
-            await _repo.AddAsync(proizvod);
-            return _mapper.Map<CreateProizvodDTO>(proizvod);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom dodavanja proizvoda");
+                throw;
+
+            }
         }
 
 
         public async Task<bool> UpdateAsync(int sifra, UpdateProizvodDTO dto)
         {
-
-            var proizvod = await _repo.FindPBySIFRA(sifra);
-
-            if (proizvod == null)
+            try
             {
-                throw new Exception("Proizvod sa id-em: " + sifra + " ne postoji");
+
+            
+                var proizvod = await _repo.FindPBySIFRA(sifra);
+
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa id-em: " + sifra + " ne postoji");
+                    throw new Exception("Proizvod sa id-em: " + sifra + " ne postoji");
+                }
+
+                _mapper.Map(dto, proizvod);
+                await _repo.UpdateAsync(proizvod);
+                return true;
+
             }
 
-            _mapper.Map(dto, proizvod);
-            await _repo.UpdateAsync(proizvod);
-            return true;
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom ažuriranja proizvoda");
+                throw;
+
+            }
         }
 
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int sifra)
         {
-
-            var proizvod = await _repo.GetByIdAsync(id);
-            if (proizvod == null)
+            try
             {
-                throw new Exception("Kupac sa id-em: " + id + " ne postoji");
+
+                var proizvod = await _repo.FindPBySIFRA(sifra);
+
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa id-em: " + sifra + " ne postoji");
+                    throw new Exception("Proizvod sa id-em: " + sifra + " ne postoji");
+                }
+
+                await _repo.DeleteAsync(proizvod);
+                return true;
+
             }
 
-            await _repo.DeleteAsync(proizvod);
-            return true;
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom brisanja proizvoda");
+                throw;
+
+            }
         }
 
 
         public async Task<GetProizvodDTO> FindPBySIFRA(int sifra)
         {
-            var kupac = await _repo.FindPBySIFRA(sifra);
-            if (kupac == null)
+            try
             {
-                throw new Exception("Proizvod sa šifrom: " + sifra + " ne postoji");
+
+                var proizvod = await _repo.FindPBySIFRA(sifra);
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod sa sifrom: " + sifra + " ne postoji");
+                    throw new Exception("Proizvod sa šifrom: " + sifra + " ne postoji");
+                }
+
+                return _mapper.Map<GetProizvodDTO>(proizvod);
+
             }
 
-            return _mapper.Map<GetProizvodDTO>(kupac);
+            catch (Exception ex)
+            {
 
+                _logger.LogError(ex, "Greška prilikom pretrage proizvoda");
+                throw;
+
+            }
         }
     }
 }
