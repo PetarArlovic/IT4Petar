@@ -75,12 +75,12 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var existingzaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.BROJ);
+                var existingzaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.broj);
 
                 if (existingzaglavlje != null)
                 {
-                    _logger.LogInformation("Zaglavlje racuna sa brojem" + dto.BROJ + " vec postoji");
-                    throw new InvalidOperationException("Zaglavlje racuna sa brojem" + dto.BROJ + " vec postoji");
+                    _logger.LogInformation("Zaglavlje racuna sa brojem" + dto.broj + " vec postoji");
+                    throw new InvalidOperationException("Zaglavlje racuna sa brojem" + dto.broj + " vec postoji");
                 }
 
                 var zaglavlje = _mapper.Map<Zaglavlje_racuna>(dto);

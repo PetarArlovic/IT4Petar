@@ -1,0 +1,39 @@
+:host {
+    display: block;
+    padding: 2rem;
+  }
+
+  p-table {
+    margin-bottom: 2rem;
+  }
+
+  form {
+    background: #000000;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  :host ::ng-deep .p-table {
+    display: block;
+    height: auto !important;
+  }
+
+  .p-button-lg {
+    font-size: 16px; /* Povećaj veličinu fonta */
+    padding: 10px 20px; /* Povećaj unutarnji razmak */
+  }
+
+  .p-button-info {
+    background-color: #45b817; /* Plava boja za "Uredi" */
+    border-color: #83bb2a;
+  }
+
+  .p-button-danger {
+    background-color: #33a31c; /* Crvena boja za "Izbriši" */
+    border-color: #758132;
+  }
+
+  .p-button-lg span {
+    font-size: 14px; /* Osiguraj da tekst bude dovoljno veliki */
+  }

@@ -63,7 +63,7 @@ namespace POSApi.WebApi.Controllers
         {
 
             var zaglavlje = await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(FindZByBROJ), new { broj = zaglavlje.BROJ }, zaglavlje);
+            return CreatedAtAction(nameof(FindZByBROJ), new { broj = zaglavlje.broj }, zaglavlje);
 
         }
 

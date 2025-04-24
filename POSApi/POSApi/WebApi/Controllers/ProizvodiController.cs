@@ -66,7 +66,7 @@ namespace POSApi.WebApi.Controllers
         {
 
             var proizvod = await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(FindPBySIFRA), new { sifra = proizvod.SIFRA }, proizvod);
+            return CreatedAtAction(nameof(FindPBySIFRA), new { sifra = proizvod.sifra }, proizvod);
 
         }
 

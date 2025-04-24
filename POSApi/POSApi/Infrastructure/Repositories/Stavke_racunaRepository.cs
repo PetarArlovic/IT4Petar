@@ -9,6 +9,11 @@ namespace POSApi.Infrastructure.Repositories
     {
         private readonly AppDbContext _context;
 
+        public Stavke_racunaRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<List<Stavke_racuna?>> GetStavkeByBROJ(int broj)
         {
 

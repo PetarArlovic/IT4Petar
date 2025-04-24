@@ -105,18 +105,18 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var proizvod = await _proizvodiRepo.FindPBySIFRA(dto.SIFRA);
+                var proizvod = await _proizvodiRepo.FindPBySIFRA(dto.sifra);
                 if (proizvod == null)
                 {
-                    _logger.LogWarning("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
-                    throw new Exception("Proizvod sa sifrom " + dto.SIFRA + " ne postoji.");
+                    _logger.LogWarning("Proizvod sa sifrom " + dto.sifra + " ne postoji.");
+                    throw new Exception("Proizvod sa sifrom " + dto.sifra + " ne postoji.");
                 }
 
-                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.BROJ);
+                var zaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.broj);
                 if (zaglavlje == null)
                 {
-                    _logger.LogWarning("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
-                    throw new Exception("Zaglavlje sa brojem " + dto.BROJ + " ne postoji.");
+                    _logger.LogWarning("Zaglavlje sa brojem " + dto.broj + " ne postoji.");
+                    throw new Exception("Zaglavlje sa brojem " + dto.broj + " ne postoji.");
                 }
 
                 var stavke = _mapper.Map<Stavke_racuna>(dto);

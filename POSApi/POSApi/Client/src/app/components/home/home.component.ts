@@ -5,10 +5,11 @@ import { GetProizvodDTO } from '../../models/proizvodi';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { KupciComponent } from '../kupci/kupci.component';
+import { ProizvodiComponent } from '../proizvodi/proizvodi.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, KupciComponent],
+  imports: [ButtonModule, KupciComponent,],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

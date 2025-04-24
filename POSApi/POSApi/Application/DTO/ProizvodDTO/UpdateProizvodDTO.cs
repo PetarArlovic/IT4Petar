@@ -8,26 +8,26 @@ namespace POSApi.Application.DTO.ProizvodDTO
     {
 
         [Required]
-        public int SIFRA { get; set; }
+        public int sifra { get; set; }
 
         [MaxLength(100)]
         [Required]
-        public string NAZIV { get; set; }
+        public string naziv { get; set; }
 
         [Column(TypeName = "nvarchar(30)")]
         [MaxLength(30)]
         [Required]
-        public string JEDINICA_MJERE { get; set; }
+        public string jedinica_mjere { get; set; }
 
         [Precision(20, 2)]
         [Required]
-        public decimal CIJENA { get; set; }
+        public decimal cijena { get; set; }
 
         [Required]
-        public int STANJE { get; set; }
+        public int stanje { get; set; }
 
         [Required]
-        public string PROIZVODSlikaUrl { get; set; }
+        public string proizvodSlikaUrl { get; set; }
 
     }
 }

@@ -66,7 +66,7 @@ namespace POSApi.WebApi.Controllers
         {
 
             var kupac = await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(FindKBySIFRA), new { sifra = kupac.SIFRA }, kupac);
+            return CreatedAtAction(nameof(FindKBySIFRA), new { sifra = kupac.sifra }, kupac);
 
         }
 

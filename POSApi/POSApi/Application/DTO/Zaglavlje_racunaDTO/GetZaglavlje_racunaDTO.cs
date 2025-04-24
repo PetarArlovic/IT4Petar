@@ -6,15 +6,15 @@ namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
     {
 
         [Required]
-        public int BROJ { get; set; }
+        public int broj { get; set; }
 
         [Required]
-        public DateTime DATUM { get; set; } = DateTime.Now;
+        public DateTime datum { get; set; } = DateTime.Now;
 
         [MaxLength(100)]
-        public string NAPOMENA { get; set; }
+        public string napomena { get; set; }
 
-        public int KUPACId { get; set; }
+        public int kupacId { get; set; }
 
     }
 }

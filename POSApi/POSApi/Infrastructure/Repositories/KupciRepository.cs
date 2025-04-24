@@ -9,6 +9,11 @@ namespace POSApi.Infrastructure.Repositories
     {
         private readonly AppDbContext _context;
 
+        public KupciRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<Kupac?> FindKBySIFRA(int sifra)
         {
             return await _context.KUPAC.FirstOrDefaultAsync(k => k.SIFRA == sifra);

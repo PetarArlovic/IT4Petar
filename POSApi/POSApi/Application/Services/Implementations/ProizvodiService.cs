@@ -79,12 +79,12 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-                var existingproizvod = await _proizvodiRepo.FindPBySIFRA(dto.SIFRA);
+                var existingproizvod = await _proizvodiRepo.FindPBySIFRA(dto.sifra);
 
                 if (existingproizvod != null)
                 {
-                    _logger.LogInformation("Proizvod sa sifrom" + dto.SIFRA + " vec postoji");
-                    throw new InvalidOperationException("Proizvod sa sifrom" + dto.SIFRA + " vec postoji");
+                    _logger.LogInformation("Proizvod sa sifrom" + dto.sifra + " vec postoji");
+                    throw new InvalidOperationException("Proizvod sa sifrom" + dto.sifra + " vec postoji");
                 }
 
                 var proizvod = _mapper.Map<Proizvod>(dto);

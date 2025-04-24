@@ -1,63 +1,82 @@
-<p-table [value]="proizvodi" [tableStyle]="{ 'min-width': '50rem' }">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Sifra</th>
-            <th>Naziv</th>
-            <th>Jedinica mjere</th>
-            <th>Cijena</th>
-            <th>Stanje</th>
-            <th>Slika</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-proizvod>
-        <tr>
-            <td>{{ proizvod.SIFRA }}</td>
-            <td>{{ proizvod.NAZIV }}</td>
-            <td>{{ proizvod.JEDINICA_MJERE }}</td>
-            <td>{{ proizvod.CIJENA }}</td>
-            <td>{{ proizvod.STANJE }}</td>
-            <td><img [src]="proizvod.PROIZVODSlikaUrl" alt="{{proizvod.NAZIV}}" width="50"></td>
-            <td>
-                <button pButton type="button1" icon="pi pi pencil" (click)="editProizvod(proizvod)"></button>
-                <button pButton type="button2" icon="pi pi pencil" (click)="deleteProizvod(proizvod.SIFRA)"></button>
-            </td>
-        </tr>
-    </ng-template>
-</p-table>
-
-<h2>{{selectedProizvod ? 'Ažuriraj proizvod' : 'Dodaj proizvod' }}</h2>
-
-<form [formGroup]="proizvodForm" (ngSubmit)="saveProizvod()">
-    <div class="p-fluid">
-        <div class="p-field">
-            <label for="SIFRA">Sifra</label>
-            <input id="SIFRA" formControlName="SIFRA" pInputText/>
-        </div>
-
-        <div class="p-field">
-            <label for="NAZIV">Naziv</label>
-            <input id="NAZIV" formControlName="NAZIV" pInputText/>
-        </div>
-
-        <div class="p-field">
-            <label for="JEDINICA_MJERE">Jedinica mjere</label>
-            <input id="JEDINICA_MJERE" formControlName="JEDINICA_MJERE" pInputText/>
-        </div>
-
-        <div class="p-field">
-            <label for="CIJENA">Cijena</label>
-            <input id="CIJENA" formControlName="CIJENA" pInputText/>
-        </div>
-
-        <div class="p-field">
-            <label for="STANJE">Stanje</label>
-            <input id="STANJE" formControlName="STANJE" pInputText/>
-        </div>
-
-        <div class="p-field">
-            <label for="PROIZVODSlikaUrl">URL Slike</label>
-            <input id="PROIZVODSlikaUrl" formControlName="PROIZVODSlikaUrl" pInputText/>
-        </div>
+<div class="p-m-4">
+    <div class="flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Popis proizvoda</h2>
+        <button pButton label="Dodaj proizvod" icon="pi pi-plus" class="p-button-success" (click)="openNew()"></button>
     </div>
-</form>
-<!--  ' '  <div>  []  {}  || -->
+
+    <p-table [value]="proizvodi"
+    [paginator]="false"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [responsiveLayout]="'scroll'"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    class="p-datatable-gridlines">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Sifra</th>
+                <th>Naziv</th>
+                <th>Jedinica mjere</th>
+                <th>Cijena</th>
+                <th>Stanje</th>
+                <th>Slika</th>
+                <th>Akcije</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-proizvod>
+            <tr>
+                <td>{{ proizvod.sifra }}</td>
+                <td>{{ proizvod.naziv }}</td>
+                <td>{{ proizvod.jedinica_mjere }}</td>
+                <td>{{ proizvod.cijena }}</td>
+                <td>{{ proizvod.stanje }}</td>
+                <td><img [src]="proizvod.proizvodSlikaUrl" alt="{{proizvod.naziv}}" width="50"></td>
+                <td>
+                    <button pButton type="button" icon="pi pi pencil" (click)="editProizvod(proizvod)" label="Uredi" class="p-button-lg p-button-info"></button>
+                    <button pButton type="button" icon="pi pi trash" (click)="deleteProizvod(proizvod.sifra)" label="Izbriši" class="p-button-lg p-button-danger"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog header="{{ selectedProizvod ? 'Uredi proizvod' : 'Dodaj proizvod' }}" [(visible)]="proizvodDialog" [modal]="true" [style]="{width: '450px'}">
+    <form [formGroup]="proizvodForm" (ngSubmit)="saveProizvod()">
+            <div class="p-field">
+                <label for="sifra">Sifra</label>
+                <input id="sifra" formControlName="sifra" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="naziv">Naziv</label>
+                <input id="naziv" formControlName="naziv" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="jedinica_mjere">Jedinica mjere</label>
+                <input id="jedinica_mjere" formControlName="jedinica_mjere" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="cijena">Cijena</label>
+                <input id="cijena" formControlName="cijena" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="stanje">Stanje</label>
+                <input id="stanje" formControlName="stanje" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="proizvodSlikaUrl">URL Slike</label>
+                <input id="proizvodSlikaUrl" formControlName="proizvodSlikaUrl" pInputText/>
+            </div>
+
+            <div class="flex justify-content-end gap-2 mt-3">
+                <button pButton label="Odustani" class="p-button-text" type="button" (click)="hideDialog()"></button>
+                <button pButton label="Spremi" [disabled]="proizvodForm.invalid" type="submit"></button>
+            </div>
+    </form>
+</p-dialog>
+
+<!--  ' '  <div>  []  {}  || -->  <!---->

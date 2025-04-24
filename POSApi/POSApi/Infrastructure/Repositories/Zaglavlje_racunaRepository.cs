@@ -9,6 +9,11 @@ namespace POSApi.Infrastructure.Repositories
     {
         private readonly AppDbContext _context;
 
+        public Zaglavlje_racunaRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
         public async Task<Zaglavlje_racuna?> FindZByBROJ(int broj)
         {
             return await _context.ZAGLAVLJE_RACUNA.FirstOrDefaultAsync(k => k.BROJ == broj);

@@ -6,19 +6,19 @@ namespace POSApi.Application.DTO.KupacDTO
     {
 
         [Required]
-        public int SIFRA { get; set; }
+        public int sifra { get; set; }
 
         [MaxLength(100)]
         [Required]
-        public string NAZIV { get; set; }
+        public string naziv { get; set; }
 
         [MaxLength(100)]
         [Required]
-        public string ADRESA { get; set; }
+        public string adresa { get; set; }
 
         [MaxLength(100)]
         [Required]
-        public string MJESTO { get; set; }
+        public string mjesto { get; set; }
 
     }
 }

@@ -7,24 +7,24 @@ namespace POSApi.Application.DTO.Stavke_racunaDTO
     {
 
         [Required]
-        public int KOLICINA { get; set; }
+        public int kolicina { get; set; }
 
         [Required]
         [Precision(20, 2)]
-        public decimal CIJENA { get; set; }
+        public decimal cijena { get; set; }
 
         [Precision(20, 2)]
-        public decimal POPUST { get; set; }
+        public decimal popust { get; set; }
 
         [Precision(20, 2)]
-        public decimal IZNOS_POPUSTA => CIJENA * KOLICINA * (POPUST / 100);
+        public decimal iznos_popusta => cijena * kolicina * (popust / 100);
 
         [Precision(20, 2)]
-        public decimal VRIJEDNOST => (CIJENA * KOLICINA) - IZNOS_POPUSTA;
+        public decimal vrijednost => (cijena * kolicina) - iznos_popusta;
 
-        public int BROJ { get; set; }
+        public int broj { get; set; }
 
-        public int SIFRA { get; set; }
+        public int sifra { get; set; }
 
     }
 }

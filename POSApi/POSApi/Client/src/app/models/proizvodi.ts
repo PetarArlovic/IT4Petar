@@ -1,26 +1,26 @@
 export interface CreateProizvodDTO {
-    SIFRA: number;
-    NAZIV: string;
-    JEDINICA_MJERE: string;
-    CIJENA: number;
-    STANJE: number;
-    PROIZVODSlikaUrl: string;
+    sifra: number;
+    naziv: string;
+    jedinica_mjere: string;
+    cijena: number;
+    stanje: number;
+    proizvodSlikaUrl: string;
 }
 
 export interface GetProizvodDTO {
-    SIFRA: number;
-    NAZIV: string;
-    JEDINICA_MJERE: string;
-    CIJENA: number;
-    STANJE: number;
-    PROIZVODSlikaUrl: string;
+    sifra: number;
+    naziv: string;
+    jedinica_mjere: string;
+    cijena: number;
+    stanje: number;
+    proizvodSlikaUrl: string;
 }
 
 export interface UpdateProizvodDTO {
-    SIFRA: number;
-    NAZIV: string;
-    JEDINICA_MJERE: string;
-    CIJENA: number;
-    STANJE: number;
-    PROIZVODSlikaUrl: string;
+    sifra: number;
+    naziv: string;
+    jedinica_mjere: string;
+    cijena: number;
+    stanje: number;
+    proizvodSlikaUrl: string;
 }

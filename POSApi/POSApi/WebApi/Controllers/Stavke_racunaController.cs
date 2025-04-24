@@ -79,7 +79,7 @@ namespace POSApi.WebApi.Controllers
         {
 
             var stavke = await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(GetStavkeByBROJ), new { broj = stavke.BROJ }, stavke);
+            return CreatedAtAction(nameof(GetStavkeByBROJ), new { broj = stavke.broj }, stavke);
 
         }
 

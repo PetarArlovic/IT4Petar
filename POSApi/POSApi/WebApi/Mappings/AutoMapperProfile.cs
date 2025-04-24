@@ -27,7 +27,7 @@ namespace POSApi.WebApi.Mappings
 
             CreateMap<Stavke_racuna, CreateStavke_racunaDTO>().ReverseMap();
             CreateMap<Stavke_racuna, Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>()
-                .ForMember(dest => dest.BROJ, opt => opt.MapFrom(src => src.ZAGLAVLJE_RACUNA.BROJ));
+                .ForMember(dest => dest.broj, opt => opt.MapFrom(src => src.ZAGLAVLJE_RACUNA.BROJ));
             CreateMap<Stavke_racuna, UpdateStavke_racunaDTO>().ReverseMap();
 
         }

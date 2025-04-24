@@ -77,12 +77,12 @@ namespace POSApi.Application.Services.Implementations
             try
             {
             
-                var existingKupac = await _kupacRepo.FindKBySIFRA(dto.SIFRA);
+                var existingKupac = await _kupacRepo.FindKBySIFRA(dto.sifra);
 
                 if (existingKupac != null)
                 {
                     _logger.LogInformation("Kupac sa sifrom vec postoji.");
-                    throw new InvalidOperationException("Kupac sa sifrom " + dto.SIFRA + " već postoji.");
+                    throw new InvalidOperationException("Kupac sa sifrom " + dto.sifra + " već postoji.");
                 }
 
                 var kupac = _mapper.Map<Kupac>(dto);

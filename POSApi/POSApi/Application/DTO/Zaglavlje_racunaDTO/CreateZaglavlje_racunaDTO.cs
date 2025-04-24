@@ -6,12 +6,12 @@ namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
     {
 
         [Required]
-        public int BROJ { get; set; }
+        public int broj { get; set; }
 
         [MaxLength(100)]
-        public string NAPOMENA { get; set; }
+        public string napomena { get; set; }
 
-        public int KUPACId { get; set; }
+        public int kupacId { get; set; }
 
     }
 }
