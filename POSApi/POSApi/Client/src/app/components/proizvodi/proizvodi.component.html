@@ -18,7 +18,7 @@
             <td>{{ proizvod.STANJE }}</td>
             <td><img [src]="proizvod.PROIZVODSlikaUrl" alt="{{proizvod.NAZIV}}" width="50"></td>
             <td>
-                <button pButton type="button1" icon="pi pi pencil" (click)="updateProizvod(proizvod.SIFRA, proizvod)"></button>
+                <button pButton type="button1" icon="pi pi pencil" (click)="editProizvod(proizvod)"></button>
                 <button pButton type="button2" icon="pi pi pencil" (click)="deleteProizvod(proizvod.SIFRA)"></button>
             </td>
         </tr>

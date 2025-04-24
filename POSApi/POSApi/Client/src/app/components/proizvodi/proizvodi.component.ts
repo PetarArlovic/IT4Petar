@@ -75,6 +75,11 @@ export class ProizvodiComponent implements OnInit{
       this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je obrisan.' });
     })
   }
+
+  editProizvod(proizvod: GetProizvodDTO): void{
+    this.selectedProizvod = proizvod;
+    this.proizvodForm.patchValue(proizvod);
+  }
 }
 
 
