@@ -12,12 +12,25 @@ import { KupciComponent } from '../kupci/kupci.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+
+export class HomeComponent implements OnInit {
+
+  proizvodi: GetProizvodDTO[] = [];
 
   constructor (
+    private proizvodiService: ProizvodiService) {}
 
+  ngOnInit(): void {
+      this.loadProizvodi
+  }
 
-  ) {}
+  loadProizvodi(): void {
+    this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
+      console.log('Dohvaceni proizvodi: ', proizvodi);
+      this.proizvodi = proizvodi;
+    });
+  }
+
 }
 
 

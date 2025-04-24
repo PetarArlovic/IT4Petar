@@ -14,7 +14,7 @@ import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CardModule,InputTextModule,ReactiveFormsModule, ButtonModule,RouterModule,CommonModule, ToastModule],
+  imports: [CardModule, InputTextModule, ReactiveFormsModule, ButtonModule, RouterModule, CommonModule, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

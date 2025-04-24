@@ -3,10 +3,13 @@ import { CreateProizvodDTO, GetProizvodDTO, UpdateProizvodDTO } from '../../mode
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProizvodiService } from '../../core/services/proizvod.service';
 import { MessageService } from 'primeng/api';
+import { TableModule } from 'primeng/table';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-proizvodi',
-  imports: [],
+  imports: [TableModule, ReactiveFormsModule, ButtonModule],
   templateUrl: './proizvodi.component.html',
   styleUrl: './proizvodi.component.scss'
 })
@@ -29,7 +32,7 @@ export class ProizvodiComponent implements OnInit{
     this.proizvodForm = this.fb.group({
       SIFRA: [null, Validators.required],
       NAZIV: ['',[Validators.required, Validators.maxLength(100)]],
-      JEDINICA_MJERE: [['', [Validators.required, Validators.maxLength(100)]]],
+      JEDINICA_MJERE: ['', [Validators.required, Validators.maxLength(100)]],
       CIJENA: [null, [Validators.required, Validators.minLength(0)]],
       STANJE: [null, [Validators.required, Validators.minLength(0)]],
       PROIZVODSlikaUrl: ['', Validators.required]
@@ -73,11 +76,6 @@ export class ProizvodiComponent implements OnInit{
     })
   }
 }
-
-
-
-
-
 
 
 //<!--  ' '  <div>  []  {}  || -->

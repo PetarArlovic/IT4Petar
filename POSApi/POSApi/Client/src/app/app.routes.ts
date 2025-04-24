@@ -4,6 +4,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ButtonDemo } from './button-test/button-test.component';
 import { authGuard } from './guards/auth.guard';
+import { ProizvodiComponent } from './components/proizvodi/proizvodi.component';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,11 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [authGuard]
+    },
+
+    {
+    path: 'Proizvodi',
+    component: ProizvodiComponent
     },
 
     {

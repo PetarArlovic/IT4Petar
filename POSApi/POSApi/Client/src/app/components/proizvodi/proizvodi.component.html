@@ -1,1 +1,63 @@
-<p>proizvodi works!</p>
+<p-table [value]="proizvodi" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Sifra</th>
+            <th>Naziv</th>
+            <th>Jedinica mjere</th>
+            <th>Cijena</th>
+            <th>Stanje</th>
+            <th>Slika</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-proizvod>
+        <tr>
+            <td>{{ proizvod.SIFRA }}</td>
+            <td>{{ proizvod.NAZIV }}</td>
+            <td>{{ proizvod.JEDINICA_MJERE }}</td>
+            <td>{{ proizvod.CIJENA }}</td>
+            <td>{{ proizvod.STANJE }}</td>
+            <td><img [src]="proizvod.PROIZVODSlikaUrl" alt="{{proizvod.NAZIV}}" width="50"></td>
+            <td>
+                <button pButton type="button1" icon="pi pi pencil" (click)="updateProizvod(proizvod.SIFRA, proizvod)"></button>
+                <button pButton type="button2" icon="pi pi pencil" (click)="deleteProizvod(proizvod.SIFRA)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<h2>{{selectedProizvod ? 'Ažuriraj proizvod' : 'Dodaj proizvod' }}</h2>
+
+<form [formGroup]="proizvodForm" (ngSubmit)="saveProizvod()">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="SIFRA">Sifra</label>
+            <input id="SIFRA" formControlName="SIFRA" pInputText/>
+        </div>
+
+        <div class="p-field">
+            <label for="NAZIV">Naziv</label>
+            <input id="NAZIV" formControlName="NAZIV" pInputText/>
+        </div>
+
+        <div class="p-field">
+            <label for="JEDINICA_MJERE">Jedinica mjere</label>
+            <input id="JEDINICA_MJERE" formControlName="JEDINICA_MJERE" pInputText/>
+        </div>
+
+        <div class="p-field">
+            <label for="CIJENA">Cijena</label>
+            <input id="CIJENA" formControlName="CIJENA" pInputText/>
+        </div>
+
+        <div class="p-field">
+            <label for="STANJE">Stanje</label>
+            <input id="STANJE" formControlName="STANJE" pInputText/>
+        </div>
+
+        <div class="p-field">
+            <label for="PROIZVODSlikaUrl">URL Slike</label>
+            <input id="PROIZVODSlikaUrl" formControlName="PROIZVODSlikaUrl" pInputText/>
+        </div>
+    </div>
+</form>
+<!--  ' '  <div>  []  {}  || -->
