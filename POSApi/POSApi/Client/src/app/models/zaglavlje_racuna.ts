@@ -1,18 +1,18 @@
 export interface CreateZaglavlje_racunaDTO {
-    BROJ: number;
-    NAPOMENA: string;
-    KUPACId: number;
+    broj: number;
+    napomena: string;
+    kupacId: number;
 }
 
 export interface GetZaglavlje_racunaDTO {
-    BROJ: number;
-    NAPOMENA: string;
-    KUPACId: number;
-    DATUM: Date;
+    broj: number;
+    napomena: string;
+    kupacId: number;
+    datum: Date;
 }
 
 export interface UpdateZaglavlje_racunaDTO {
-    BROJ: number;
-    NAPOMENA: string;
-    KUPACId: number;
+    broj: number;
+    napomena: string;
+    kupacId: number;
 }

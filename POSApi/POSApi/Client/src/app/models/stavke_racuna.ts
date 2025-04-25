@@ -1,30 +1,30 @@
 export interface CreateStavke_racunaDTO {
-    KOLICINA: number;
-    CIJENA: number;
-    POPUST: number;
-    IZNOS_POPUSTA: number;
-    VRIJEDNOST: number;
-    BROJ: number;
-    SIFRA: number;
+    kolicina: number;
+    cijena: number;
+    popust: number;
+    iznos_popusta: number;
+    vrijednost: number;
+    broj: number;
+    sifra: number;
 }
 
 export interface GetStavke_racunaDTO {
-    KOLICINA: number;
-    CIJENA: number;
-    POPUST: number;
-    IZNOS_POPUSTA: number;
-    VRIJEDNOST: number;
-    BROJ: number;
-    PROIZVODId: number;
+    kolicina: number;
+    cijena: number;
+    popust: number;
+    iznos_popusta: number;
+    vrijednost: number;
+    broj: number;
+    proizvodId: number;
 }
 
 export interface UpdateStavke_racunaDTO {
-    KOLICINA: number;
-    CIJENA: number;
-    POPUST: number;
-    IZNOS_POPUSTA: number;
-    VRIJEDNOST: number;
-    BROJ: number;
-    PROIZVODId: number;
-    ZAGLAVLJE_RACUNAId: number;
+    kolicina: number;
+    cijena: number;
+    popust: number;
+    iznos_popusta: number;
+    vrijednost: number;
+    broj: number;
+    proizvodId: number;
+    zaglavlje_racunaId: number;
 }
