@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateProizvodDTO, GetProizvodDTO, UpdateProizvodDTO } from '../../models/proizvodi';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProizvodiService } from '../../core/services/proizvod.service';
 import { MessageService } from 'primeng/api';
 import { TableModule } from 'primeng/table';
@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-proizvodi',
@@ -20,8 +21,9 @@ import { CommonModule } from '@angular/common';
 export class ProizvodiComponent implements OnInit{
 
   proizvodi: GetProizvodDTO[] = [];
-  selectedProizvod: GetProizvodDTO | null = null;;
+  selectedProizvod: GetProizvodDTO | null = null;
   proizvodForm!: FormGroup;
+  searchControl = new FormControl;
 
   constructor (
     private proizvodiService: ProizvodiService,
@@ -40,9 +42,23 @@ export class ProizvodiComponent implements OnInit{
       stanje: [null, [Validators.required, Validators.minLength(0)]],
       proizvodSlikaUrl: ['', Validators.required]
     });
-  }
 
-  
+    //Search bar.
+    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe((sifra: string) => {
+      if (sifra && sifra.trim() !== '') {
+        const sifraBroj = Number(sifra)
+        if (!isNaN(sifraBroj)){
+          this.proizvodiService.findProizvodBySifra(sifraBroj).subscribe({
+            next: (proizvod) => this.proizvodi = [proizvod],
+            error: () => this.proizvodi = []
+        });
+        }
+        else {
+          this.loadProizvodi();
+        }
+      }
+    });
+  }
 
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {

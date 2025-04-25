@@ -4,6 +4,16 @@
         <button pButton label="Dodaj proizvod" icon="pi pi-plus" class="p-button-success" (click)="openNew()"></button>
     </div>
 
+    <div class="p-inputgroup mb-3">
+        <input
+        type="text"
+        pInputText
+        placeholder="Pretraži po šifri"
+        [formControl]="searchControl"
+        />
+        <button pButton icon="pi pi-search" class="p-button-primary"></button>
+    </div>
+
     <p-table [value]="proizvodi"
     [paginator]="false"
     [scrollable]="true"
