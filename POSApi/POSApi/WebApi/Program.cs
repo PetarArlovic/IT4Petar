@@ -39,6 +39,7 @@ builder.Services.AddScoped<IKupciRepository, KupciRepository>();
 builder.Services.AddScoped<IStavke_racunaRepository, Stavke_racunaRepository>();
 builder.Services.AddScoped<IZaglavlje_racunaRepository, Zaglavlje_racunaRepository>();
 
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IProizvodiService, ProizvodiService>();
 builder.Services.AddScoped<IKupciService, KupciService>();
 builder.Services.AddScoped<IStavke_racunaService, Stavke_racunaService>();

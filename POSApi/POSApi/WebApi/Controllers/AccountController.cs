@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using POSApi.Application.DTO.UserDTO;
+using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 using POSApi.Infrastructure.Data;
 using System.Collections.Generic;
@@ -19,40 +22,25 @@ namespace POSApi.WebApi.Controllers
     public class AccountController : ControllerBase
     {
 
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly IConfiguration _config;
-        private readonly ILogger<User> _logger;
+        
+        private readonly IAccountService _accountService;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, ILogger<User> logger)
+        public AccountController(IAccountService accountService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _config = config;
-            _logger = logger;
+            _accountService = accountService;
         }
 
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDTO dto)
         {
-            var user = new User 
-            {
-                UserName = dto.EMAIL,
-                Email = dto.EMAIL,
-                Ime = dto.IME,
-                Prezime = dto.PREZIME
-            };
 
-            var result = await _userManager.CreateAsync(user, dto.PASSWORD);
+            var user = await _accountService.RegisterUserAsync(dto);
 
-            if (result.Succeeded)
-            {
-                await _userManager.AddToRoleAsync(user, "User");
-                return Ok("User registered.");
-            }
+            if (user.Succeeded)
+                return Ok(new { message = "User registered successfully." });
 
-            return BadRequest(result.Errors);
+            return BadRequest(user.Errors);
 
         }
 
@@ -60,52 +48,15 @@ namespace POSApi.WebApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO dto)
         {
-            var user = await _userManager.FindByEmailAsync(dto.EMAIL);
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, dto.PASSWORD))
-            {
-                var token = await CreateJWTokenAsync(user);
-                _logger.LogWarning("Pokušaj prijave s nevažećim podacima.");
-                return Ok(new { token });
-            }
+            var token = await _accountService.LogInUserAsync(dto);
 
-            _logger.LogWarning("Invalid credentials for user: {Email}", dto.EMAIL);
-            return Unauthorized("Invalid credentials.");
+            if (token == null)
+                return Unauthorized(new { message = "Invalid email or password." });
 
-        }
+            return Ok(new { token });
 
-
-        private async Task<string> CreateJWTokenAsync(User user)
-        {
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _config["Jwt:Issuer"],
-                audience: _config["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: creds
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-
-        }     
+        }   
     }
 }        
 

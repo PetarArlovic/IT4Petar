@@ -186,7 +186,8 @@ namespace POSApi.Migrations
                     NAZIV = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ADRESA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MJESTO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -197,6 +198,11 @@ namespace POSApi.Migrations
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_KUPAC_AspNetUsers_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -298,7 +304,13 @@ namespace POSApi.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_KUPAC_UserId",
                 table: "KUPAC",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_KUPAC_UserId1",
+                table: "KUPAC",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PROIZVOD_SIFRA",

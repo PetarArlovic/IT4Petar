@@ -12,7 +12,7 @@ using POSApi.Infrastructure.Data;
 namespace POSApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250426143517_First")]
+    [Migration("20250426162744_First")]
     partial class First
     {
         /// <inheritdoc />
@@ -188,12 +188,18 @@ namespace POSApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SIFRA")
                         .IsUnique();
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("KUPAC");
                 });
@@ -431,10 +437,14 @@ namespace POSApi.Migrations
             modelBuilder.Entity("POSApi.Domain.Models.Kupac", b =>
                 {
                     b.HasOne("POSApi.Domain.Models.User", "User")
-                        .WithMany("Kupci")
-                        .HasForeignKey("UserId")
+                        .WithOne()
+                        .HasForeignKey("POSApi.Domain.Models.Kupac", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("POSApi.Domain.Models.User", null)
+                        .WithMany("Kupci")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
