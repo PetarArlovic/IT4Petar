@@ -18,8 +18,8 @@ getAllStavke(): Observable<GetStavke_racunaDTO[]> {
   return this.http.get<GetStavke_racunaDTO[]>(`${this.baseUrl}/api/stavke_racuna`);
 }
 
-addStavkeRacuna(stavke: CreateStavke_racunaDTO): Observable<CreateStavke_racunaDTO>{
-  return this.http.post<CreateStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna`, stavke);
+addStavkeRacuna(stavke: CreateStavke_racunaDTO): Observable<GetStavke_racunaDTO>{
+  return this.http.post<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna`, stavke);
 }
 
 updateStavkeRacuna(broj: number, stavke: UpdateStavke_racunaDTO): Observable<void>{

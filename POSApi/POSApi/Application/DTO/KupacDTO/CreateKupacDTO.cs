@@ -20,5 +20,7 @@ namespace POSApi.Application.DTO.KupacDTO
         [Required]
         public string mjesto { get; set; }
 
+        public string UserId { get; set; }
+
     }
 }

@@ -16,8 +16,8 @@ export class ZaglavljeRacunaService {
     return this.http.get<GetZaglavlje_racunaDTO[]>(`${this.baseUrl}/api/zaglavlje_racuna`);
   }
 
-  addZaglavljeRacuna(zaglavlje: CreateZaglavlje_racunaDTO): Observable<CreateZaglavlje_racunaDTO>{
-    return this.http.post<CreateZaglavlje_racunaDTO>(`${this.baseUrl}/api/zaglavlje_racuna`, zaglavlje);
+  addZaglavljeRacuna(zaglavlje: CreateZaglavlje_racunaDTO): Observable<GetZaglavlje_racunaDTO>{
+    return this.http.post<GetZaglavlje_racunaDTO>(`${this.baseUrl}/api/zaglavlje_racuna`, zaglavlje);
   }
 
   updateZaglavljeRacuna(broj: number, zaglavlje: UpdateZaglavlje_racunaDTO): Observable<void>{

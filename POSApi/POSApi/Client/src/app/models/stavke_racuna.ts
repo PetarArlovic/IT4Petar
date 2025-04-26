@@ -6,6 +6,7 @@ export interface CreateStavke_racunaDTO {
     vrijednost: number;
     broj: number;
     sifra: number;
+    proizvodId: number;
 }
 
 export interface GetStavke_racunaDTO {
