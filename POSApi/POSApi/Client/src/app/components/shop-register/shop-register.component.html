@@ -1,1 +1,77 @@
-<p>shop-register works!</p>
+<p-card header="Kreiraj Račun">
+    <div class="p-grid">
+        <div class="p-col-12">
+            <form [formGroup]="kupacForm" (ngSubmit)="CreateNewBill()">
+            <!-- Polja za kupca -->
+            <div class="p-field">
+                <label for="sifra">Šifra:</label>
+                <input id="sifra" formControlName="sifra" pInputText />
+            </div>
+
+            <div class="p-field">
+                <label for="naziv">Naziv:</label>
+                <input id="naziv" formControlName="naziv" pInputText />
+            </div>
+
+            <div class="p-field">
+                <label for="adresa">Adresa:</label>
+                <input id="adresa" formControlName="adresa" pInputText />
+            </div>
+
+            <div class="p-field">
+                <label for="mjesto">Mjesto:</label>
+                <input id="mjesto" formControlName="mjesto" pInputText />
+            </div>
+
+            <div class="p-field">
+                <label for="napomena">Napomena:</label>
+                <input id="napomena" formControlName="napomena" pInputText />
+            </div>
+
+            <p-button label="Kreiraj Račun" type="submit" [disabled]="!kupacForm.valid"></p-button>
+            </form>
+        </div>
+    </div>
+
+        <div class="p-grid">
+            <div class="p-col-12">
+            <p-table [value]="stavke">
+                <ng-template pTemplate="header">
+                <tr>
+                    <th>Proizvod</th>
+                    <th>Cijena</th>
+                    <th>Količina</th>
+                    <th>Popust</th>
+                    <th>Akcija</th>
+                </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-stavka>
+                <tr>
+                    <td>{{stavka.proizvodId}}</td>
+                    <td>{{stavka.cijena}}</td>
+                    <td>{{stavka.kolicina}}</td>
+                    <td>{{stavka.popust}}%</td>
+                    <td>
+                    <p-button label="Dodaj" (click)="addStavkaToRegister(stavka)"></p-button>
+                    </td>
+                </tr>
+                </ng-template>
+            </p-table>
+            </div>
+        </div>
+
+        <div class="p-mt-3">
+            <h4>Ukupno: {{totalCost}}</h4>
+        </div>
+
+        <!-- Dijalog za napomenu -->
+        <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" header="Potvrda transakcije">
+            <div>
+            <textarea [(ngModel)]="napomena" pInputText rows="5" placeholder="Unesite napomenu"></textarea>
+            </div>
+            <p-footer>
+            <p-button label="Potvrdi" icon="pi pi-check" (click)="confirmTransaction()"></p-button>
+            <p-button label="Otkaži" icon="pi pi-times" (click)="cancelTransaction()"></p-button>
+            </p-footer>
+        </p-dialog>
+        </p-card>

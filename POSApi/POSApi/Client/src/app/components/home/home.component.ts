@@ -6,10 +6,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { KupciComponent } from '../kupci/kupci.component';
 import { ProizvodiComponent } from '../proizvodi/proizvodi.component';
+import { ShopRegisterComponent } from '../shop-register/shop-register.component';
+import { CardModule } from 'primeng/card';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, KupciComponent,],
+  imports: [ButtonModule, KupciComponent, ShopRegisterComponent, CardModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

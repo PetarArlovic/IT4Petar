@@ -33,7 +33,9 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
       return router.createUrlTree(['/login']);
     }
 
-  } catch (error) {
+  }
+
+  catch (error) {
     console.error('Greška prilikom dekodiranja tokena:', error);
     return router.createUrlTree(['/login']);
   }
