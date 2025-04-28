@@ -10,6 +10,9 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { debounceTime } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
+import { DecodedToken } from '../../models/decodeToken';
 
 @Component({
   selector: 'app-proizvodi',
@@ -28,11 +31,13 @@ export class ProizvodiComponent implements OnInit{
   constructor (
     private proizvodiService: ProizvodiService,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
 
   ) {}
 
   ngOnInit(): void {
+
     this.loadProizvodi();
     this.proizvodForm = this.fb.group({
       sifra: [null, Validators.required],

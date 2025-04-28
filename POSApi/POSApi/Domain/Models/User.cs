@@ -11,7 +11,5 @@ namespace POSApi.Domain.Models
 
         public string Prezime { get; set; }
 
-        public ICollection<Kupac> Kupci { get; set; }
-
     }
 }

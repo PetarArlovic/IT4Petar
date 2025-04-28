@@ -51,12 +51,6 @@ namespace POSApi.Infrastructure.Data
                 .WithMany(z => z.STAVKE_RACUNA)
                 .HasForeignKey(s => s.ZAGLAVLJE_RACUNAId);
 
-            modelBuilder.Entity<Kupac>()
-                .HasOne(k => k.User)
-                .WithOne()
-                .HasForeignKey<Kupac>(k => k.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
         }
     }
 }

@@ -34,7 +34,7 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<(bool Succeeded, IEnumerable<IdentityError> Errors)> RegisterUserAsync([FromBody] RegisterDTO dto)
+        public async Task<(bool Succeeded, IEnumerable<IdentityError> Errors)> RegisterUserAsync(RegisterDTO dto)
         {
             var user = new User
             {
@@ -49,18 +49,6 @@ namespace POSApi.Application.Services.Implementations
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, "User");
-
-                var kupac = new Kupac
-                {
-                    NAZIV = $"{dto.IME} {dto.PREZIME}",
-                    ADRESA = "_",
-                    MJESTO = "_",
-                    SIFRA = new Random().Next(1000, 9999),
-                    UserId = user.Id
-                };
-
-                _context.KUPAC.Add(kupac);
-                await _context.SaveChangesAsync();
             }
 
             return (result.Succeeded, result.Errors);

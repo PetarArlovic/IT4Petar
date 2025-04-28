@@ -6,6 +6,9 @@ import { StavkeRacunaService } from '../../core/services/stavke-racuna.service';
 import { ZaglavljeRacunaService } from '../../core/services/zaglavlje-racuna.service';
 import { getLocaleFirstDayOfWeek } from '@angular/common';
 import { CreateZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
+import { KupciService } from '../../core/services/kupci.service';
+import { FormBuilder } from '@angular/forms';
+import { GetKupacDTO } from '../../models/kupci';
 
 @Component({
   selector: 'app-shop-register',
@@ -17,17 +20,20 @@ import { CreateZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
 export class ShopRegisterComponent implements OnInit {
   register: shopRegister = new shopRegister();
   stavke: GetStavke_racunaDTO[] = [];
-  broj?: number;
+  brojRacuna?: number;
+  kupci: GetKupacDTO[] = [];
 
   zaglavlje: CreateZaglavlje_racunaDTO = {
-    datum: new Date(),
-    kupacId: 1,
-    napomena: 'Napomena'
+    broj: 0,
+    kupacId: 0,
+    napomena: ''
   }
 
   constructor(
     private stavkeRacunaService: StavkeRacunaService,
-    private zaglavljeRacunaService: ZaglavljeRacunaService
+    private zaglavljeRacunaService: ZaglavljeRacunaService,
+    private kupciService: KupciService,
+    private fb: FormBuilder
   ){}
 
   ngOnInit(): void {
@@ -39,6 +45,15 @@ export class ShopRegisterComponent implements OnInit {
         console.error('Greška prilikom dohvaćanja stavki:', err);
       }
     });
+
+    this.kupciService.getAllKupci().subscribe({
+      next: (data) => {
+        this.kupci = data;
+      },
+      error: (err) => {
+        console.error('Greška prilikom dohvaćanja kupaca:', err);
+      }
+    });
   }
 
 
@@ -48,9 +63,9 @@ export class ShopRegisterComponent implements OnInit {
   }
 
   CreateNewBill(): void {
-    this.zaglavljeRacunaService.addZaglavljeRacuna(novoZaglavlje).subscribe((result) => {
+    this.zaglavljeRacunaService.addZaglavljeRacuna(this.zaglavlje).subscribe((result) => {
       this.brojRacuna = result.broj;
-      this.addStavkaToRegister();
+      this.addStavkeToRacun();
     });
   }
 
@@ -58,13 +73,14 @@ export class ShopRegisterComponent implements OnInit {
     if (!this.brojRacuna) return
       this.register.stavke.forEach((stavka) => {
         const novaStavka: CreateStavke_racunaDTO = {
-          broj: this.broj!,
+          broj: this.brojRacuna!,
           kolicina: stavka.kolicina,
           cijena: stavka.cijena,
           popust: stavka.popust,
           vrijednost: stavka.vrijednost,
           iznos_popusta: stavka.iznos_popusta,
-          proizvodId: stavka.proizvodId
+          proizvodId: stavka.proizvodId,
+          sifra: stavka.proizvodId
         };
 
         this.stavkeRacunaService.addStavkeRacuna(novaStavka).subscribe();

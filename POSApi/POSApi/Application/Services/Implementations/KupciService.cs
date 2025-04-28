@@ -51,7 +51,6 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-
                 var kupac = await _repo.GetByIdAsync(id);
                 if (kupac == null)
                 {

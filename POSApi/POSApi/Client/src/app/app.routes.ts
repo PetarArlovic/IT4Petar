@@ -9,31 +9,33 @@ import { ProizvodiComponent } from './components/proizvodi/proizvodi.component';
 export const routes: Routes = [
     {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [authGuard],
+    data: { public: true }
     },
 
     {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [authGuard],
+    data: { public: true }
     },
 
     {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    data: { public: true }
     },
 
     {
     path: 'Proizvodi',
-    component: ProizvodiComponent
-    },
-
-    {
-    path: 'Button',
-    component: ButtonDemo
+    component: ProizvodiComponent,
+    canActivate: [authGuard],
     },
 
     {
     path: '', redirectTo: '/home', pathMatch: 'full'
-    }
+    },
+
 ];

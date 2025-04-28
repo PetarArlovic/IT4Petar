@@ -181,22 +181,10 @@ namespace POSApi.Migrations
                     b.Property<int>("SIFRA")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("UserId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("SIFRA")
                         .IsUnique();
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("KUPAC");
                 });
@@ -431,21 +419,6 @@ namespace POSApi.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("POSApi.Domain.Models.Kupac", b =>
-                {
-                    b.HasOne("POSApi.Domain.Models.User", "User")
-                        .WithOne()
-                        .HasForeignKey("POSApi.Domain.Models.Kupac", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("POSApi.Domain.Models.User", null)
-                        .WithMany("Kupci")
-                        .HasForeignKey("UserId1");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("POSApi.Domain.Models.Stavke_racuna", b =>
                 {
                     b.HasOne("POSApi.Domain.Models.Proizvod", "PROIZVOD")
@@ -484,11 +457,6 @@ namespace POSApi.Migrations
             modelBuilder.Entity("POSApi.Domain.Models.Proizvod", b =>
                 {
                     b.Navigation("STAVKE_RACUNA");
-                });
-
-            modelBuilder.Entity("POSApi.Domain.Models.User", b =>
-                {
-                    b.Navigation("Kupci");
                 });
 
             modelBuilder.Entity("POSApi.Domain.Models.Zaglavlje_racuna", b =>

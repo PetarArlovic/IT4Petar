@@ -14,29 +14,29 @@ export class StavkeRacunaService {
   constructor(private http: HttpClient) {}
 
 
-getAllStavke(): Observable<GetStavke_racunaDTO[]> {
-  return this.http.get<GetStavke_racunaDTO[]>(`${this.baseUrl}/api/stavke_racuna`);
-}
+  getAllStavke(): Observable<GetStavke_racunaDTO[]> {
+    return this.http.get<GetStavke_racunaDTO[]>(`${this.baseUrl}/api/stavke_racuna`);
+  }
 
-addStavkeRacuna(stavke: CreateStavke_racunaDTO): Observable<GetStavke_racunaDTO>{
-  return this.http.post<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna`, stavke);
-}
+  addStavkeRacuna(stavke: CreateStavke_racunaDTO): Observable<GetStavke_racunaDTO>{
+    return this.http.post<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna`, stavke);
+  }
 
-updateStavkeRacuna(broj: number, stavke: UpdateStavke_racunaDTO): Observable<void>{
-  return this.http.put<void>(`${this.baseUrl}/api/stavke_racuna/${broj}`, stavke);
-}
+  updateStavkeRacuna(broj: number, stavke: UpdateStavke_racunaDTO): Observable<void>{
+    return this.http.put<void>(`${this.baseUrl}/api/stavke_racuna/${broj}`, stavke);
+  }
 
-deleteStavkeRacuna(broj: number): Observable<void>{
-  return this.http.delete<void>(`${this.baseUrl}/api/stavke_racuna/${broj}`);
-}
+  deleteStavkeRacuna(broj: number): Observable<void>{
+    return this.http.delete<void>(`${this.baseUrl}/api/stavke_racuna/${broj}`);
+  }
 
-GetStavkeRacunaById(id: number): Observable<GetStavke_racunaDTO>{
-  return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna/${id}`);
-}
+  GetStavkeRacunaById(id: number): Observable<GetStavke_racunaDTO>{
+    return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna/${id}`);
+  }
 
-GetStavkeRacunaByBroj(broj: number): Observable<GetStavke_racunaDTO>{
-  return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna/BROJ/${broj}`);
-}
+  GetStavkeRacunaByBroj(broj: number): Observable<GetStavke_racunaDTO>{
+    return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna/BROJ/${broj}`);
+  }
 }
 
 

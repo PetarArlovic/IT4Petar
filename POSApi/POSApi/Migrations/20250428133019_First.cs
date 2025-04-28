@@ -53,6 +53,22 @@ namespace POSApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "KUPAC",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SIFRA = table.Column<int>(type: "int", nullable: false),
+                    NAZIV = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    ADRESA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    MJESTO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KUPAC", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PROIZVOD",
                 columns: table => new
                 {
@@ -177,35 +193,6 @@ namespace POSApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KUPAC",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SIFRA = table.Column<int>(type: "int", nullable: false),
-                    NAZIV = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ADRESA = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    MJESTO = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KUPAC", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_KUPAC_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_KUPAC_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ZAGLAVLJE_RACUNA",
                 columns: table => new
                 {
@@ -302,17 +289,6 @@ namespace POSApi.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_KUPAC_UserId",
-                table: "KUPAC",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_KUPAC_UserId1",
-                table: "KUPAC",
-                column: "UserId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PROIZVOD_SIFRA",
                 table: "PROIZVOD",
                 column: "SIFRA",
@@ -365,6 +341,9 @@ namespace POSApi.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "PROIZVOD");
 
             migrationBuilder.DropTable(
@@ -372,9 +351,6 @@ namespace POSApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "KUPAC");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
         }
     }
 }
