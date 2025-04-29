@@ -1,39 +1,91 @@
+//Proizvodi
+
 :host {
-    display: block;
-    padding: 2rem;
+  display: block;
+  padding: 2rem;
+}
+
+p-table {
+  margin-bottom: 2rem;
+}
+
+form {
+  background: #000000;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .p-table {
+  display: block;
+  height: auto !important;
+}
+
+.p-button-lg {
+  font-size: 16px; /* Povećaj veličinu fonta */
+  padding: 10px 20px; /* Povećaj unutarnji razmak */
+}
+
+.p-button-info {
+  background-color: #45b817; /* Plava boja za "Uredi" */
+  border-color: #83bb2a;
+}
+
+.p-button-danger {
+  background-color: #33a31c; /* Crvena boja za "Izbriši" */
+  border-color: #758132;
+}
+
+.p-button-lg span {
+  font-size: 14px; /* Osiguraj da tekst bude dovoljno veliki */
+}
+
+.product-image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #050505;
+}
+
+.header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
   }
 
-  p-table {
-    margin-bottom: 2rem;
+  .search-bar-inline {
+    flex: 1 1 300px;
+    max-width: 400px;
+    position: relative;
+
+    ::ng-deep .p-input-icon-left {
+      width: 100%;
+    }
+
+    input {
+      width: 100%;
+      padding-left: 2.5rem;
+      height: 40px;
+      border-radius: 6px;
+    }
+
+    i.pi {
+      position: absolute;
+      top: 50%;
+      left: 0.75rem;
+      transform: translateY(-50%);
+      color: #6b7280;
+    }
   }
 
-  form {
-    background: #000000;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  button {
+    white-space: nowrap;
   }
-
-  :host ::ng-deep .p-table {
-    display: block;
-    height: auto !important;
-  }
-
-  .p-button-lg {
-    font-size: 16px; /* Povećaj veličinu fonta */
-    padding: 10px 20px; /* Povećaj unutarnji razmak */
-  }
-
-  .p-button-info {
-    background-color: #45b817; /* Plava boja za "Uredi" */
-    border-color: #83bb2a;
-  }
-
-  .p-button-danger {
-    background-color: #33a31c; /* Crvena boja za "Izbriši" */
-    border-color: #758132;
-  }
-
-  .p-button-lg span {
-    font-size: 14px; /* Osiguraj da tekst bude dovoljno veliki */
-  }
+}

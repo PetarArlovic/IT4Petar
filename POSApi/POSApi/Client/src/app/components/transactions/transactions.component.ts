@@ -3,10 +3,16 @@ import { GetZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
 import { GetStavke_racunaDTO } from '../../models/stavke_racuna';
 import { ZaglavljeRacunaService } from '../../core/services/zaglavlje-racuna.service';
 import { StavkeRacunaService } from '../../core/services/stavke-racuna.service';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { CommonModule } from '@angular/common';
+import { DialogModule } from 'primeng/dialog';
+
 
 @Component({
   selector: 'app-transactions',
-  imports: [],
+  imports: [ButtonModule, CardModule, TableModule, DialogModule, CommonModule ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
 })

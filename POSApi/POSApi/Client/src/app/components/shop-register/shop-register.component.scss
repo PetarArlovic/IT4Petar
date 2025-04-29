@@ -1,0 +1,40 @@
+//Register shop
+
+#kreiraj-racun-card, .shop-register-grid, .p-col-12 {
+    border: 1px solid rgb(14, 10, 10);
+     /* Pomoćni border da vidimo sve elemente */
+}
+
+.shop-register-grid {
+    background-color: #0a0101;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(126, 60, 60, 0.1);
+    width: 100%; /* Postavite širinu na 100% */
+}
+
+.p-col-12 {
+    margin-bottom: 1rem; /* Smanjite marginu ako je prevelika */
+    padding: 0; /* Provjerite je li padding potrebno smanjiti */
+}
+
+.p-field {
+    margin-bottom: 1rem;
+    margin-top: 0; /* Eliminirajte bilo kakav nepotreban razmak na vrhu */
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+.p-button {
+    margin-top: 1rem;
+    background-color: #e2dfe0;
+    border-color: #45b817;
+}
+
+

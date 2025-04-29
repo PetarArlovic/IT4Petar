@@ -2,9 +2,9 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { ButtonDemo } from './button-test/button-test.component';
 import { authGuard } from './guards/auth.guard';
 import { ProizvodiComponent } from './components/proizvodi/proizvodi.component';
+import { TransactionsComponent } from './components/transactions/transactions.component';
 
 export const routes: Routes = [
     {
@@ -31,6 +31,12 @@ export const routes: Routes = [
     {
     path: 'Proizvodi',
     component: ProizvodiComponent,
+    canActivate: [authGuard],
+    },
+
+    {
+    path: 'Transakcije',
+    component: TransactionsComponent,
     canActivate: [authGuard],
     },
 

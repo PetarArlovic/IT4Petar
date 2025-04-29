@@ -51,7 +51,6 @@ namespace POSApi.Application.Services.Implementations
         {
             try
             {
-
                 var proizvod = await _repo.GetByIdAsync(id);
 
                 if (proizvod == null)
@@ -60,16 +59,16 @@ namespace POSApi.Application.Services.Implementations
                     throw new Exception("Proizvod sa id-em: " + id + " ne postoji");
                 }
 
-                return _mapper.Map<GetProizvodDTO>(proizvod);
+                var proizvodDTO = _mapper.Map<GetProizvodDTO>(proizvod);
 
+                proizvodDTO.proizvodSlikaUrl = Path.GetFileName(proizvod.PROIZVODSlikaUrl);
+
+                return proizvodDTO;
             }
-
             catch (Exception ex)
             {
-
                 _logger.LogError(ex, "Greška prilikom učitavanja proizvoda");
                 throw;
-
             }
         }
 

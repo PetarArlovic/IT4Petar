@@ -1,72 +1,64 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+.header-container {
+  border-bottom: 1px solid #183cdb;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
 
+}
 
-  .header {
-    border-bottom: 1px solid #183cdb;
-    padding: 16px;
-    width: 100%;
-  }
+.header-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+}
 
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
+.header-logo {
+  max-height: 64px;
+}
 
+.header-nav-links {
+  display: flex;
+  gap: 24px;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+}
 
-  .logo {
-    max-height: 64px;
-  }
+.header-nav-link {
+  text-decoration: none;
+  color: #f5f1f1;
+  font-weight: bold;
+}
 
+.header-nav-link:hover {
+  color: #007bff;
+}
 
-  .navigation {
-    display: flex;
-    gap: 24px;
-    text-transform: uppercase;
-    font-size: 1.25rem;
-  }
+.header-badge-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-  .nav-link {
-    text-decoration: none;
-    color: #f5f1f1;
-    font-weight: bold;
-  }
+::ng-deep .p-button.header-nav-button {
+  background-color: #8d1821;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
-  .nav-link:hover {
-    color: #007bff;
-  }
+::ng-deep .p-button.header-nav-button:hover {
+  background-color: #0056b3;
+}
 
-
-  .badge-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  ::ng-deep .p-button {
-    background-color: #8d1821;
-    border: none;
-    color: white;
-    padding: 8px 16px;
-    font-size: 0.875rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  ::ng-deep .p-button:hover {
-    background-color: #0056b3;
-  }
-
-  .badge {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border-radius: 50%;
-    padding: 8px 16px;
-    font-size: 0.875rem;
-  }
+.header-badge {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  border-radius: 50%;
+  padding: 8px 16px;
+  font-size: 0.875rem;
+}

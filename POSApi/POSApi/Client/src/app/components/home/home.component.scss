@@ -1,0 +1,28 @@
+//home component
+
+:host {
+    display: block;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+
+.proizvodi-column {
+    flex: 3;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.kasa-column {
+    flex: 1;
+    position: sticky;
+    top: 1rem;
+    align-self: flex-start;
+    max-width: 350px;
+    height: fit-content;
+}

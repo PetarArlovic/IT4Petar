@@ -9,14 +9,17 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
 import { DecodedToken } from '../../models/decodeToken';
+import { FileUploadModule } from 'primeng/fileupload';
+
 
 @Component({
   selector: 'app-proizvodi',
-  imports: [TableModule, ReactiveFormsModule, ButtonModule, DialogModule, CardModule, CommonModule],
+  standalone: true,
+  imports: [TableModule, ReactiveFormsModule, ButtonModule, DialogModule, CardModule, CommonModule, FileUploadModule],
   templateUrl: './proizvodi.component.html',
   styleUrl: './proizvodi.component.scss'
 })
@@ -27,6 +30,8 @@ export class ProizvodiComponent implements OnInit{
   selectedProizvod: GetProizvodDTO | null = null;
   proizvodForm!: FormGroup;
   searchControl = new FormControl;
+  selectedFile: File | null = null;
+  imagePreview: string | null = null;
 
   constructor (
     private proizvodiService: ProizvodiService,
@@ -49,26 +54,35 @@ export class ProizvodiComponent implements OnInit{
     });
 
     //Search bar.
-    this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe((sifra: string) => {
-      if (sifra && sifra.trim() !== '') {
-        const sifraBroj = Number(sifra)
-        if (!isNaN(sifraBroj)){
-          this.proizvodiService.findProizvodBySifra(sifraBroj).subscribe({
-            next: (proizvod) => this.proizvodi = [proizvod],
-            error: () => this.proizvodi = []
+    this.searchControl.valueChanges
+    .pipe(debounceTime(300), distinctUntilChanged())
+    .subscribe((sifra: string) => {
+      if (!sifra || sifra.trim() === '') {
+        // ako je input prazan, prikaži sve proizvode
+        this.loadProizvodi();
+        return;
+      }
+
+      const sifraBroj = Number(sifra);
+      if (!isNaN(sifraBroj)) {
+        this.proizvodiService.findProizvodBySifra(sifraBroj).subscribe({
+          next: (proizvod) => this.proizvodi = [proizvod],
+          error: () => this.proizvodi = []
         });
-        }
-        else {
-          this.loadProizvodi();
-        }
+      } else {
+        this.proizvodi = [];
       }
     });
   }
 
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
-      console.log('Dohvaceni proizvodi: ', proizvodi);
-      this.proizvodi = proizvodi;
+      console.log('Dohvaćeni proizvodi: ', proizvodi);
+
+      this.proizvodi = proizvodi.map(p => ({
+        ...p,
+        proizvodSlikaUrl: `/images/${p.proizvodSlikaUrl}`
+      }));
     });
   }
 
@@ -127,6 +141,17 @@ export class ProizvodiComponent implements OnInit{
       proizvodSlikaUrl: proizvod.proizvodSlikaUrl
     });
     this.proizvodDialog = true;
+  }
+
+  onUpload(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const imageUrl = '/images/' + fileInput.files[0].name;
+
+      this.proizvodForm.patchValue({
+        proizvodSlikaUrl: imageUrl
+      });
+    }
   }
 
   openNew(): void {

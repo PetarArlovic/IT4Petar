@@ -4,14 +4,14 @@ import { ProizvodiService } from '../../core/services/proizvod.service';
 import { GetProizvodDTO } from '../../models/proizvodi';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import { KupciComponent } from '../kupci/kupci.component';
-import { ProizvodiComponent } from '../proizvodi/proizvodi.component';
-import { ShopRegisterComponent } from '../shop-register/shop-register.component';
 import { CardModule } from 'primeng/card';
+import { RegisterComponent } from '../register/register.component';
+import { CommonModule } from '@angular/common';
+import { ShopRegisterComponent } from '../shop-register/shop-register.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, KupciComponent, ShopRegisterComponent, CardModule],
+  imports: [ButtonModule, CardModule, CommonModule, ShopRegisterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -19,19 +19,28 @@ import { CardModule } from 'primeng/card';
 export class HomeComponent implements OnInit {
 
   proizvodi: GetProizvodDTO[] = [];
+  kosarica: GetProizvodDTO[] = [];
 
   constructor (
     private proizvodiService: ProizvodiService) {}
 
   ngOnInit(): void {
-      this.loadProizvodi
+      this.loadProizvodi();
   }
 
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
-      console.log('Dohvaceni proizvodi: ', proizvodi);
-      this.proizvodi = proizvodi;
+      console.log('Dohvaćeni proizvodi: ', proizvodi);
+
+      this.proizvodi = proizvodi.map(p => ({
+        ...p,
+        proizvodSlikaUrl: `/images/${p.proizvodSlikaUrl}`
+      }));
     });
+  }
+
+  dodajUKosaricu(proizvod: GetProizvodDTO) {
+    this.kosarica.push(proizvod);
   }
 
 }

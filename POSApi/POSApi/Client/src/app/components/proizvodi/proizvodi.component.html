@@ -1,17 +1,27 @@
 <div class="p-m-4">
-    <div class="flex justify-content-between align-items-center mb-3">
+    <div class="header-bar mb-4">
         <h2 class="m-0">Popis proizvoda</h2>
-        <button pButton label="Dodaj proizvod" icon="pi pi-plus" class="p-button-success" (click)="openNew()"></button>
-    </div>
 
-    <div class="p-inputgroup mb-3">
-        <input
-        type="text"
-        pInputText
-        placeholder="Pretraži po šifri"
-        [formControl]="searchControl"
-        />
-        <button pButton icon="pi pi-search" class="p-button-primary"></button>
+        <div class="search-bar-inline">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Pretraži po šifri proizvoda..."
+                    [formControl]="searchControl"
+                    class="p-inputtext-sm"
+                />
+            </span>
+        </div>
+
+        <button
+            pButton
+            label="Dodaj proizvod"
+            icon="pi pi-plus"
+            class="p-button-success"
+            (click)="openNew()"
+        ></button>
     </div>
 
     <p-table [value]="proizvodi"
@@ -40,10 +50,10 @@
                 <td>{{ proizvod.jedinica_mjere }}</td>
                 <td>{{ proizvod.cijena }}</td>
                 <td>{{ proizvod.stanje }}</td>
-                <td><img [src]="proizvod.proizvodSlikaUrl" alt="{{proizvod.naziv}}" width="50"></td>
+                <td><img [src]='proizvod.proizvodSlikaUrl' alt="{{proizvod.naziv}}" class="product-image" width="50"></td>
                 <td>
-                    <button pButton type="button" icon="pi pi pencil" (click)="editProizvod(proizvod)" label="Uredi" class="p-button-lg p-button-info"></button>
-                    <button pButton type="button" icon="pi pi trash" (click)="deleteProizvod(proizvod.sifra)" label="Izbriši" class="p-button-lg p-button-danger"></button>
+                    <button pButton type="button" icon="pi pi-pencil" (click)="editProizvod(proizvod)" label="Uredi" class="p-button-lg p-button-info"></button>
+                    <button pButton type="button" icon="pi pi-trash" (click)="deleteProizvod(proizvod.sifra)" label="Izbriši" class="p-button-lg p-button-danger"></button>
                 </td>
             </tr>
         </ng-template>
@@ -78,8 +88,9 @@
             </div>
 
             <div class="p-field p-col-12 p-md-6">
-                <label for="proizvodSlikaUrl">URL Slike</label>
-                <input id="proizvodSlikaUrl" formControlName="proizvodSlikaUrl" pInputText/>
+                <label for="slika">Slika proizvoda</label>
+                <input type="file" (change)="onUpload($event)" />
+                <img *ngIf="imagePreview" [src]="imagePreview" alt="Preview" style="max-width: 100%; margin-top: 10px;">
             </div>
 
             <div class="flex justify-content-end gap-2 mt-3">

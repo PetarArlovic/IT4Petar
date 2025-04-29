@@ -1,5 +1,39 @@
-<p>home works!</p>
-<p-button label="Dohvati proizvode" (click)="loadProizvodi()"></p-button>
-<app-kupci></app-kupci><!---->
-<app-shop-register></app-shop-register>
-<p-button label="AURA POWER" icon="pi pi-bolt" styleClass="p-button-rounded p-button-warning p-button-outlined"></p-button>
+<div class="flex-container">
+
+    <!-- Proizvodi (3/4 širina) -->
+    <div class="proizvodi-column">
+        <p-button label="Dohvati proizvode" (click)="loadProizvodi()"></p-button>
+
+        <div *ngIf="proizvodi && proizvodi.length > 0" class="product-list">
+            <div *ngFor="let proizvod of proizvodi" class="product-item">
+                <p-card>
+                    <ng-template pTemplate="header">
+                        <img
+                            *ngIf="proizvod.proizvodSlikaUrl"
+                            [src]="proizvod.proizvodSlikaUrl"
+                            alt="{{ proizvod.naziv }}"
+                            class="product-image"
+                        />
+                    </ng-template>
+
+                    <div class="product-details">
+                        <h2>{{ proizvod.naziv }}</h2>
+                        <p>Cijena: {{ proizvod.cijena }} €</p>
+                    </div>
+
+                    <ng-template pTemplate="footer">
+                        <p-button label="Dodaj u košaricu" icon="pi pi-shopping-cart"
+                            (click)="dodajUKosaricu(proizvod)">
+                        </p-button>
+                    </ng-template>
+                </p-card>
+            </div>
+        </div>
+    </div>
+
+    <!-- Kasa (1/4 širina) -->
+    <div class="kasa-column">
+        <app-shop-register></app-shop-register>
+    </div>
+
+</div>

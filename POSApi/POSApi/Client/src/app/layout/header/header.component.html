@@ -1,12 +1,12 @@
-<header class="header">
-    <div class="container">
-      <p-button icon="pi pi-home" routerLink="/" styleClass="nav-link" [text]="true"></p-button>
-      <nav class="navigation">
-        <a href="/Proizvodi" class="nav-link">Shop</a>
-        <a href="/cart" class="nav-link">Contacts</a>
-      </nav>
-      <div class="badge-container">
-        <p-button label="Odjavi se" (onClick)="logOut()"></p-button>
-      </div>
+<header class="header-container">
+  <div class="header-navigation">
+    <p-button icon="pi pi-home" routerLink="/home" styleClass="header-nav-link" [text]="true"></p-button>
+    <nav class="header-nav-links">
+      <a href="/Proizvodi" class="header-nav-link">Shop</a>
+      <a href="/cart" class="header-nav-link">Contacts</a>
+    </nav>
+    <div class="header-badge-container">
+      <p-button label="Odjavi se" (onClick)="logOut()" styleClass="header-nav-button"></p-button>
     </div>
-  </header>
+  </div>
+</header>

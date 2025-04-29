@@ -14,11 +14,13 @@ namespace POSApi.WebApi.Mappings
         {
 
             CreateMap<Kupac, CreateKupacDTO>().ReverseMap();
-            CreateMap<Kupac, Application.DTO.KupacDTO.GetKupacDTO>().ReverseMap();
+            CreateMap<Kupac, GetKupacDTO>().ReverseMap();
             CreateMap<Kupac, UpdateKupacDTO>().ReverseMap();
 
             CreateMap<Proizvod, CreateProizvodDTO>().ReverseMap();
             CreateMap<Proizvod, GetProizvodDTO>().ReverseMap();
+            CreateMap<Proizvod, GetProizvodDTO>()
+            .ForMember(dest => dest.proizvodSlikaUrl, opt => opt.MapFrom(src => Path.GetFileName(src.PROIZVODSlikaUrl)));
             CreateMap<Proizvod, UpdateProizvodDTO>().ReverseMap();
 
             CreateMap<Zaglavlje_racuna, CreateZaglavlje_racunaDTO>().ReverseMap();
