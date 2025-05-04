@@ -22,5 +22,12 @@ namespace POSApi.Infrastructure.Repositories
                 .Where(s => s.ZAGLAVLJE_RACUNA.BROJ == broj)
                 .ToListAsync();
         }
+
+        public async Task<List<Stavke_racuna>> GetAllStavkeAsync()
+        {
+            return await _context.Set<Stavke_racuna>()
+                .Include(i => i.PROIZVOD)
+                .ToListAsync();
+        }
     }
 }

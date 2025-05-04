@@ -8,8 +8,6 @@ import { ToastModule } from 'primeng/toast';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GetProizvodDTO } from './models/proizvodi';
-import { ShopService } from './core/services/shop.service';
-import { ShopComponent } from './features/shop/shop.component';
 import { MessageService } from 'primeng/api';
 
 

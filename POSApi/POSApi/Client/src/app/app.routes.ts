@@ -25,7 +25,6 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [authGuard],
-    data: { public: true }
     },
 
     {
@@ -41,7 +40,7 @@ export const routes: Routes = [
     },
 
     {
-    path: '', redirectTo: '/home', pathMatch: 'full'
+    path: '', redirectTo: '/login', pathMatch: 'full'
     },
 
 ];

@@ -1,29 +1,27 @@
-<div class="flex-container">
-
-    <!-- Proizvodi (3/4 širina) -->
-    <div class="proizvodi-column">
+<div class="shop-container">
+    <div class="shop-products-column">
         <p-button label="Dohvati proizvode" (click)="loadProizvodi()"></p-button>
 
-        <div *ngIf="proizvodi && proizvodi.length > 0" class="product-list">
-            <div *ngFor="let proizvod of proizvodi" class="product-item">
+        <div *ngIf="proizvodi && proizvodi.length > 0" class="shop-product-list">
+            <div *ngFor="let proizvod of proizvodi" class="shop-product-item">
                 <p-card>
                     <ng-template pTemplate="header">
                         <img
                             *ngIf="proizvod.proizvodSlikaUrl"
                             [src]="proizvod.proizvodSlikaUrl"
                             alt="{{ proizvod.naziv }}"
-                            class="product-image"
+                            class="shop-product-image"
                         />
                     </ng-template>
 
-                    <div class="product-details">
+                    <div class="shop-product-details">
                         <h2>{{ proizvod.naziv }}</h2>
                         <p>Cijena: {{ proizvod.cijena }} €</p>
                     </div>
 
                     <ng-template pTemplate="footer">
                         <p-button label="Dodaj u košaricu" icon="pi pi-shopping-cart"
-                            (click)="dodajUKosaricu(proizvod)">
+                            (click)="addToCart(proizvod)">
                         </p-button>
                     </ng-template>
                 </p-card>
@@ -31,9 +29,7 @@
         </div>
     </div>
 
-    <!-- Kasa (1/4 širina) -->
-    <div class="kasa-column">
-        <app-shop-register></app-shop-register>
+    <div class="shop-register-column">
+        <app-shop-register [kosarica]="kosarica"></app-shop-register>
     </div>
-
 </div>

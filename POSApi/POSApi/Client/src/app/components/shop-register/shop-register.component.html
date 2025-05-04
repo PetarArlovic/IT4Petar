@@ -2,11 +2,6 @@
     <div class="p-grid shop-register-grid">
         <div class="p-col-12">
             <form [formGroup]="kupacForm" (ngSubmit)="CreateNewBill()">
-            <!-- Polja za kupca -->
-            <div class="p-field">
-                <label for="sifra">Šifra:</label>
-                <input id="sifra" formControlName="sifra" pInputText />
-            </div>
 
             <div class="p-field">
                 <label for="naziv">Naziv:</label>
@@ -28,14 +23,14 @@
                 <input id="napomena" formControlName="napomena" pInputText />
             </div>
 
-            <p-button label="Kreiraj Račun" type="submit" [disabled]="!kupacForm.valid"></p-button>
+            <p-button label="Kreiraj Račun" type="submit" [disabled]="kosarica.length === 0 || !kupacForm.valid"></p-button>
             </form>
         </div>
     </div>
 
         <div class="p-grid">
             <div class="p-col-12">
-            <p-table [value]="stavke">
+            <p-table [value]="kosarica">
                 <ng-template pTemplate="header">
                 <tr>
                     <th>Proizvod</th>
@@ -45,14 +40,14 @@
                     <th>Akcija</th>
                 </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-stavka>
+                <ng-template pTemplate="body" let-stavka let-i="rowIndex">
                 <tr>
-                    <td>{{stavka.proizvodId}}</td>
+                    <td>{{stavka.naziv}}</td>
                     <td>{{stavka.cijena}}</td>
-                    <td>{{stavka.kolicina}}</td>
+                    <td>{{stavka.kolicina}}{{stavka.jedinica_mjere}}</td>
                     <td>{{stavka.popust}}%</td>
                     <td>
-                    <p-button label="Dodaj" (click)="addStavkaToRegister(stavka)"></p-button>
+                        <p-button icon="pi pi-times" class="p-button-danger" (click)="removeStavkaFromRegister(i)"></p-button>
                     </td>
                 </tr>
                 </ng-template>
@@ -63,15 +58,3 @@
         <div class="p-mt-3">
             <h4>Ukupno: {{totalCost}}</h4>
         </div>
-
-        <!-- Dijalog za napomenu -->
-        <p-dialog [(visible)]="displayDialog" [modal]="true" [responsive]="true" header="Potvrda transakcije">
-            <div>
-            <textarea [(ngModel)]="napomena" pInputText rows="5" placeholder="Unesite napomenu"></textarea>
-            </div>
-            <p-footer>
-            <p-button label="Potvrdi" icon="pi pi-check" (click)="confirmTransaction()"></p-button>
-            <p-button label="Otkaži" icon="pi pi-times" (click)="cancelTransaction()"></p-button>
-            </p-footer>
-        </p-dialog>
-        </p-card>

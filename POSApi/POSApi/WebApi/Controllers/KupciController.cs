@@ -45,7 +45,7 @@ namespace POSApi.WebApi.Controllers
         /// Gets "Kupac" by his Id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetKupacById")]
         [Authorize]
         public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
         {
@@ -66,7 +66,11 @@ namespace POSApi.WebApi.Controllers
         {
 
             var kupac = await _service.AddAsync(dto);
-            return CreatedAtAction(nameof(FindKBySIFRA), new { sifra = kupac.sifra }, kupac);
+            return CreatedAtRoute(
+            routeName: "GetKupacById",
+            routeValues: new { id = kupac.Id },     
+            value: kupac);
+
 
         }
 

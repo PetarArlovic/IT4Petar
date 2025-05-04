@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProizvodiService } from '../../core/services/proizvod.service';
-import { GetProizvodDTO } from '../../models/proizvodi';
+import { CartProizvodDTO, GetProizvodDTO } from '../../models/proizvodi';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
-import { RegisterComponent } from '../register/register.component';
 import { CommonModule } from '@angular/common';
 import { ShopRegisterComponent } from '../shop-register/shop-register.component';
 
@@ -19,7 +18,8 @@ import { ShopRegisterComponent } from '../shop-register/shop-register.component'
 export class HomeComponent implements OnInit {
 
   proizvodi: GetProizvodDTO[] = [];
-  kosarica: GetProizvodDTO[] = [];
+  kosarica: CartProizvodDTO[] = [];
+  totalCost: number = 0;
 
   constructor (
     private proizvodiService: ProizvodiService) {}
@@ -39,10 +39,28 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  dodajUKosaricu(proizvod: GetProizvodDTO) {
-    this.kosarica.push(proizvod);
+  addToCart(proizvod: GetProizvodDTO) {
+    const existing = this.kosarica.find(p => p.sifra === proizvod.sifra);
+
+    if (existing) {
+      existing.kolicina++;
+      this.kosarica = [...this.kosarica];
+    } else {
+      const novaStavka: CartProizvodDTO = {
+        ...proizvod,
+        kolicina: 1,
+        popust: 0
+      };
+      this.kosarica = [...this.kosarica, novaStavka];
+    }
+
+    this.recalculateTotal();
   }
 
+  private recalculateTotal() {
+    this.totalCost = this.kosarica
+    .reduce((sum, stavka: CartProizvodDTO) => sum + stavka.cijena * stavka.kolicina * (1 - stavka.popust / 100), 0);
+  }
 }
 
 

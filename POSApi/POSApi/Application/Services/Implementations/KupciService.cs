@@ -71,22 +71,26 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<CreateKupacDTO> AddAsync(CreateKupacDTO dto)
+        public async Task<GetKupacDTO> AddAsync(CreateKupacDTO dto)
         {
             try
             {
-            
-                var existingKupac = await _kupacRepo.FindKBySIFRA(dto.sifra);
+
+                var newSifra = await GenerateNewSifra();
+
+                var existingKupac = await _kupacRepo.FindKBySIFRA(newSifra);
 
                 if (existingKupac != null)
                 {
                     _logger.LogInformation("Kupac sa sifrom vec postoji.");
-                    throw new InvalidOperationException("Kupac sa sifrom " + dto.sifra + " već postoji.");
+                    throw new InvalidOperationException("Kupac sa sifrom " + newSifra + " već postoji.");
                 }
 
+                dto.sifra = newSifra;
                 var kupac = _mapper.Map<Kupac>(dto);
+
                 await _repo.AddAsync(kupac);
-                return _mapper.Map<CreateKupacDTO>(kupac);
+                return _mapper.Map<GetKupacDTO>(kupac);
 
             }
 
@@ -182,6 +186,13 @@ namespace POSApi.Application.Services.Implementations
                 throw;
 
             }
+        }
+
+        private async Task<int> GenerateNewSifra()
+        {
+            var allKupci = await _repo.GetAllAsync();
+            var maxSifra = allKupci.Any() ? allKupci.Max(k => k.SIFRA) : 0;
+            return maxSifra > 0 ? maxSifra + 1 : 1;
         }
     }
 }

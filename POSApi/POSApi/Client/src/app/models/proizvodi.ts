@@ -24,3 +24,8 @@ export interface UpdateProizvodDTO {
     stanje: number;
     proizvodSlikaUrl: string;
 }
+
+export interface CartProizvodDTO extends GetProizvodDTO {
+    kolicina: number;
+    popust: number;
+}

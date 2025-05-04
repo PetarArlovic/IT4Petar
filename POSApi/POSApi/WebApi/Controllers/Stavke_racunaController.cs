@@ -33,7 +33,7 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetAllAsync()
         {
 
-            var stavke = await _service.GetAllAsync();
+            var stavke = await _service.GetAllStavkeAsync();
             return Ok(stavke);
 
         }

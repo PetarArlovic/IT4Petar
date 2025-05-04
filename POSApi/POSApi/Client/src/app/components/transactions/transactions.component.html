@@ -8,6 +8,9 @@
             <th>Datum</th>
             <th>Kupac ID</th>
             <th>Napomena</th>
+            <th>Naziv</th>
+            <th>Adresa</th>
+            <th>Mjesto</th>
             <th>Akcije</th>
             </tr>
         </ng-template>
@@ -17,6 +20,9 @@
             <td>{{zaglavlje.datum | date:'dd.MM.yyyy HH:mm'}}</td>
             <td>{{zaglavlje.kupacId}}</td>
             <td>{{zaglavlje.napomena}}</td>
+            <td>{{zaglavlje.kupac?.naziv}}</td>
+            <td>{{zaglavlje.kupac?.adresa}}</td>
+            <td>{{zaglavlje.kupac?.mjesto}}</td>
             <td>
                 <p-button icon="pi pi-list" (click)="showStavke(zaglavlje)"></p-button>
             </td>
@@ -40,9 +46,9 @@
         <ng-template pTemplate="body" let-stavka>
             <tr>
             <td>{{stavka.proizvodId}}</td>
-            <td>{{stavka.kolicina}}</td>
+            <td>{{stavka.kolicina }}</td>
             <td>{{stavka.cijena | currency}}</td>
-            <td>{{stavka.popust}}%</td>
+            <td>{{stavka.popust }}%</td>
             <td>{{stavka.vrijednost | currency}}</td>
             </tr>
         </ng-template>

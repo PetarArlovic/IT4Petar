@@ -24,12 +24,14 @@ namespace POSApi.WebApi.Mappings
             CreateMap<Proizvod, UpdateProizvodDTO>().ReverseMap();
 
             CreateMap<Zaglavlje_racuna, CreateZaglavlje_racunaDTO>().ReverseMap();
-            CreateMap<Zaglavlje_racuna, GetZaglavlje_racunaDTO>().ReverseMap();
+            CreateMap<Zaglavlje_racuna, GetZaglavlje_racunaDTO>()
+                .ForMember(dest => dest.kupac, opt => opt.MapFrom(src => src.KUPAC));
             CreateMap<Zaglavlje_racuna, UpdateZaglavlje_racunaDTO>().ReverseMap();
 
             CreateMap<Stavke_racuna, CreateStavke_racunaDTO>().ReverseMap();
-            CreateMap<Stavke_racuna, Application.DTO.Stavke_racunaDTO.GetStavke_racunaDTO>()
-                .ForMember(dest => dest.broj, opt => opt.MapFrom(src => src.ZAGLAVLJE_RACUNA.BROJ));
+            CreateMap<Stavke_racuna, GetStavke_racunaDTO>()
+                .ForMember(dest => dest.broj, opt => opt.MapFrom(src => src.ZAGLAVLJE_RACUNA.BROJ))
+                .ForMember(dest => dest.proizvod, opt => opt.MapFrom(src => src.PROIZVOD));
             CreateMap<Stavke_racuna, UpdateStavke_racunaDTO>().ReverseMap();
 
         }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using POSApi.Application.DTO.KupacDTO;
+using System.ComponentModel.DataAnnotations;
 
 namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
 {
@@ -15,6 +16,8 @@ namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
         public string napomena { get; set; }
 
         public int kupacId { get; set; }
+
+        public GetKupacDTO kupac { get; set; }
 
     }
 }

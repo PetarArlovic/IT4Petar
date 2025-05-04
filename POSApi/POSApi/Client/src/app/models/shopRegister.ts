@@ -1,10 +1,9 @@
 import { GetStavke_racunaDTO } from "./stavke_racuna";
 
-export class shopRegister{
+export class shopResgister{
     stavke: GetStavke_racunaDTO[] = [];
     totalCost: number = 0;
     totalDiscount: number = 0;
-    brojRacuna?: number;
 
     constructor(){
         this.stavke = [];
@@ -17,9 +16,13 @@ export class shopRegister{
         this.totalCost += stavka.cijena
     }
 
-    calculateTotal(){
-        let total = this.stavke.reduce((acc, stavka) => acc + stavka.cijena, 0);
-        return total - this.totalDiscount;
+    calculateTotal(): number {
+        return this.stavke.reduce((sum, stavka) => {
+            const neto = stavka.cijena * stavka.kolicina;
+            const iznosPopusta = (stavka.popust / 100) * neto;
+            const ukupno = neto - iznosPopusta;
+            return sum + ukupno;
+        }, 0);
     }
 }
 

@@ -5,7 +5,7 @@ namespace POSApi.Application.Services.Interfaces
     public interface IStavke_racunaService
     {
 
-        Task<List<GetStavke_racunaDTO>> GetAllAsync();
+        Task<List<GetStavke_racunaDTO>> GetAllStavkeAsync();
         Task<GetStavke_racunaDTO?> GetByIdAsync(int id);
         Task<CreateStavke_racunaDTO> AddAsync(CreateStavke_racunaDTO entity);
         Task<bool> UpdateAsync(int broj, UpdateStavke_racunaDTO entity);

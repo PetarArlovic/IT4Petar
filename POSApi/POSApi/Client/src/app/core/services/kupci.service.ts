@@ -18,8 +18,8 @@ export class KupciService {
     return this.http.get<GetKupacDTO[]>(`${this.baseUrl}/api/kupci`);
   }
 
-  addKupac(kupac: CreateKupacDTO): Observable<CreateKupacDTO>{
-    return this.http.post<CreateKupacDTO>(`${this.baseUrl}/api/kupci`, kupac)
+  addKupac(kupac: CreateKupacDTO): Observable<GetKupacDTO>{
+    return this.http.post<GetKupacDTO>(`${this.baseUrl}/api/kupci`, kupac)
   }
 
   updateKupac(sifra: number, kupac: UpdateKupacDTO): Observable<void>{

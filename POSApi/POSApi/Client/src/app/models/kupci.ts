@@ -1,12 +1,11 @@
 export interface CreateKupacDTO {
-    sifra: number;
     naziv: string;
     adresa: string;
     mjesto: string;
 }
 
 export interface GetKupacDTO {
-    Id: number;
+    id: number;
     sifra: number;
     naziv: string;
     adresa: string;

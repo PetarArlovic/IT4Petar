@@ -32,7 +32,7 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<List<GetZaglavlje_racunaDTO>>> GetAllAsync()
         {
 
-            var zaglavlja = await _service.GetAllAsync();
+            var zaglavlja = await _service.GetAllZaglavljaAsync();
             return Ok(zaglavlja);
 
         }

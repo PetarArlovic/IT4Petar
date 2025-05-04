@@ -27,12 +27,12 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<List<GetStavke_racunaDTO>> GetAllAsync()
+        public async Task<List<GetStavke_racunaDTO>> GetAllStavkeAsync()
         {
             try
             {
 
-                var stavke = await _repo.GetAllAsync();
+                var stavke = await _stavkeRepo.GetAllStavkeAsync();
                 _logger.LogInformation("Stavke su uspješno učitane.");
                 return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
 

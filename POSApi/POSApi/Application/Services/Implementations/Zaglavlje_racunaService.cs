@@ -23,12 +23,12 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<List<GetZaglavlje_racunaDTO>> GetAllAsync()
+        public async Task<List<GetZaglavlje_racunaDTO>> GetAllZaglavljaAsync()
         {
             try
             {
 
-                var zaglavlja = await _repo.GetAllAsync();
+                var zaglavlja = await _zaglavljeRepo.GetAllZaglavljaAsync();
                 _logger.LogInformation("Zaglavlja su uspješno učitana.");
                 return _mapper.Map<List<GetZaglavlje_racunaDTO>>(zaglavlja);
 
@@ -69,13 +69,15 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<CreateZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO dto)
+        public async Task<GetZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO dto)
         {
 
             try
             {
 
-                var existingzaglavlje = await _zaglavljeRepo.FindZByBROJ(dto.broj);
+                var newBroj = await GenerateNewBroj();
+
+                var existingzaglavlje = await _zaglavljeRepo.FindZByBROJ(newBroj);
 
                 if (existingzaglavlje != null)
                 {
@@ -83,9 +85,11 @@ namespace POSApi.Application.Services.Implementations
                     throw new InvalidOperationException("Zaglavlje racuna sa brojem" + dto.broj + " vec postoji");
                 }
 
+                dto.broj = newBroj;
                 var zaglavlje = _mapper.Map<Zaglavlje_racuna>(dto);
+
                 await _repo.AddAsync(zaglavlje);
-                return _mapper.Map<CreateZaglavlje_racunaDTO>(zaglavlje);
+                return _mapper.Map<GetZaglavlje_racunaDTO>(zaglavlje);
 
             }
 
@@ -180,6 +184,13 @@ namespace POSApi.Application.Services.Implementations
 
             }
 
+        }
+
+        private async Task<int> GenerateNewBroj()
+        {
+            var allZaglavlja = await _repo.GetAllAsync();
+            var maxSifra = allZaglavlja.Any() ? allZaglavlja.Max(z => z.BROJ) : 0;
+            return maxSifra + 1;
         }
     }
 }

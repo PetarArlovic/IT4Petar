@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using POSApi.Application.DTO.ProizvodDTO;
 using System.ComponentModel.DataAnnotations;
 
 namespace POSApi.Application.DTO.Stavke_racunaDTO
@@ -25,6 +26,8 @@ namespace POSApi.Application.DTO.Stavke_racunaDTO
         public int proizvodId { get; set; }
 
         public int broj { get; set; }
+
+        public GetProizvodDTO proizvod { get; set; }
 
     }
 }

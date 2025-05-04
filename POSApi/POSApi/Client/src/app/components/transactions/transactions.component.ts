@@ -34,6 +34,7 @@ export class TransactionsComponent implements OnInit {
   loadTransactions(): void {
     this.zaglavljeService.getAllZaglavlja().subscribe({
       next: (data) => {
+        console.log('Zaglavlja:', data);
         this.zaglavlja = data;
       },
       error: (err) => {
@@ -43,10 +44,12 @@ export class TransactionsComponent implements OnInit {
   }
 
   showStavke(zaglavlje: GetZaglavlje_racunaDTO): void {
+    console.log('Zaglavlje:', zaglavlje);
     this.selectedZaglavlje = zaglavlje;
     this.stavkeService.GetStavkeRacunaByBroj(zaglavlje.broj).subscribe({
       next: (data) => {
-        this.stavke = [data]
+        console.log('Stavke:', data);
+        this.stavke = data;
         this.displayDialog = true;
       },
       error: (error) => {

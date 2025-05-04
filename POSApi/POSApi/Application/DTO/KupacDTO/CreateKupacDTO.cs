@@ -4,6 +4,8 @@ namespace POSApi.Application.DTO.KupacDTO
 {
     public class CreateKupacDTO
     {
+        [Required]
+        public int Id { get; set; }
 
         [Required]
         public int sifra { get; set; }
