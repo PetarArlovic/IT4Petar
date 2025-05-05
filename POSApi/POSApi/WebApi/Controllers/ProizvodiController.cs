@@ -114,6 +114,21 @@ namespace POSApi.WebApi.Controllers
                 return Ok(proizvod);
 
         }
+
+
+        /// <summary>
+        /// Gets "Proizvod" by "Naziv"
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("naziv/{naziv}")]
+        [Authorize]
+        public async Task<ActionResult<GetProizvodDTO>> FindProizvodByNaziv(string naziv)
+        {
+
+                var proizvod = await _service.FindProizvodByNaziv(naziv);
+                return Ok(proizvod);
+
+        }
     }
 }
 

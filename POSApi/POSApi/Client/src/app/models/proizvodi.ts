@@ -4,6 +4,7 @@ export interface CreateProizvodDTO {
     jedinica_mjere: string;
     cijena: number;
     stanje: number;
+    popust: number;
     proizvodSlikaUrl: string;
 }
 
@@ -13,6 +14,7 @@ export interface GetProizvodDTO {
     jedinica_mjere: string;
     cijena: number;
     stanje: number;
+    popust: number;
     proizvodSlikaUrl: string;
 }
 
@@ -22,6 +24,7 @@ export interface UpdateProizvodDTO {
     jedinica_mjere: string;
     cijena: number;
     stanje: number;
+    popust: number;
     proizvodSlikaUrl: string;
 }
 

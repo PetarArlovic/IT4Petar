@@ -1,14 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./layout/header/header.component";
-import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { GetProizvodDTO } from './models/proizvodi';
-import { MessageService } from 'primeng/api';
+import { ThemeService } from './core/services/theme.service';
+import { HeaderComponent } from './layout/header/header.component';
 
 
 @Component({
@@ -16,8 +14,8 @@ import { MessageService } from 'primeng/api';
   standalone: true,
   imports: [
     RouterOutlet,
-    HeaderComponent,
     CommonModule,
+    HeaderComponent,
     ToastModule,],
 
   templateUrl: './app.component.html',
@@ -30,8 +28,13 @@ export class AppComponent {
   private http = inject(HttpClient);
   title = 'Client';
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router,
+    private themeService : ThemeService
+  ) {}
 
-
+  ngOnInit() {
+    this.themeService.loadTheme(this.themeService.getCurrentTheme());
+  }
 }
 

@@ -107,7 +107,7 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-            
+
                 var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
 
                 if (proizvod == null)
@@ -170,6 +170,31 @@ namespace POSApi.Application.Services.Implementations
                 {
                     _logger.LogError("Proizvod sa sifrom: " + sifra + " ne postoji");
                     throw new Exception("Proizvod sa šifrom: " + sifra + " ne postoji");
+                }
+
+                return _mapper.Map<GetProizvodDTO>(proizvod);
+
+            }
+
+            catch (Exception ex)
+            {
+
+                _logger.LogError(ex, "Greška prilikom pretrage proizvoda");
+                throw;
+
+            }
+        }
+
+        public async Task<GetProizvodDTO> FindProizvodByNaziv(string naziv)
+        {
+            try
+            {
+
+                var proizvod = await _proizvodiRepo.FindProizvodByNaziv(naziv);
+                if (proizvod == null)
+                {
+                    _logger.LogError("Proizvod s nazivom " + naziv + " ne postoji");
+                    throw new Exception("Proizvod s nazivom " + naziv + " ne postoji");
                 }
 
                 return _mapper.Map<GetProizvodDTO>(proizvod);

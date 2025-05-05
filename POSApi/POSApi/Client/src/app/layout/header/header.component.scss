@@ -3,9 +3,10 @@
   padding: 16px;
   width: 100%;
   box-sizing: border-box;
-
+  background-color: #ffffff; /* Dodaj pozadinsku boju na header */
 }
 
+/* Header Navigation */
 .header-navigation {
   display: flex;
   justify-content: space-between;
@@ -14,35 +15,41 @@
   margin: 0 auto;
 }
 
+/* Header Logo */
 .header-logo {
   max-height: 64px;
 }
 
-.header-nav-links {
+/* Navigation Links */
+::ng-deep .header-nav-links {
   display: flex;
   gap: 24px;
   text-transform: uppercase;
   font-size: 1.25rem;
+  color: rgb(0, 0, 0); /* Osiguraj da je tekst bijeli na tamnoj pozadini */
 }
 
+/* Individual Navigation Link */
 .header-nav-link {
   text-decoration: none;
-  color: #f5f1f1;
+  color: #000000;
   font-weight: bold;
 }
 
+/* Hover Effect for Navigation Links */
 .header-nav-link:hover {
   color: #007bff;
 }
 
+/* Badge Container for Profile and Logout */
 .header-badge-container {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-::ng-deep .p-button.header-nav-button {
-  background-color: #8d1821;
+/* Logout Button */
+.header-nav-button {
   border: none;
   color: white;
   padding: 8px 16px;
@@ -51,14 +58,29 @@
   cursor: pointer;
 }
 
-::ng-deep .p-button.header-nav-button:hover {
-  background-color: #0056b3;
-}
-
+/* Badge - User Information or Notification */
 .header-badge {
-  background-color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  background-color: #ffd700; /* Promjena pozadine badge-a u zlatnu */
+  color: #183cdb; /* Promjena boje teksta u badge-u na tamnu boju */
   border-radius: 50%;
   padding: 8px 16px;
   font-size: 0.875rem;
+}
+
+.header-badge:hover {
+  background-color: #f5a623; /* Dodaj hover efekat na badge */
+  color: white; /* Tekst bijeli kad hover */
+}
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+  background-color: transparent; /* Da gumb za temu bude bez pozadinske boje */
+  border: 2px solid white; /* Dodaj bijeli okvir */
+  color: white; /* Tekst na gumbu bude bijeli */
+  padding: 8px;
+}
+
+.theme-toggle-button:hover {
+  background-color: #0056b3; /* Dodaj hover pozadinu na gumbu za temu */
+  border-color: #0056b3; /* Promjena boje granice na hover */
 }

@@ -36,6 +36,10 @@ export class ProizvodiService {
   findProizvodBySifra(sifra: number): Observable<GetProizvodDTO>{
     return this.http.get<GetProizvodDTO>(`${this.baseUrl}/api/proizvodi/sifra/${sifra}`);
   }
+
+  findProizvodByNaziv(naziv: string):Observable<GetProizvodDTO>{
+    return this.http.get<GetProizvodDTO>(`${this.baseUrl}/api/proizvodi/naziv/${naziv}`)
+  }
 }
 
 //' '<>[]{}

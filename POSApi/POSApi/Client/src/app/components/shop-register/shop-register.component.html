@@ -1,60 +1,87 @@
-<p-card id="kreiraj-racun-card" header="Kreiraj Račun">
-    <div class="p-grid shop-register-grid">
-        <div class="p-col-12">
-            <form [formGroup]="kupacForm" (ngSubmit)="CreateNewBill()">
-
-            <div class="p-field">
-                <label for="naziv">Naziv:</label>
-                <input id="naziv" formControlName="naziv" pInputText />
-            </div>
-
-            <div class="p-field">
-                <label for="adresa">Adresa:</label>
-                <input id="adresa" formControlName="adresa" pInputText />
-            </div>
-
-            <div class="p-field">
-                <label for="mjesto">Mjesto:</label>
-                <input id="mjesto" formControlName="mjesto" pInputText />
-            </div>
-
-            <div class="p-field">
-                <label for="napomena">Napomena:</label>
-                <input id="napomena" formControlName="napomena" pInputText />
-            </div>
-
-            <p-button label="Kreiraj Račun" type="submit" [disabled]="kosarica.length === 0 || !kupacForm.valid"></p-button>
-            </form>
+<p-card id="kreiraj-racun-card" [style]="{'margin-bottom': '20px'}">
+    <!-- Custom Header with Title and Cart Button -->
+    <div class="card-header-container">
+        <h2 class="card-title">Kreiraj Račun</h2>
+        <div class="cart-button-container">
+            <p-button icon="pi pi-shopping-cart"
+                    (click)="op.toggle($event)"
+                    styleClass="p-button-text">
+            </p-button>
         </div>
     </div>
 
-        <div class="p-grid">
-            <div class="p-col-12">
-            <p-table [value]="kosarica">
+    <!-- Cart Overlay Panel -->
+    <p-overlayPanel #op [dismissable]="true">
+        <div class="cart-table-container">
+            <p-table [value]="kosarica" [responsive]="true" styleClass="p-datatable-sm p-datatable-striped">
                 <ng-template pTemplate="header">
-                <tr>
-                    <th>Proizvod</th>
-                    <th>Cijena</th>
-                    <th>Količina</th>
-                    <th>Popust</th>
-                    <th>Akcija</th>
-                </tr>
+                    <tr>
+                        <th>Proizvod</th>
+                        <th>Cijena</th>
+                        <th>Količina</th>
+                        <th>Popust</th>
+                        <th>Ukupno</th>
+                        <th>Akcija</th>
+                    </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-stavka let-i="rowIndex">
-                <tr>
-                    <td>{{stavka.naziv}}</td>
-                    <td>{{stavka.cijena}}</td>
-                    <td>{{stavka.kolicina}}{{stavka.jedinica_mjere}}</td>
-                    <td>{{stavka.popust}}%</td>
-                    <td>
-                        <p-button icon="pi pi-times" class="p-button-danger" (click)="removeStavkaFromRegister(i)"></p-button>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{stavka.naziv}}</td>
+                        <td>{{stavka.cijena | number:'1.2-2'}} €</td>
+                        <td>{{stavka.kolicina}} {{stavka.jedinica_mjere || 'kom'}}</td>
+                        <td>{{stavka.popust || 0}}%</td>
+                        <td>{{(stavka.cijena * stavka.kolicina * (1 - (stavka.popust || 0)/100)) | number:'1.2-2'}} €</td>
+                        <td>
+                            <button pButton
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text"
+                                    (click)="removeStavkaFromRegister(i); op.hide()">
+                            </button>
+                        </td>
+                    </tr>
                 </ng-template>
             </p-table>
-            </div>
         </div>
+    </p-overlayPanel>
 
-        <div class="p-mt-3">
-            <h4>Ukupno: {{totalCost}}</h4>
-        </div>
+    <!-- Form Content -->
+    <div class="shop-register-container">
+        <form [formGroup]="kupacForm" (ngSubmit)="CreateNewBill()" class="minimal-form">
+            <div class="p-grid form-grid">
+                <div class="p-col-12 p-md-6 p-field">
+                    <label for="naziv">Naziv kupca*</label>
+                    <input id="naziv" formControlName="naziv" pInputText placeholder="Unesite naziv kupca" />
+                </div>
+
+                <div class="p-col-12 p-md-6 p-field">
+                    <label for="adresa">Adresa*</label>
+                    <input id="adresa" formControlName="adresa" pInputText placeholder="Unesite adresu" />
+                </div>
+
+                <div class="p-col-12 p-md-6 p-field">
+                    <label for="mjesto">Mjesto*</label>
+                    <input id="mjesto" formControlName="mjesto" pInputText placeholder="Unesite mjesto" />
+                </div>
+
+                <div class="p-col-12 p-md-6 p-field">
+                    <label for="napomena">Napomena</label>
+                    <input id="napomena" formControlName="napomena" pInputText placeholder="Dodatne napomene" />
+                </div>
+            </div>
+
+            <div class="payment-row">
+                <p-button label="Plati"
+                        type="submit"
+                        icon="pi pi-check"
+                        [disabled]="kosarica.length === 0 || !kupacForm.valid"
+                        class="platiRacun-B">
+                </p-button>
+
+                <div class="total-amount">
+                    <span class="label">Cijena:</span>
+                    <span class="amount">{{totalCost | number:'1.2-2'}} €</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</p-card>

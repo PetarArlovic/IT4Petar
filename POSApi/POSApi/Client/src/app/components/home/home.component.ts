@@ -2,15 +2,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProizvodiService } from '../../core/services/proizvod.service';
 import { CartProizvodDTO, GetProizvodDTO } from '../../models/proizvodi';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { ShopRegisterComponent } from '../shop-register/shop-register.component';
+import { TableModule } from 'primeng/table';
+import { PaginatorModule } from 'primeng/paginator';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonModule, CardModule, CommonModule, ShopRegisterComponent],
+  imports: [ButtonModule, CardModule, CommonModule, ShopRegisterComponent, TableModule, PaginatorModule, ReactiveFormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -20,17 +23,34 @@ export class HomeComponent implements OnInit {
   proizvodi: GetProizvodDTO[] = [];
   kosarica: CartProizvodDTO[] = [];
   totalCost: number = 0;
+  searchControl = new FormControl;
+  rezultat: GetProizvodDTO[] = [];
 
   constructor (
     private proizvodiService: ProizvodiService) {}
 
   ngOnInit(): void {
       this.loadProizvodi();
+
+      this.searchControl.valueChanges
+          .pipe(debounceTime(300), distinctUntilChanged())
+          .subscribe((naziv: string) => {
+            if (!naziv || naziv.trim() === '') {
+              this.loadProizvodi();
+              return;
+            }
+
+            const nazivProizvoda = String(naziv);
+            this.proizvodiService.findProizvodByNaziv(nazivProizvoda).subscribe({
+              next: (proizvod) => this.proizvodi = [proizvod],
+              error: () => this.proizvodi = []
+            });
+      });
   }
+
 
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
-      console.log('Dohvaćeni proizvodi: ', proizvodi);
 
       this.proizvodi = proizvodi.map(p => ({
         ...p,
@@ -49,7 +69,7 @@ export class HomeComponent implements OnInit {
       const novaStavka: CartProizvodDTO = {
         ...proizvod,
         kolicina: 1,
-        popust: 0
+        popust: proizvod.popust || 0,
       };
       this.kosarica = [...this.kosarica, novaStavka];
     }

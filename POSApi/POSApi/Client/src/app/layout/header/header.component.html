@@ -1,12 +1,13 @@
 <header class="header-container">
   <div class="header-navigation">
-    <p-button icon="pi pi-home" routerLink="/home" styleClass="header-nav-link" [text]="true"></p-button>
     <nav class="header-nav-links">
-      <a href="/Proizvodi" class="header-nav-link">Shop</a>
-      <a href="/Transakcije" class="header-nav-link">Transakcije</a>
+      <a href="/home" class="header-nav-link">Home</a>
+      <a *ngIf="authService.isAdmin()" href="/Proizvodi" class="header-nav-link">Shop</a>
+      <a *ngIf="authService.isAdmin()" href="/Transakcije" class="header-nav-link">Transakcije</a>
     </nav>
     <div class="header-badge-container">
-      <p-button label="Odjavi se" (onClick)="logOut()" styleClass="header-nav-button"></p-button>
+      <p-button label="Odjavi se" (onClick)="logOut()" class="header-nav-button"></p-button>
+      <button pButton type="button" (click)="toggleTheme()" icon="{{ themeIcon }}" class="theme-toggle-button"></button>
     </div>
   </div>
 </header>

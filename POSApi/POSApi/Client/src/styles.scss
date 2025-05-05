@@ -17,3 +17,31 @@ app-root {
   margin: 0;
   padding: 0;
 }
+
+:root {
+  --primary-color: #3b82f6;
+  --text-color: #333;
+  --bg-color: #fff;
+  --surface-a: #f8f9fa;
+  --surface-b: #ffffff;
+  --surface-c: #e9ecef;
+  --surface-d: #dee2e6;
+  --surface-e: #f8f9fa;
+}
+
+[data-theme="dark"] {
+  --primary-color: #3b82f6;
+  --text-color: #f8f9fa;
+  --bg-color: #1a1a1a;
+  --surface-a: #2d2d2d;
+  --surface-b: #1f1f1f;
+  --surface-c: #343434;
+  --surface-d: #495057;
+  --surface-e: #2d2d2d;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}

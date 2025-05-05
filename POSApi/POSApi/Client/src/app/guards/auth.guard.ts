@@ -7,8 +7,6 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
   const token = sessionStorage.getItem('token');
 
-  console.log('Token from sessionStorage', token);
-
   if (route.data['public']) {
     return true;
   }

@@ -1,40 +1,284 @@
-//Register shop
+#kreiraj-racun-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
-#kreiraj-racun-card, .shop-register-grid, .p-col-12 {
-    border: 1px solid rgb(14, 10, 10);
-     /* Pomoćni border da vidimo sve elemente */
+    .p-card-header {
+        background-color: #2563eb;
+        color: white;
+        padding: 1.25rem;
+        border-radius: 12px 12px 0 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    .p-card-body {
+        padding: 0;
+    }
 }
 
-.shop-register-grid {
-    background-color: #0a0101;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(126, 60, 60, 0.1);
-    width: 100%; /* Postavite širinu na 100% */
+.card-header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem;
+    border-radius: 12px 12px 0 0;
+
+    .card-title {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
 }
 
-.p-col-12 {
-    margin-bottom: 1rem; /* Smanjite marginu ako je prevelika */
-    padding: 0; /* Provjerite je li padding potrebno smanjiti */
+.payment-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
 }
 
-.p-field {
-    margin-bottom: 1rem;
-    margin-top: 0; /* Eliminirajte bilo kakav nepotreban razmak na vrhu */
+.shop-register-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
 }
 
-input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    border: 1px solid #000000;
-    box-sizing: border-box;
+.cart-button-container {
+    position: relative;
+
+    .p-button {
+        color: white !important;
+
+        &:enabled:hover {
+            background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+    }
+
+    .p-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+    }
 }
 
-.p-button {
+.customer-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .form-grid {
+        margin-bottom: 0.5rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: #374151;
+        font-size: 0.9rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background-color: #f9fafb;
+        transition: all 0.3s ease;
+
+        &:focus {
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        &::placeholder {
+            color: #9ca3af;
+        }
+    }
+}
+
+.submit-button {
+    align-self: flex-end;
+    padding: 0.75rem 2rem;
+    height: 60px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    order: -1;
+
+    &:hover {
+        transform: translateY(-1px);
+    }
+}
+
+.items-table-section {
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    overflow: hidden;
+
+    th {
+        background-color: #f3f4f6 !important;
+        color: #374151 !important;
+        font-weight: 600;
+        padding: 1rem !important;
+        text-align: center;
+    }
+
+    td {
+        padding: 0.75rem 1rem !important;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    tr:hover td {
+        background-color: #2f75bb !important;
+    }
+
+    .p-button {
+        transition: all 0.2s ease;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}
+
+::ng-deep .platiRacunButton .p-button {
+    height: 40px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0 2rem;
+    border-radius: 10px;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    &:disabled {
+        background-color: #0c50c500;
+        cursor: not-allowed;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+    }
+}
+
+::ng-deep .btn-plati-racun .p-button:focus {
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+    outline: none !important;
+    color: blue;
+}
+
+.total-section {
     margin-top: 1rem;
-    background-color: #e2dfe0;
-    border-color: #45b817;
+
+    .total-amount {
+        display: flex;
+        align-items: center;
+        background-color: #f8fafc;
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        height: 48px;
+        box-sizing: border-box;
+
+        .label {
+            font-weight: 500;
+            color: #64748b;
+            margin-right: 0.5rem;
+        }
+
+        .amount {
+            font-weight: 700;
+            color: #d1fae5;
+        }
+    }
+}
+
+.minimal-form {
+    .p-field {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #4b5563;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #e5e7eb;
+            border-radius: 0;
+            padding: 0.5rem 0;
+            width: 100%;
+            transition: all 0.3s ease;
+
+            &:focus {
+                outline: none;
+                border-bottom-color: #3b82f6;
+                box-shadow: none;
+            }
+
+            &::placeholder {
+                color: #9ca3af;
+                opacity: 1;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .customer-form .p-col-12 {
+        margin-bottom: 0.75rem;
+    }
+
+    .total-section .total-amount {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .submit-button {
+        width: 100%;
+    }
+}
+
+.form-footer {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    align-items: flex-end;
+
+    .payment-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+
+    .total-amount {
+        width: 100%;
+        justify-content: space-between;
+
+        .amount {
+            color: #2563eb;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+    }
+
+    .submit-button {
+        width: 100%;
+        height: 50px;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
 }
 
 

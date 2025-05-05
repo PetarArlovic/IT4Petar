@@ -38,6 +38,7 @@
                 <th>Jedinica mjere</th>
                 <th>Cijena</th>
                 <th>Stanje</th>
+                <th>Popust</th>
                 <th>Slika</th>
                 <th>Akcije</th>
             </tr>
@@ -50,6 +51,7 @@
                 <td>{{ proizvod.jedinica_mjere }}</td>
                 <td>{{ proizvod.cijena }}</td>
                 <td>{{ proizvod.stanje }}</td>
+                <td>{{ proizvod.popust }} %</td>
                 <td><img [src]='proizvod.proizvodSlikaUrl' alt="{{proizvod.naziv}}" class="product-image" width="50"></td>
                 <td>
                     <button pButton type="button" icon="pi pi-pencil" (click)="editProizvod(proizvod)" label="Uredi" class="p-button-lg p-button-info"></button>
@@ -85,6 +87,11 @@
             <div class="p-field p-col-12 p-md-6">
                 <label for="stanje">Stanje</label>
                 <input id="stanje" formControlName="stanje" pInputText/>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="popust">Popust</label>
+                <input id="popust" type="number" formControlName="popust" min="0" max="100" pInputText/>
             </div>
 
             <div class="p-field p-col-12 p-md-6">

@@ -4,7 +4,7 @@ import { CreateStavke_racunaDTO, GetStavke_racunaDTO } from '../../models/stavke
 import { StavkeRacunaService } from '../../core/services/stavke-racuna.service';
 import { ZaglavljeRacunaService } from '../../core/services/zaglavlje-racuna.service';
 import { ShopRegisterService } from '../../core/services/shopRegister.service';
-import { getLocaleFirstDayOfWeek } from '@angular/common';
+import { CommonModule, getLocaleFirstDayOfWeek } from '@angular/common';
 import { CreateZaglavlje_racunaDTO, GetZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
 import { KupciService } from '../../core/services/kupci.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,10 +16,23 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { CartProizvodDTO, GetProizvodDTO } from '../../models/proizvodi';
+import { BadgeModule } from 'primeng/badge';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 @Component({
   selector: 'app-shop-register',
-  imports: [ButtonModule, CardModule, ReactiveFormsModule, TableModule, DialogModule, FormsModule],
+  imports: [
+    ButtonModule,
+    CardModule,
+    ReactiveFormsModule,
+    TableModule,
+    DialogModule,
+    FormsModule,
+    CommonModule,
+    OverlayPanelModule,
+    BadgeModule
+  ],
+
   standalone: true,
   templateUrl: './shop-register.component.html',
   styleUrl: './shop-register.component.scss'
@@ -42,6 +55,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     totalCost: number = 0;
     displayDialog: boolean = false;
     napomena: string = '';
+    showCart = false;
 
     constructor(
       private stavkeRacunaService: StavkeRacunaService,
@@ -163,6 +177,10 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     initializeStavkeFromKosarica(): void {
       this.register = new ShopRegisterService();
       this.kosarica.forEach((proizvod, index) => {
+        const ukupnoBezPopusta = proizvod.cijena * proizvod.kolicina;
+        const iznos_popusta = (proizvod.popust / 100) * ukupnoBezPopusta;
+        const vrijednost = ukupnoBezPopusta - iznos_popusta;
+
         const stavka: GetStavke_racunaDTO = {
           broj: index + 1,
           proizvodId: proizvod.sifra,

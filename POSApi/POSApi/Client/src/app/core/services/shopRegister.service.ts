@@ -17,17 +17,22 @@ export class ShopRegisterService {
     this.totalDiscount = 0;
   }
 
-  addStavka(stavka: GetStavke_racunaDTO){
-          this.stavke.push(stavka);
-          this.totalCost += stavka.cijena
-      }
+  addStavka(stavka: GetStavke_racunaDTO) {
+    const ukupnoBezPopusta = stavka.cijena * stavka.kolicina;
+    stavka.iznos_popusta = (stavka.popust / 100) * ukupnoBezPopusta;
+    stavka.vrijednost = ukupnoBezPopusta - stavka.iznos_popusta;
+
+    this.stavke.push(stavka);
+  }
 
   calculateTotal(): number {
-      return this.stavke.reduce((sum, stavka) => {
-          const neto = stavka.cijena * stavka.kolicina;
-          const iznosPopusta = (stavka.popust / 100) * neto;
-          const ukupno = neto - iznosPopusta;
-          return sum + ukupno;
-      }, 0);
+    const total = this.stavke.reduce((sum, stavka) => {
+      const ukupnoBezPopusta = stavka.cijena * stavka.kolicina;
+      const iznosPopusta = (stavka.popust / 100) * ukupnoBezPopusta;
+      const ukupno = ukupnoBezPopusta - iznosPopusta;
+      return sum + ukupno;
+    }, 0);
+
+    return parseFloat(total.toFixed(2));
   }
 }

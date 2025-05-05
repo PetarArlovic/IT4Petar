@@ -50,15 +50,15 @@ export class ProizvodiComponent implements OnInit{
       jedinica_mjere: ['', [Validators.required, Validators.maxLength(100)]],
       cijena: [null, [Validators.required, Validators.minLength(0)]],
       stanje: [null, [Validators.required, Validators.minLength(0)]],
+      popust: [0, [Validators.min(0), Validators.max(100)]],
       proizvodSlikaUrl: ['', Validators.required]
     });
 
     //Search bar.
     this.searchControl.valueChanges
-    .pipe(debounceTime(300), distinctUntilChanged())
+    .pipe(debounceTime(500), distinctUntilChanged())
     .subscribe((sifra: string) => {
       if (!sifra || sifra.trim() === '') {
-        // ako je input prazan, prikaži sve proizvode
         this.loadProizvodi();
         return;
       }
@@ -77,7 +77,6 @@ export class ProizvodiComponent implements OnInit{
 
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
-      console.log('Dohvaćeni proizvodi: ', proizvodi);
 
       this.proizvodi = proizvodi.map(p => ({
         ...p,
@@ -138,6 +137,7 @@ export class ProizvodiComponent implements OnInit{
       jedinica_mjere: proizvod.jedinica_mjere,
       cijena: proizvod.cijena,
       stanje: proizvod.stanje,
+      popust: proizvod.popust,
       proizvodSlikaUrl: proizvod.proizvodSlikaUrl
     });
     this.proizvodDialog = true;

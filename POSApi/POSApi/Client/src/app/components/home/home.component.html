@@ -1,10 +1,21 @@
 <div class="shop-container">
     <div class="shop-products-column">
-        <p-button label="Dohvati proizvode" (click)="loadProizvodi()"></p-button>
+        <div class="search-bar-inline">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                    type="text"
+                    pInputText
+                    placeholder="Pretraži po šifri proizvoda..."
+                    [formControl]="searchControl"
+                    class="p-inputtext-sm"
+                />
+            </span>
+        </div>
 
         <div *ngIf="proizvodi && proizvodi.length > 0" class="shop-product-list">
             <div *ngFor="let proizvod of proizvodi" class="shop-product-item">
-                <p-card>
+                <p-card >
                     <ng-template pTemplate="header">
                         <img
                             *ngIf="proizvod.proizvodSlikaUrl"

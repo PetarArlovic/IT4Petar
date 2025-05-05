@@ -29,6 +29,9 @@ namespace POSApi.Domain.Models
         [Required]
         public int STANJE { get; set; }
 
+        [Precision(20, 2)]
+        public decimal POPUST { get; set; }
+
         [Required]
         public string PROIZVODSlikaUrl { get; set; }
 

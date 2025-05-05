@@ -11,6 +11,7 @@ namespace POSApi.Application.Services.Interfaces
         Task<bool> UpdateAsync(int sifra, UpdateProizvodDTO entity);
         Task<bool> DeleteAsync(int sifra);
         Task<GetProizvodDTO> FindPBySIFRA(int sifra);
+        Task<GetProizvodDTO> FindProizvodByNaziv(string naziv);
 
     }
 }
