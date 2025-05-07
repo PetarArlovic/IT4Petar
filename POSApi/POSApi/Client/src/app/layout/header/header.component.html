@@ -1,13 +1,12 @@
-<header class="header-container">
-  <div class="header-navigation">
-    <nav class="header-nav-links">
-      <a href="/home" class="header-nav-link">Home</a>
-      <a *ngIf="authService.isAdmin()" href="/Proizvodi" class="header-nav-link">Shop</a>
-      <a *ngIf="authService.isAdmin()" href="/Transakcije" class="header-nav-link">Transakcije</a>
-    </nav>
-    <div class="header-badge-container">
-      <p-button label="Odjavi se" (onClick)="logOut()" class="header-nav-button"></p-button>
-      <button pButton type="button" (click)="toggleTheme()" icon="{{ themeIcon }}" class="theme-toggle-button"></button>
-    </div>
+<header class="app-header">
+  <div class="app-header-navigation">
+      <nav class="app-header-nav-links">
+          <a href="/home" class="app-header-nav-link">Home</a>
+          <a *ngIf="authService.isAdmin()" href="/Proizvodi" class="app-header-nav-link">Shop</a>
+          <a *ngIf="authService.isAdmin()" href="/Transakcije" class="app-header-nav-link">Transakcije</a>
+      </nav>
+      <div class="app-header-badge-container">
+          <p-button label="Odjavi se" (onClick)="logOut()" class="app-header-nav-button"></p-button>
+      </div>
   </div>
 </header>

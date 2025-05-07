@@ -1,15 +1,18 @@
 #kreiraj-racun-card {
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    margin-top: 80px;
+    height: calc(100vh - 80px);
 
     .p-card-header {
-        background-color: #2563eb;
-        color: white;
+        background-color: #ffffff;
+        color: #111827;
         padding: 1.25rem;
         border-radius: 12px 12px 0 0;
         font-size: 1.25rem;
         font-weight: 600;
+        border-bottom: 1px solid #e5e7eb;
     }
 
     .p-card-body {
@@ -23,11 +26,14 @@
     align-items: center;
     padding: 1.25rem;
     border-radius: 12px 12px 0 0;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
 
     .card-title {
         margin: 0;
         font-size: 1.5rem;
         font-weight: 600;
+        color: #111827;
     }
 }
 
@@ -45,16 +51,17 @@
     flex-direction: column;
     gap: 1.5rem;
     padding: 1.5rem;
+    background-color: #ffffff;
 }
 
 .cart-button-container {
     position: relative;
 
     .p-button {
-        color: white !important;
+        color: #374151 !important;
 
         &:enabled:hover {
-            background-color: rgba(255, 255, 255, 0.1) !important;
+            background-color: #f3f4f6 !important;
         }
     }
 
@@ -91,9 +98,9 @@
         transition: all 0.3s ease;
 
         &:focus {
-            border-color: #2563eb;
+            border-color: #3b82f6;
             background-color: #ffffff;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         &::placeholder {
@@ -121,7 +128,7 @@
     overflow: hidden;
 
     th {
-        background-color: #f3f4f6 !important;
+        background-color: #f9fafb !important;
         color: #374151 !important;
         font-weight: 600;
         padding: 1rem !important;
@@ -132,46 +139,47 @@
         padding: 0.75rem 1rem !important;
         text-align: center;
         vertical-align: middle;
+        color: #374151;
     }
 
     tr:hover td {
-        background-color: #2f75bb !important;
+        background-color: #f3f4f6 !important;
     }
 
     .p-button {
         transition: all 0.2s ease;
 
         &:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
     }
 }
 
-::ng-deep .platiRacunButton .p-button {
+::ng-deep .platiRacun-B .p-button {
     height: 40px;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 600;
-    padding: 0 2rem;
-    border-radius: 10px;
+    padding: 0 1.5rem;
+    border-radius: 8px;
+    background-color: #3b82f6;
     color: white;
     transition: all 0.3s ease;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+    border: none;
 
     &:hover {
-        transform: scale(1.03);
+        background-color: #2563eb;
     }
 
     &:disabled {
-        background-color: #0c50c500;
+        background-color: #e5e7eb;
+        color: #9ca3af;
         cursor: not-allowed;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
     }
 }
 
 ::ng-deep .btn-plati-racun .p-button:focus {
     box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
     outline: none !important;
-    color: blue;
 }
 
 .total-section {
@@ -194,7 +202,7 @@
 
         .amount {
             font-weight: 700;
-            color: #d1fae5;
+            color: #111827;
         }
     }
 }
@@ -280,5 +288,3 @@
         }
     }
 }
-
-

@@ -19,7 +19,15 @@ import { FileUploadModule } from 'primeng/fileupload';
 @Component({
   selector: 'app-proizvodi',
   standalone: true,
-  imports: [TableModule, ReactiveFormsModule, ButtonModule, DialogModule, CardModule, CommonModule, FileUploadModule],
+  imports: [
+    TableModule,
+    ReactiveFormsModule,
+    ButtonModule,
+    DialogModule,
+    CardModule,
+    CommonModule,
+    FileUploadModule
+  ],
   templateUrl: './proizvodi.component.html',
   styleUrl: './proizvodi.component.scss'
 })
@@ -66,11 +74,28 @@ export class ProizvodiComponent implements OnInit{
       const sifraBroj = Number(sifra);
       if (!isNaN(sifraBroj)) {
         this.proizvodiService.findProizvodBySifra(sifraBroj).subscribe({
-          next: (proizvod) => this.proizvodi = [proizvod],
-          error: () => this.proizvodi = []
+          next: (proizvod) => {
+            this.proizvodi = [{
+              ...proizvod,
+              proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
+            }];
+          },
+          error: () => {
+            this.proizvodi = [];
+            this.messageService.add({
+              severity: 'info',
+              summary: 'Nema rezultata',
+              detail: `Nije pronađen proizvod sa šifrom ${sifraBroj}.`
+            });
+          }
         });
       } else {
         this.proizvodi = [];
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Neispravan unos',
+          detail: 'Šifra mora biti broj.'
+        });
       }
     });
   }
@@ -130,6 +155,7 @@ export class ProizvodiComponent implements OnInit{
   }
 
   editProizvod(proizvod: GetProizvodDTO): void{
+    console.log('editProizvod called', proizvod);
     this.selectedProizvod = proizvod;
     this.proizvodForm.patchValue({
       sifra: proizvod.sifra,
@@ -155,6 +181,7 @@ export class ProizvodiComponent implements OnInit{
   }
 
   openNew(): void {
+    console.log('openNew called');
     this.proizvodForm.reset();
     this.selectedProizvod = null;
     this.proizvodDialog = true;

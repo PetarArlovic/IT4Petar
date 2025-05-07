@@ -1,91 +1,216 @@
-//Proizvodi
-
-:host {
-  display: block;
-  padding: 2rem;
+.product-list-card {
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(196, 35, 35, 0.04);
+  margin-top: 80px;
+  height: calc(100vh - 80px);
+  padding: none;
+  padding-top: 2rem;
+  overflow: auto;
 }
 
-p-table {
-  margin-bottom: 2rem;
+.product-list-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+  padding-left: 2.5rem;
+  margin-bottom: 4rem;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+
+
+  th, td {
+      padding: 0.75rem 1rem;
+      text-align: center;
+      vertical-align: middle;
+      background-color: #ffffff;
+      color: black;
+      line-height: 5;
+  }
+
+  td img.product-image-preview {
+      display: block;
+      margin: auto;
+      max-width: 60px;
+      max-height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid #d1d5db;
+  }
+
+  th {
+      background-color: #196fc5;
+      color: white;
+      font-weight: 600;
+      position: sticky;
+      border-bottom: 1px solid #e5e7eb;
+      top: 0;
+      z-index: 1;
+      line-height: 4rem;
+      align-items: center;
+  }
+
+  tr:hover td {
+      background-color: #f3f4f6;
+  }
+}
+
+.product-action-button {
+  background-color: #3b82f6;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+
+  &:hover {
+      background-color: #2563eb;
+      transform: scale(1.05);
+  }
+}
+
+.product-image-preview {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #d1d5db;
+}
+
+:host ::ng-deep .p-dialog {
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  background-color: #4083c7;
+
+  .ui-dialog-titlebar {
+      color: rgb(0, 0, 0);
+      font-weight: 600;
+  }
+
+  .ui-dialog-title {
+      font-size: 1.5rem;
+      background-color: #0f1011;
+  }
 }
 
 form {
-  background: #000000;
-  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .p-field {
+      display: flex;
+      flex-direction: column;
+
+      label {
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          color: #f2f3f5;
+      }
+
+      input, select {
+          padding: 0.5rem;
+          background: transparent;
+          border: none;
+          border-bottom: 2px solid #e5e7eb;
+          border-radius: 0;
+          padding: 0.5rem 0;
+          width: 100%;
+          transition: all 0.3s ease;
+      }
+  }
+}
+
+.product-list-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-bottom: 1rem;
+}
+
+.p-button-success {
+  background-color: #4083c7 !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #2563eb !important;
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.5);
+  }
 }
 
-:host ::ng-deep .p-table {
-  display: block;
-  height: auto !important;
+.p-button-success .pi {
+  font-size: 1rem;
+  margin-right: 0.5rem;
 }
 
-.p-button-lg {
-  font-size: 16px; /* Povećaj veličinu fonta */
-  padding: 10px 20px; /* Povećaj unutarnji razmak */
+.header-left {
+  flex: 1;
 }
 
-.p-button-info {
-  background-color: #45b817; /* Plava boja za "Uredi" */
-  border-color: #83bb2a;
-}
-
-.p-button-danger {
-  background-color: #33a31c; /* Crvena boja za "Izbriši" */
-  border-color: #758132;
-}
-
-.p-button-lg span {
-  font-size: 14px; /* Osiguraj da tekst bude dovoljno veliki */
-}
-
-.product-image {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #050505;
-}
-
-.header-bar {
+.header-right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  flex-grow: 1;
+}
 
-  h2 {
-    margin: 0;
-    font-size: 1.5rem;
+.search-bar-inline {
+  position: relative;
+  width: 400px;
+  max-width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+  font-size: 1rem;
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 1rem 0.5rem 2.5rem;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #e5e7eb;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  color: #111827;
+  border-color: #000000;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
   }
 
-  .search-bar-inline {
-    flex: 1 1 300px;
-    max-width: 400px;
-    position: relative;
-
-    ::ng-deep .p-input-icon-left {
-      width: 100%;
-    }
-
-    input {
-      width: 100%;
-      padding-left: 2.5rem;
-      height: 40px;
-      border-radius: 6px;
-    }
-
-    i.pi {
-      position: absolute;
-      top: 50%;
-      left: 0.75rem;
-      transform: translateY(-50%);
-      color: #6b7280;
-    }
+  &::placeholder {
+    color: #9ca3af;
   }
+}
 
-  button {
-    white-space: nowrap;
-  }
+.p-button-dodajP {
+  color: rgb(255, 255, 255);
+  border-color: #4083c7;
+  background-color: #4083c7;
+  margin-right: 1rem;
 }

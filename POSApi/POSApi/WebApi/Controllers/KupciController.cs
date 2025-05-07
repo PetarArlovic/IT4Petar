@@ -61,7 +61,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> AddAsync(CreateKupacDTO dto)
         {
 

@@ -1,8 +1,11 @@
 :host {
     display: block;
     height: 100vh;
+    padding: 2rem;
     overflow: hidden;
     background-color: #f5f5f5;
+    margin-top: 80px;
+    height: calc(100vh - 80px);
 }
 
 .shop-container {
@@ -13,9 +16,11 @@
     padding: 1rem;
     max-width: 1800px;
     margin: 0 auto;
+    padding: 2rem;
+    overflow: auto;
 }
 
-/* Lijeva strana - Proizvodi */
+/* Left side Proizvodi */
 .shop-products-column {
     flex: 3;
     display: grid;
@@ -37,7 +42,7 @@
     border-radius: 3px;
 }
 
-/* Desna strana - Kasa */
+/* Right side Kasa */
 .shop-register-column {
     flex: 1;
     min-width: 350px;
@@ -51,7 +56,7 @@
     flex-direction: column;
 }
 
-/* Kartice proizvoda */
+/* Kartice */
 .shop-product-item {
     background: white;
     border-radius: 12px;
@@ -106,7 +111,6 @@
     background-color: #2563eb;
 }
 
-/* Responsivnost */
 @media (max-width: 1200px) {
     .shop-container {
     flex-direction: column;
@@ -140,3 +144,38 @@
     height: 140px;
     }
 }
+
+.custom-search {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+
+        .search-icon {
+        position: absolute;
+        left: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6b7280;
+        font-size: 1rem;
+        z-index: 2;
+        }
+
+        .p-search-input {
+        width: 100%;
+        padding: 0.5rem 1rem 0.5rem 2.5rem;
+        background: transparent;
+        border: none;
+        border-bottom: 2px solid #e5e7eb;
+        border-radius: 0;
+        font-size: 1rem;
+        color: #111827;
+        &:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        &::placeholder {
+            color: #9ca3af;
+        }
+        }
+    }

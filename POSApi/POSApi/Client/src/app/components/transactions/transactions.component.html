@@ -1,56 +1,57 @@
-    <div class="p-card">
-        <h2>Povijest transakcija</h2>
-
-        <p-table [value]="zaglavlja" [paginator]="true" [rows]="10">
-        <ng-template pTemplate="header">
-            <tr>
-            <th>Broj računa</th>
-            <th>Datum</th>
-            <th>Kupac ID</th>
-            <th>Napomena</th>
-            <th>Naziv</th>
-            <th>Adresa</th>
-            <th>Mjesto</th>
-            <th>Akcije</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-zaglavlje>
-            <tr>
-            <td>{{zaglavlje.broj}}</td>
-            <td>{{zaglavlje.datum | date:'dd.MM.yyyy HH:mm'}}</td>
-            <td>{{zaglavlje.kupacId}}</td>
-            <td>{{zaglavlje.napomena}}</td>
-            <td>{{zaglavlje.kupac?.naziv}}</td>
-            <td>{{zaglavlje.kupac?.adresa}}</td>
-            <td>{{zaglavlje.kupac?.mjesto}}</td>
-            <td>
-                <p-button icon="pi pi-list" (click)="showStavke(zaglavlje)"></p-button>
-            </td>
-            </tr>
-        </ng-template>
-        </p-table>
-
-    <p-dialog header="Stavke računa" [(visible)]="displayDialog" [modal]="true" [style]="{width: '50vw'}">
-    <div *ngIf="selectedZaglavlje">
-        <h3>Račun br. {{selectedZaglavlje.broj}}</h3>
-        <p-table [value]="stavke">
-        <ng-template pTemplate="header">
-            <tr>
-            <th>Proizvod ID</th>
-            <th>Količina</th>
-            <th>Popust</th>
-            <th>Vrijednost</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-stavka>
-            <tr>
-            <td>{{stavka.proizvodId}}</td>
-            <td>{{stavka.kolicina }}</td>
-            <td>{{stavka.popust }}%</td>
-            <td>{{stavka.vrijednost | currency}}</td>
-            </tr>
-        </ng-template>
+<div class="povijest-transakcija-card">
+    <div class="povijest-transakcija-table-wrapper">
+        <h2 class="povijest-transakcija-naslov">Povijest transakcija</h2>
+        <p-table class="povijest-transakcija-table" [value]="zaglavlja" [paginator]="true" [rows]="20">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>Broj računa</th>
+                    <th>Datum</th>
+                    <th>Kupac ID</th>
+                    <th>Napomena</th>
+                    <th>Naziv</th>
+                    <th>Adresa</th>
+                    <th>Mjesto</th>
+                    <th>Više</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-zaglavlje>
+                <tr>
+                    <td>{{zaglavlje.broj}}</td>
+                    <td>{{zaglavlje.datum | date:'dd.MM.yyyy HH:mm'}}</td>
+                    <td>{{zaglavlje.kupacId}}</td>
+                    <td>{{zaglavlje.napomena}}</td>
+                    <td>{{zaglavlje.kupac?.naziv}}</td>
+                    <td>{{zaglavlje.kupac?.adresa}}</td>
+                    <td>{{zaglavlje.kupac?.mjesto}}</td>
+                    <td>
+                        <p-button icon="pi pi-list" class="show-stavke-button" (click)="showStavke(zaglavlje)"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
         </p-table>
     </div>
+
+    <p-dialog class="povijest-transakcija-dialog" header="Stavke računa" [(visible)]="displayDialog" [modal]="true">
+        <div *ngIf="selectedZaglavlje">
+            <h3>Račun br. {{selectedZaglavlje.broj}}</h3>
+            <p-table class="povijest-transakcija-items-table" [value]="stavke">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Proizvod ID</th>
+                        <th>Količina</th>
+                        <th>Popust</th>
+                        <th>Vrijednost</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-stavka>
+                    <tr>
+                        <td>{{stavka.proizvodId}}</td>
+                        <td>{{stavka.kolicina }}</td>
+                        <td>{{stavka.popust }}%</td>
+                        <td>{{stavka.vrijednost | currency}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
     </p-dialog>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { GetZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
 import { GetStavke_racunaDTO } from '../../models/stavke_racuna';
 import { ZaglavljeRacunaService } from '../../core/services/zaglavlje-racuna.service';
@@ -12,7 +12,13 @@ import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-transactions',
-  imports: [ButtonModule, CardModule, TableModule, DialogModule, CommonModule ],
+  imports: [
+    ButtonModule,
+    CardModule,
+    TableModule,
+    DialogModule,
+    CommonModule
+  ],
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss'
 })

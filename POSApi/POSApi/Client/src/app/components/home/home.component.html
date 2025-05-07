@@ -1,16 +1,13 @@
 <div class="shop-container">
     <div class="shop-products-column">
-        <div class="search-bar-inline">
-            <span class="p-input-icon-left">
-                <i class="pi pi-search"></i>
-                <input
-                    type="text"
-                    pInputText
-                    placeholder="Pretraži po šifri proizvoda..."
-                    [formControl]="searchControl"
-                    class="p-inputtext-sm"
+        <div class="search-bar-inline custom-search">
+            <i class="pi pi-search search-icon"></i>
+            <input
+                type="text"
+                placeholder="Pretraži po šifri proizvoda..."
+                [formControl]="searchControl"
+                class="p-search-input"
                 />
-            </span>
         </div>
 
         <div *ngIf="proizvodi && proizvodi.length > 0" class="shop-product-list">

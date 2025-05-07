@@ -27,26 +27,63 @@ export class HomeComponent implements OnInit {
   rezultat: GetProizvodDTO[] = [];
 
   constructor (
-    private proizvodiService: ProizvodiService) {}
+    private proizvodiService: ProizvodiService,
+    private messageService: MessageService
+  ) {}
 
-  ngOnInit(): void {
+    ngOnInit(): void {
       this.loadProizvodi();
 
       this.searchControl.valueChanges
-          .pipe(debounceTime(300), distinctUntilChanged())
-          .subscribe((naziv: string) => {
-            if (!naziv || naziv.trim() === '') {
-              this.loadProizvodi();
-              return;
-            }
+        .pipe(debounceTime(300), distinctUntilChanged())
+        .subscribe((input: string) => {
+          if (!input || input.trim() === '') {
+            this.loadProizvodi();
+            return;
+          }
 
-            const nazivProizvoda = String(naziv);
-            this.proizvodiService.findProizvodByNaziv(nazivProizvoda).subscribe({
-              next: (proizvod) => this.proizvodi = [proizvod],
-              error: () => this.proizvodi = []
+          const nazivProizvoda = input.trim();
+          const sifra = Number(nazivProizvoda);
+
+          if (!isNaN(sifra)) {
+            this.proizvodiService.findProizvodBySifra(sifra).subscribe({
+              next: (proizvod) => {
+                this.proizvodi = [{
+                  ...proizvod,
+                  proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
+                }];
+              },
+              error: () => {
+                this.proizvodi = [];
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Greška',
+                  detail: `Nema proizvoda sa šifrom: ${sifra}`,
+                  life: 3000
+                });
+              }
             });
-      });
-  }
+          } else {
+            this.proizvodiService.findProizvodByNaziv(nazivProizvoda).subscribe({
+              next: (proizvod) => {
+                this.proizvodi = [{
+                  ...proizvod,
+                  proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
+                }];
+              },
+              error: () => {
+                this.proizvodi = [];
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Greška',
+                  detail: `Nema proizvoda s nazivom: "${nazivProizvoda}"`,
+                  life: 3000
+                });
+              }
+          });
+        }
+    });
+}
 
 
   loadProizvodi(): void {
