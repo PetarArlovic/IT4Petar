@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.DTO.Zaglavlje_racunaDTO;
 using POSApi.Application.Services.Interfaces;
 
+
 namespace POSApi.WebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -75,8 +76,8 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> DeleteAsync(int broj)
         {
 
-                var zaglavlje = await _service.DeleteAsync(broj);
-                return NoContent();
+            var zaglavlje = await _service.DeleteAsync(broj);
+            return NoContent();
 
         }
 
@@ -90,16 +91,10 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<GetZaglavlje_racunaDTO>> FindZByBROJ(int broj)
         {
 
-                var proizvod = await _service.FindZByBROJ(broj);
-                return Ok(proizvod);
+            var proizvod = await _service.FindZByBROJ(broj);
+            return Ok(proizvod);
 
         }
     }
 }
-
-
-// ||
-// {}
-//  <>
-//  []
 

@@ -1,19 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json.Linq;
+﻿using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.DTO.UserDTO;
 using POSApi.Application.Services.Interfaces;
-using POSApi.Domain.Models;
-using POSApi.Infrastructure.Data;
-using System.Collections.Generic;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -26,7 +14,9 @@ namespace POSApi.WebApi.Controllers
 
         public AccountController(IAccountService accountService)
         {
+
             _accountService = accountService;
+
         }
 
 

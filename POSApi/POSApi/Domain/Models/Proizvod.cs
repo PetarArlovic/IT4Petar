@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Domain.Models
 {
     public class Proizvod
@@ -34,6 +35,7 @@ namespace POSApi.Domain.Models
 
         [Required]
         public string PROIZVODSlikaUrl { get; set; }
+
 
         public ICollection<Stavke_racuna> STAVKE_RACUNA { get; set; }
 

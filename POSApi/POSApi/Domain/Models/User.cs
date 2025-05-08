@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
+
 
 namespace POSApi.Domain.Models
 {

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Application.DTO.UserDTO
 {
     public class RegisterDTO

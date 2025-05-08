@@ -10,14 +10,3 @@ export const potvrdaSifreV: ValidatorFn = (control: AbstractControl): Validation
 
     return password.value === potvrdiSifru.value ? null : {sifraPogresna: true}
 }
-
-
-
-
-
-
-
-
-
-
-//<!--  ' '  <div>  []  {}  || -->

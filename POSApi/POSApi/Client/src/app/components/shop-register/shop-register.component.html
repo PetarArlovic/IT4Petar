@@ -16,14 +16,13 @@
     </div>
 
     <!-- Cart Panel -->
-    <p-overlayPanel #op [dismissable]="true">
+    <p-overlayPanel #op [dismissable]="true" class="cart-overlay-panel">
         <div class="cart-table-container">
             <div class="cart-header">
                 <h3 class="close-button-header">Košarica</h3>
-                <p-button icon="pi pi-times"
-                        (click)="op.hide()"
-                        class="close-cart-button">
-                </p-button>
+                <button (click)="op.hide()" class="custom-close-btn">
+                    <i class="pi pi-times"></i>
+                </button>
             </div>
             <p-table [value]="kosarica" [responsive]="true" styleClass="p-datatable-sm p-datatable-striped">
                 <ng-template pTemplate="header">
@@ -61,17 +60,17 @@
         <form [formGroup]="kupacForm" (ngSubmit)="CreateNewBill()" class="minimal-form">
             <div class="p-grid form-grid">
                 <div class="p-col-12 p-md-6 p-field">
-                    <label for="naziv">Naziv kupca*</label>
+                    <label for="naziv">Naziv kupca</label>
                     <input id="naziv" formControlName="naziv" pInputText placeholder="Unesite naziv kupca" />
                 </div>
 
                 <div class="p-col-12 p-md-6 p-field">
-                    <label for="adresa">Adresa*</label>
+                    <label for="adresa">Adresa</label>
                     <input id="adresa" formControlName="adresa" pInputText placeholder="Unesite adresu" />
                 </div>
 
                 <div class="p-col-12 p-md-6 p-field">
-                    <label for="mjesto">Mjesto*</label>
+                    <label for="mjesto">Mjesto</label>
                     <input id="mjesto" formControlName="mjesto" pInputText placeholder="Unesite mjesto" />
                 </div>
 

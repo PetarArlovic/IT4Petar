@@ -171,7 +171,7 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 
-//Adding the DataSeed
+//DataSeed
 
 using (var scope = app.Services.CreateScope()) 
 {

@@ -1,5 +1,6 @@
 ﻿using POSApi.Application.DTO.KupacDTO;
 
+
 namespace POSApi.Application.Services.Interfaces
 {
     public interface IKupciService

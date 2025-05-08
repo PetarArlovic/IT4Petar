@@ -4,6 +4,7 @@ using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Application.Services.Implementations
 {
     public class KupciService : IKupciService
@@ -190,14 +191,11 @@ namespace POSApi.Application.Services.Implementations
 
         private async Task<int> GenerateNewSifra()
         {
+
             var allKupci = await _repo.GetAllAsync();
             var maxSifra = allKupci.Any() ? allKupci.Max(k => k.SIFRA) : 0;
             return maxSifra > 0 ? maxSifra + 1 : 1;
+
         }
     }
 }
-
-// ||
-// {}
-//  <>
-//  []

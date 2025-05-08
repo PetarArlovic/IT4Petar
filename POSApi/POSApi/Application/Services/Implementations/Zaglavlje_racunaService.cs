@@ -4,6 +4,7 @@ using POSApi.Application.DTO.Zaglavlje_racunaDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Application.Services.Implementations
 {
     public class Zaglavlje_racunaService : IZaglavlje_racunaService
@@ -20,6 +21,7 @@ namespace POSApi.Application.Services.Implementations
             _mapper = mapper;
             _logger = logger;
             _zaglavljeRepo = zaglavljeRepo;
+
         }
 
 
@@ -168,8 +170,3 @@ namespace POSApi.Application.Services.Implementations
         }
     }
 }
-
-// ||
-// {}
-//  <>
-//  []

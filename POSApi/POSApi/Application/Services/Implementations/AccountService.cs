@@ -1,36 +1,29 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using POSApi.Application.DTO.UserDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
-using POSApi.Infrastructure.Data;
-using System.Collections.Generic;
-using System.Data;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
 
 namespace POSApi.Application.Services.Implementations
 {
     public class AccountService : IAccountService
     {
 
-        private readonly AppDbContext _context;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
         private readonly IConfiguration _config;
         private readonly ILogger<User> _logger;
 
-        public AccountService(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration config, ILogger<User> logger, AppDbContext context)
+        public AccountService(UserManager<User> userManager, IConfiguration config, ILogger<User> logger)
         {
+
             _userManager = userManager;
-            _signInManager = signInManager;
             _config = config;
             _logger = logger;
-            _context = context;
+
         }
 
 

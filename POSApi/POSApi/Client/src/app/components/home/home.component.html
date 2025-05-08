@@ -6,7 +6,7 @@
             <i class="pi pi-search search-icon"></i>
             <input
                 type="text"
-                placeholder="Pretraži po šifri proizvoda..."
+                placeholder="Pretraži po šifri ili nazivu"
                 [formControl]="searchControl"
                 class="p-search-input"
                 />
@@ -26,7 +26,11 @@
 
                     <div class="shop-product-details">
                         <h2>{{ proizvod.naziv }}</h2>
-                        <p>Cijena: {{ proizvod.cijena }} €</p>
+                        <div class="shop-product-info">
+                            <p class="product-price">Cijena: <span>{{ proizvod.cijena }} €</span></p>
+                            <p class="product-discount">Popust: <span>{{ proizvod.popust }} %</span></p>
+                        </div>
+                        <p class="product-code">Šifra: <span>{{ proizvod.sifra }}</span></p>
                     </div>
 
                     <ng-template pTemplate="footer">

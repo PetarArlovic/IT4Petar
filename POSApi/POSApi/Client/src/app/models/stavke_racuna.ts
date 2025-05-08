@@ -17,6 +17,7 @@ export interface GetStavke_racunaDTO {
     vrijednost: number;
     broj: number;
     proizvodId: number;
+    naziv?: string;
 }
 
 export interface UpdateStavke_racunaDTO {

@@ -1,5 +1,6 @@
 ﻿using POSApi.Application.DTO.Zaglavlje_racunaDTO;
 
+
 namespace POSApi.Application.Services.Interfaces
 {
     public interface IZaglavlje_racunaService
@@ -10,8 +11,6 @@ namespace POSApi.Application.Services.Interfaces
         Task<bool> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO entity);
         Task<bool> DeleteAsync(int broj);
         Task<GetZaglavlje_racunaDTO> FindZByBROJ(int broj);
-
-        
 
     }
 }

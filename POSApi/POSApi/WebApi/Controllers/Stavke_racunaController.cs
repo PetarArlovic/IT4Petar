@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.Stavke_racunaDTO;
 using POSApi.Application.Services.Interfaces;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -48,8 +47,8 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<List<GetStavke_racunaDTO>>> GetStavkeByBROJ(int broj)
         {
 
-                var stavke = await _service.GetStavkeByBROJ(broj);
-                return Ok(stavke);
+            var stavke = await _service.GetStavkeByBROJ(broj);
+            return Ok(stavke);
 
         }
 
@@ -93,16 +92,9 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> DeleteAsync(int broj)
         {
 
-                var proizvod = await _service.DeleteAsync(broj);
-                return NoContent();
+            var proizvod = await _service.DeleteAsync(broj);
+            return NoContent();
 
         }
     }
 }
-
-
-
-// ||
-// {}
-//  <>
-//  []

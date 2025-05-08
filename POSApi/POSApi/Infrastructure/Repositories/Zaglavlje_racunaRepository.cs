@@ -3,6 +3,7 @@ using POSApi.Domain.Interfaces;
 using POSApi.Domain.Models;
 using POSApi.Infrastructure.Data;
 
+
 namespace POSApi.Infrastructure.Repositories
 {
     public class Zaglavlje_racunaRepository : IZaglavlje_racunaRepository
@@ -12,21 +13,27 @@ namespace POSApi.Infrastructure.Repositories
 
         public Zaglavlje_racunaRepository(AppDbContext context)
         {
+
             _context = context;
+
         }
 
         public async Task<Zaglavlje_racuna?> FindZByBROJ(int broj)
         {
+
             return await _context.ZAGLAVLJE_RACUNA
                 .Include(z => z.KUPAC)
                 .FirstOrDefaultAsync(k => k.BROJ == broj);
+
         }
 
         public async Task<List<Zaglavlje_racuna>> GetAllZaglavljaAsync()
         {
+
             return await _context.Set<Zaglavlje_racuna>()
                 .Include(z => z.KUPAC)
                 .ToListAsync();
+
         }
     }
 }

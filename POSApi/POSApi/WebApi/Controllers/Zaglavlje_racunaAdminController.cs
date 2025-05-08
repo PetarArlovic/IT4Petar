@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.DTO.Zaglavlje_racunaDTO;
 using POSApi.Application.Services.Interfaces;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -15,7 +15,7 @@ namespace POSApi.WebApi.Controllers
 
         private readonly IZaglavlje_racunaAdminService _service;
 
-        public Zaglavlje_racunaAdminController(IZaglavlje_racunaAdminService service, ILogger<Zaglavlje_racunaController> logger)
+        public Zaglavlje_racunaAdminController(IZaglavlje_racunaAdminService service)
         {
 
             _service = service;
@@ -38,10 +38,4 @@ namespace POSApi.WebApi.Controllers
         }
     }
 }
-
-
-// ||
-// {}
-//  <>
-//  []
 

@@ -1,5 +1,6 @@
 ﻿using POSApi.Application.DTO.KupacDTO;
 
+
 namespace POSApi.Application.Services.Interfaces
 {
     public interface IKupciAdminService
@@ -8,7 +9,6 @@ namespace POSApi.Application.Services.Interfaces
         Task<GetKupacDTO?> GetByIdAsync(int id);
         Task<bool> UpdateAsync(int sifra, UpdateKupacDTO entity);
         Task<bool> DeleteAsync(int sifra);
-
 
     }
 }

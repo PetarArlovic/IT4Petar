@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Infrastructure.Data
 {
     public class AppDbContext : IdentityDbContext<User>

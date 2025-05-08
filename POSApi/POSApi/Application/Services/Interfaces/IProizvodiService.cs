@@ -1,5 +1,6 @@
 ﻿using POSApi.Application.DTO.ProizvodDTO;
 
+
 namespace POSApi.Application.Services.Interfaces
 {
     public interface IProizvodiService

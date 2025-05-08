@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Application.DTO.KupacDTO
 {
     public class CreateKupacDTO
     {
+
         [Required]
         public int Id { get; set; }
 

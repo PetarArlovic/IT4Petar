@@ -207,6 +207,3 @@ export class ProizvodiComponent implements OnInit{
     this.proizvodDialog = false;
   }
 }
-
-
-//<!--  ' '  <div>  []  {}  || -->

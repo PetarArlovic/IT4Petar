@@ -15,17 +15,17 @@
 
 .povijest-transakcija-naslov {
     font-size: 2.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-  padding-left: 2.5rem;
-  margin-bottom: 4rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 1.5rem;
+    padding-left: 2.5rem;
+    margin-bottom: 4rem;
 }
 
 .povijest-transakcija-table-wrapper {
     width: 100%;
     overflow: auto;
-    max-height: 95vh;
+    height: calc(117vh - 220px);  /* OVOO */
     line-height: 2.5;
 }
 
@@ -35,6 +35,10 @@
     border: 1px solid #e5e7eb;
     border-radius: 10px;
     border-collapse: collapse;
+    height: 100%;
+    display: block;
+    max-height: calc(180vh - 200px);
+
 
     th, td {
         padding: 0.75rem 1rem;
@@ -63,6 +67,8 @@
         background-color: #5e7cb8;
     }
 }
+
+
 
 .p-button {
     background-color: #3b82f6;
@@ -248,7 +254,6 @@
     }
 }
 
-  /* Animation dialog */
 @keyframes fadeInScale {
     0% {
         opacity: 0;

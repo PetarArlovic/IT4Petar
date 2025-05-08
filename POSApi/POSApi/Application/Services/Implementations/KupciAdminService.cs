@@ -4,6 +4,7 @@ using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Application.Services.Implementations
 {
     public class KupciAdminService : IKupciAdminService
@@ -134,8 +135,3 @@ namespace POSApi.Application.Services.Implementations
 
     }
 }
-
-// ||
-// {}
-//  <>
-//  []

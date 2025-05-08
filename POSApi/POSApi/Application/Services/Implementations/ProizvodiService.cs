@@ -3,7 +3,7 @@ using POSApi.Domain.Interfaces;
 using POSApi.Application.DTO.ProizvodDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
-using System.Linq.Expressions;
+
 
 namespace POSApi.Application.Services.Implementations
 {
@@ -65,10 +65,13 @@ namespace POSApi.Application.Services.Implementations
 
                 return proizvodDTO;
             }
+
             catch (Exception ex)
             {
+
                 _logger.LogError(ex, "Greška prilikom učitavanja proizvoda");
                 throw;
+
             }
         }
 
@@ -211,9 +214,3 @@ namespace POSApi.Application.Services.Implementations
         }
     }
 }
-
-
-// ||
-// {}
-//  <>
-//  []

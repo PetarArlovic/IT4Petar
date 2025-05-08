@@ -4,6 +4,7 @@ using POSApi.Application.DTO.Stavke_racunaDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Application.Services.Implementations
 {
     public class Stavke_racunaService : IStavke_racunaService
@@ -24,6 +25,7 @@ namespace POSApi.Application.Services.Implementations
             _stavkeRepo = stavkeRepo;
             _zaglavljeRepo = zaglavljeRepo;
             _proizvodiRepo = proizvodiRepo;
+
         }
 
 
@@ -40,8 +42,10 @@ namespace POSApi.Application.Services.Implementations
 
             catch (Exception ex)
             {
+
                 _logger.LogError(ex, "Greška prilikom učitavanja stavki");
                 throw;
+
             }
         }
 
@@ -136,8 +140,10 @@ namespace POSApi.Application.Services.Implementations
 
             catch (Exception ex)
             {
+
                 _logger.LogError(ex, "Greška prilikom ažuriranja stavki");
                 throw;
+
             }
         }
 
@@ -173,8 +179,3 @@ namespace POSApi.Application.Services.Implementations
         }
     }
 }
-
-// ||
-// {}
-//  <>
-//  []

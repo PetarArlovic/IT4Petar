@@ -2,7 +2,7 @@
 using POSApi.Application.Services.Interfaces;
 using POSApi.Application.DTO.ProizvodDTO;
 using Microsoft.AspNetCore.Authorization;
-using POSApi.Application.Services.Implementations;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -61,8 +61,8 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> UpdateAsync(int sifra, UpdateProizvodDTO dto)
         {
 
-                var proizvod = await _service.UpdateAsync(sifra, dto);
-                return NoContent();
+            var proizvod = await _service.UpdateAsync(sifra, dto);
+            return NoContent();
 
         }
 
@@ -76,22 +76,10 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> DeleteAsync(int sifra)
         {
 
-                var proizvod = await _service.DeleteAsync(sifra);
-                return NoContent();
+            var proizvod = await _service.DeleteAsync(sifra);
+            return NoContent();
 
         }
     }
 }
-
-
-
-
-
-
-
-
-// ||
-// {}
-//  <>
-//  []
 

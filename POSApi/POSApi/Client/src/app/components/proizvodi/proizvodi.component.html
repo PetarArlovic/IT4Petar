@@ -12,7 +12,7 @@
             <i class="pi pi-search search-icon"></i>
             <input
                 type="text"
-                placeholder="Pretraži po šifri proizvoda..."
+                placeholder="Pretraži po šifri ili nazivu"
                 [formControl]="searchControl"
                 class="search-input"
                 />
@@ -31,9 +31,7 @@
 
     <!-- Table Content -->
     <p-table [value]="proizvodi"
-    [paginator]="false"
-    [scrollable]="true"
-    scrollHeight="400px"
+    [paginator]="true" [rows]="20"
     [responsiveLayout]="'scroll'"
     [tableStyle]="{ 'min-width': '50rem' }"
     class="product-table">

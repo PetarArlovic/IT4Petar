@@ -4,6 +4,7 @@ using POSApi.Application.DTO.Stavke_racunaDTO;
 using POSApi.Application.Services.Interfaces;
 using POSApi.Domain.Models;
 
+
 namespace POSApi.Application.Services.Implementations
 {
     public class Stavke_racunaAdminService : IStavke_racunaAdminService
@@ -48,8 +49,3 @@ namespace POSApi.Application.Services.Implementations
         }
     }
 }
-
-// ||
-// {}
-//  <>
-//  []

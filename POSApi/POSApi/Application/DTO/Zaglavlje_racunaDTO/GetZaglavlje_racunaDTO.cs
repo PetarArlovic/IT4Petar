@@ -1,6 +1,7 @@
 ﻿using POSApi.Application.DTO.KupacDTO;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Application.DTO.Zaglavlje_racunaDTO
 {
     public class GetZaglavlje_racunaDTO

@@ -214,6 +214,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
           kolicina: proizvod.kolicina,
           popust: proizvod.popust,
           vrijednost: proizvod.cijena,
+          naziv: proizvod.naziv,
           iznos_popusta: 0,
         };
         this.register.addStavka(stavka);
@@ -324,11 +325,3 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     this.showCart = !this.showCart;
   }
 }
-
-
-
-
-
-
-
-//<!--  ' '  <>  []  {}  || -->

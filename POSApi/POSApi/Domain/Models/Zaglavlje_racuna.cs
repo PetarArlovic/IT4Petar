@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Domain.Models
 {
     public class Zaglavlje_racuna
@@ -17,6 +18,7 @@ namespace POSApi.Domain.Models
 
         [MaxLength(100)]
         public string NAPOMENA { get; set; }
+
 
         [ForeignKey("KUPAC")]
         public int KUPACId { get; set; }

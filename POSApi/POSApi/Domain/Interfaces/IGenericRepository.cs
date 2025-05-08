@@ -1,6 +1,4 @@
-﻿using POSApi.Domain.Models;
-
-namespace POSApi.Domain.Interfaces
+﻿namespace POSApi.Domain.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {

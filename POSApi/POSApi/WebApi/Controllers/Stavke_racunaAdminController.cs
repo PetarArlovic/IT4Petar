@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using POSApi.Application.DTO.KupacDTO;
 using POSApi.Application.DTO.Stavke_racunaDTO;
 using POSApi.Application.Services.Interfaces;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -39,10 +38,3 @@ namespace POSApi.WebApi.Controllers
         }
     }
 }
-
-
-
-// ||
-// {}
-//  <>
-//  []

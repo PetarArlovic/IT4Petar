@@ -1,13 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.Services.Interfaces;
-using POSApi.Domain.Models;
-using POSApi.Application.Services;
-using NLog;
-using System.Linq.Expressions;
 using POSApi.Application.DTO.ProizvodDTO;
-using POSApi.Application.DTO.KupacDTO;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -20,7 +15,9 @@ namespace POSApi.WebApi.Controllers
 
         public ProizvodiController(IProizvodiService proizvodiService)
         {
+
             _proizvodiService = proizvodiService;
+
         }
 
         //////////////
@@ -83,16 +80,4 @@ namespace POSApi.WebApi.Controllers
         }
     }
 }
-
-
-
-
-
-
-
-
-// ||
-// {}
-//  <>
-//  []
 

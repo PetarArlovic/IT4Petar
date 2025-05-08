@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Domain.Models
 {
     public class Kupac
@@ -22,6 +23,7 @@ namespace POSApi.Domain.Models
         [MaxLength(100)]
         [Required]
         public string MJESTO { get; set; }
+
 
         public ICollection<Zaglavlje_racuna> ZAGLAVLJE_RACUNA { get; set; }
 

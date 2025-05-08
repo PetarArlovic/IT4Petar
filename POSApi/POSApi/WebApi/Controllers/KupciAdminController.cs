@@ -1,13 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.Services.Interfaces;
-using POSApi.Domain.Models;
-using POSApi.Application.Services;
-using NLog;
-using NSwag.Annotations;
-using Swashbuckle.AspNetCore.Annotations;
 using POSApi.Application.DTO.KupacDTO;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace POSApi.WebApi.Controllers
 {
@@ -70,10 +65,4 @@ namespace POSApi.WebApi.Controllers
         }
     }
 }
-
-
-    // ||
-    // {}
-    //  <>
-    //  []
 

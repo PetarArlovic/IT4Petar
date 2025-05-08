@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace POSApi.Domain.Models
 {
     public class Stavke_racuna
@@ -25,6 +26,7 @@ namespace POSApi.Domain.Models
 
         [Precision(20, 2)]
         public decimal VRIJEDNOST => (CIJENA * KOLICINA) - IZNOS_POPUSTA;
+
 
         [ForeignKey("PROIZVODId")]
         public int PROIZVODId { get; set; }

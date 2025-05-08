@@ -1,5 +1,6 @@
 ﻿using POSApi.Application.DTO.ProizvodDTO;
 
+
 namespace POSApi.Application.Services.Interfaces
 {
     public interface IProizvodiAdminService
@@ -10,5 +11,6 @@ namespace POSApi.Application.Services.Interfaces
         Task<bool> UpdateAsync(int sifra, UpdateProizvodDTO entity);
         Task<bool> DeleteAsync(int sifra);
         Task<GetProizvodDTO> FindPBySIFRA(int sifra);
+
     }
 }
