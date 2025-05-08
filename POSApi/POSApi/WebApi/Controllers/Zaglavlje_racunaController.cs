@@ -8,27 +8,26 @@ namespace POSApi.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class Zaglavlje_racunaController : ControllerBase
     {
 
-        private readonly ILogger<Zaglavlje_racunaController> _logger;
         private readonly IZaglavlje_racunaService _service;
 
-        public Zaglavlje_racunaController(IZaglavlje_racunaService service, ILogger<Zaglavlje_racunaController> logger)
+        public Zaglavlje_racunaController(IZaglavlje_racunaService service)
         {
 
             _service = service;
-            _logger = logger;
 
         }
 
 
+        //////////////
         /// <summary>
         /// Gets the list of all "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<List<GetZaglavlje_racunaDTO>>> GetAllAsync()
         {
 
@@ -38,27 +37,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
-        /// <summary>
-        /// Gets "Zaglavlje racuna" by its Id
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        [Authorize]
-        public async Task<ActionResult<GetZaglavlje_racunaDTO>> GetByIdAsync(int id)
-        {
-
-            var zaglavlje = await _service.GetByIdAsync(id);
-            return Ok(zaglavlje);
-
-        }
-
-
+        //////////////
         /// <summary>
         /// Adds "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult> AddAsync(CreateZaglavlje_racunaDTO dto)
         {
 
@@ -68,12 +52,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
+        //////////////
         /// <summary>
         /// Updates "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
         [HttpPut("{broj}")]
-        [Authorize]
         public async Task<ActionResult> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO dto)
         {
 
@@ -83,12 +67,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
+        //////////////
         /// <summary>
         /// Deletes "Zaglavlje racuna"
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{broj}")]
-        [Authorize]
         public async Task<ActionResult> DeleteAsync(int broj)
         {
 
@@ -98,12 +82,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
+        //////////////
         /// <summary>
         /// Gets "Zaglavlje racuna" by "BROJ"
         /// </summary>
         /// <returns></returns>
         [HttpGet("broj/{broj}")]
-        [Authorize]
         public async Task<ActionResult<GetZaglavlje_racunaDTO>> FindZByBROJ(int broj)
         {
 

@@ -31,7 +31,7 @@ export class StavkeRacunaService {
   }
 
   GetStavkeRacunaById(id: number): Observable<GetStavke_racunaDTO>{
-    return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racuna/${id}`);
+    return this.http.get<GetStavke_racunaDTO>(`${this.baseUrl}/api/stavke_racunaAdmin/${id}`);
   }
 
   GetStavkeRacunaByBroj(broj: number): Observable<GetStavke_racunaDTO[]>{

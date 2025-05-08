@@ -18,19 +18,19 @@ export class ProizvodiService {
   }
 
   addProizvod(proizvod: CreateProizvodDTO): Observable<CreateProizvodDTO> {
-    return this.http.post<CreateProizvodDTO>(`${this.baseUrl}/api/proizvodi`, proizvod);
+    return this.http.post<CreateProizvodDTO>(`${this.baseUrl}/api/proizvodiAdmin`, proizvod);
   }
 
   updateProizvod(sifra: number, proizvod: UpdateProizvodDTO): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/api/proizvodi/${sifra}`, proizvod);
+    return this.http.put<void>(`${this.baseUrl}/api/proizvodiAdmin/${sifra}`, proizvod);
   }
 
   deleteProizvod(sifra: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/api/proizvodi/${sifra}`);
+    return this.http.delete<void>(`${this.baseUrl}/api/proizvodiAdmin/${sifra}`);
   }
 
   getProizvodById(id: number): Observable<GetProizvodDTO>{
-    return this.http.get<GetProizvodDTO>(`${this.baseUrl}/api/proizvodi/${id}`)
+    return this.http.get<GetProizvodDTO>(`${this.baseUrl}/api/proizvodiAdmin/${id}`)
   }
 
   findProizvodBySifra(sifra: number): Observable<GetProizvodDTO>{

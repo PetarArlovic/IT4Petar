@@ -13,6 +13,7 @@ namespace POSApi.WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class KupciController : ControllerBase
     {
 
@@ -26,12 +27,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
+        //////////////
         /// <summary>
         /// Gets the list of all "Kupci"
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize]
         public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
         {
 
@@ -41,27 +42,12 @@ namespace POSApi.WebApi.Controllers
         }
 
 
-        /// <summary>
-        /// Gets "Kupac" by his Id
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("{id}", Name = "GetKupacById")]
-        [Authorize]
-        public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
-        {
-
-            var kupac = await _service.GetByIdAsync(id);
-            return Ok(kupac);
-
-        }
-
-
+        //////////////
         /// <summary>
         /// Adds "Kupac"
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize]
         public async Task<ActionResult> AddAsync(CreateKupacDTO dto)
         {
 
@@ -74,40 +60,13 @@ namespace POSApi.WebApi.Controllers
 
         }
 
-        /// <summary>
-        /// Updates "Kupci"
-        /// </summary>
-        /// <returns></returns>
-        [HttpPut("{sifra}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> UpdateAsync(int sifra, UpdateKupacDTO dto)
-        {
 
-            var kupac = await _service.UpdateAsync(sifra, dto);
-            return NoContent();
-
-        }
-
-        /// <summary>
-        /// Deletes "Kupac"
-        /// </summary>
-        /// <returns></returns>
-        [HttpDelete("{sifra}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> DeleteAsync(int sifra)
-        {
-
-            var kupac = await _service.DeleteAsync(sifra);
-            return NoContent();
-
-        }
-
+        //////////////
         /// <summary>
         /// Gets "Kupac" by "Sifra"
         /// </summary>
         /// <returns></returns>
         [HttpGet("sifra/{sifra}")]
-        [Authorize]
         public async Task<ActionResult<GetKupacDTO>> FindKBySIFRA(int sifra)
         {
 

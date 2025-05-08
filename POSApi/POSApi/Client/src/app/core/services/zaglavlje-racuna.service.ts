@@ -29,7 +29,7 @@ export class ZaglavljeRacunaService {
   }
 
   getZaglavljeRacunaById(id: number): Observable<GetZaglavlje_racunaDTO>{
-    return this.http.get<GetZaglavlje_racunaDTO>(`${this.baseUrl}/api/zaglavlje_racuna/${id}`);
+    return this.http.get<GetZaglavlje_racunaDTO>(`${this.baseUrl}/api/zaglavlje_racunaAdmin/${id}`);
   }
 
   getZaglavljeRacunaByBroj(broj: number): Observable<GetZaglavlje_racunaDTO>{

@@ -2,14 +2,13 @@
 
 namespace POSApi.Application.Services.Interfaces
 {
-    public interface IKupciService
+    public interface IKupciAdminService
     {
 
-        Task<List<GetKupacDTO>> GetAllAsync();
-        Task<GetKupacDTO> AddAsync(CreateKupacDTO entity);
+        Task<GetKupacDTO?> GetByIdAsync(int id);
         Task<bool> UpdateAsync(int sifra, UpdateKupacDTO entity);
         Task<bool> DeleteAsync(int sifra);
-        Task<GetKupacDTO> FindKBySIFRA(int sifra);
+
 
     }
 }
