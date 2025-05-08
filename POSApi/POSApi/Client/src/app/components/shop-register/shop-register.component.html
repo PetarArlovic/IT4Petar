@@ -1,16 +1,21 @@
 <p-card id="kreiraj-racun-card" [style]="{'margin-bottom': '20px'}">
-    <!-- Custom Header with Title and Cart Button -->
+    <!-- Custom Header -->
     <div class="card-header-container">
         <h2 class="card-title">Kreiraj Račun</h2>
         <div class="cart-button-container">
             <p-button icon="pi pi-shopping-cart"
                     (click)="op.toggle($event)"
                     styleClass="p-button-text">
+                    <span *ngIf="kosarica.length > 0"
+                        class="kosarica-badge p-badge-danger"
+                        style="position: absolute; top: 0; right: 0;">
+                        {{ kosarica.length }}
+                </span>
             </p-button>
         </div>
     </div>
 
-    <!-- Cart Overlay Panel -->
+    <!-- Cart Panel -->
     <p-overlayPanel #op [dismissable]="true">
         <div class="cart-table-container">
             <p-table [value]="kosarica" [responsive]="true" styleClass="p-datatable-sm p-datatable-striped">

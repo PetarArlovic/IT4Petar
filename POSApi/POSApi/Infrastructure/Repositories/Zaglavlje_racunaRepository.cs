@@ -17,7 +17,9 @@ namespace POSApi.Infrastructure.Repositories
 
         public async Task<Zaglavlje_racuna?> FindZByBROJ(int broj)
         {
-            return await _context.ZAGLAVLJE_RACUNA.FirstOrDefaultAsync(k => k.BROJ == broj);
+            return await _context.ZAGLAVLJE_RACUNA
+                .Include(z => z.KUPAC)
+                .FirstOrDefaultAsync(k => k.BROJ == broj);
         }
 
         public async Task<List<Zaglavlje_racuna>> GetAllZaglavljaAsync()

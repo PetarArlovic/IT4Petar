@@ -3,15 +3,15 @@
   top: 0;
   height: 80px;
   z-index: 1000;
-  border-bottom: 1px solid #183cdb;
+  border-bottom: 1px solid #ffffff;
   padding: 16px;
   width: 100%;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #4083c7;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.5);
 }
 
 .app-header-navigation {
@@ -20,6 +20,7 @@
   align-items: center;
   width: 100%;
   margin: 0 auto;
+  padding-left: 26px;
 }
 
 .app-header-logo {
@@ -28,20 +29,20 @@
 
 ::ng-deep .app-header-nav-links {
   display: flex;
-  gap: 24px;
+  gap: 28px;
   text-transform: uppercase;
   font-size: 1.25rem;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .app-header-nav-link {
   text-decoration: none;
-  color: #000000;
+  color: #ffffff;
   font-weight: bold;
 }
 
 .app-header-nav-link:hover {
-  color: #007bff;
+  color: #bbbaba;
 }
 
 .app-header-badge-container {
@@ -82,4 +83,32 @@
 .app-theme-toggle-button:hover {
   background-color: #0056b3;
   border-color: #0056b3;
+}
+
+.app-header-logout-button {
+  background-color: #4083c7 !important;  // Plava boja kao na ostalim dugmadi
+  border: none !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffffff !important;
+    color: #4083c7 !important;
+    transform: scale(1.03);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.5);
+  }
+
+  i {
+    font-size: 1.2rem;
+  }
 }

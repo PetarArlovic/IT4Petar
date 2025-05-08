@@ -64,39 +64,53 @@ export class ProizvodiComponent implements OnInit{
 
     //Search bar.
     this.searchControl.valueChanges
-    .pipe(debounceTime(500), distinctUntilChanged())
-    .subscribe((sifra: string) => {
-      if (!sifra || sifra.trim() === '') {
-        this.loadProizvodi();
-        return;
-      }
-
-      const sifraBroj = Number(sifra);
-      if (!isNaN(sifraBroj)) {
-        this.proizvodiService.findProizvodBySifra(sifraBroj).subscribe({
-          next: (proizvod) => {
-            this.proizvodi = [{
-              ...proizvod,
-              proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
-            }];
-          },
-          error: () => {
-            this.proizvodi = [];
-            this.messageService.add({
-              severity: 'info',
-              summary: 'Nema rezultata',
-              detail: `Nije pronađen proizvod sa šifrom ${sifraBroj}.`
-            });
+        .pipe(debounceTime(300), distinctUntilChanged())
+        .subscribe((input: string) => {
+          if (!input || input.trim() === '') {
+            this.loadProizvodi();
+            return;
           }
-        });
-      } else {
-        this.proizvodi = [];
-        this.messageService.add({
-          severity: 'warn',
-          summary: 'Neispravan unos',
-          detail: 'Šifra mora biti broj.'
-        });
-      }
+
+          const nazivProizvoda = input.trim();
+          const sifra = Number(nazivProizvoda);
+
+          if (!isNaN(sifra)) {
+            this.proizvodiService.findProizvodBySifra(sifra).subscribe({
+              next: (proizvod) => {
+                this.proizvodi = [{
+                  ...proizvod,
+                  proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
+                }];
+              },
+              error: () => {
+                this.proizvodi = [];
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Greška',
+                  detail: `Nema proizvoda sa šifrom: ${sifra}`,
+                  life: 3000
+                });
+              }
+            });
+          } else {
+            this.proizvodiService.findProizvodByNaziv(nazivProizvoda).subscribe({
+              next: (proizvod) => {
+                this.proizvodi = [{
+                  ...proizvod,
+                  proizvodSlikaUrl: `/images/${proizvod.proizvodSlikaUrl}`
+                }];
+              },
+              error: () => {
+                this.proizvodi = [];
+                this.messageService.add({
+                  severity: 'error',
+                  summary: 'Greška',
+                  detail: `Nema proizvoda s nazivom: "${nazivProizvoda}"`,
+                  life: 3000
+                });
+              }
+          });
+        }
     });
   }
 

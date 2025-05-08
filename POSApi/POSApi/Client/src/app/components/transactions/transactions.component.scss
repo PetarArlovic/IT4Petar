@@ -59,7 +59,7 @@
     }
 
     tr:hover td {
-        background-color: #f3f4f6;
+        background-color: #5e7cb8;
     }
 }
 
@@ -203,6 +203,48 @@
 
 .povijest-transakcija-dialog .povijest-transakcija-items-table tr:hover td {
     background-color: #f3f4f6;
+}
+
+.search-racun-inline {
+    position: relative;
+    max-width: 400px;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+    align-self: flex-start;
+    padding-left: 2rem;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+    font-size: 1rem;
+    z-index: 2;
+    padding-left: 2rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 2.5rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #000000;
+    border-radius: 0;
+    font-size: 1rem;
+    color: #11182767;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.3s;
+
+    &:focus {
+        border-color: #3b82f6;
+    }
+
+    &::placeholder {
+        color: #9ca3af;
+    }
 }
 
   /* Animation dialog */

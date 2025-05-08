@@ -65,10 +65,12 @@
         }
     }
 
-    .p-badge {
+    ::ng-deep .kosarica-badge {
         position: absolute;
         top: -5px;
         right: -5px;
+        color: #3b82f6;
+        background-color: #3b82f6;
     }
 }
 

@@ -1,12 +1,15 @@
 <header class="app-header">
-  <div class="app-header-navigation">
-      <nav class="app-header-nav-links">
-          <a href="/home" class="app-header-nav-link">Home</a>
-          <a *ngIf="authService.isAdmin()" href="/Proizvodi" class="app-header-nav-link">Shop</a>
-          <a *ngIf="authService.isAdmin()" href="/Transakcije" class="app-header-nav-link">Transakcije</a>
-      </nav>
-      <div class="app-header-badge-container">
-          <p-button label="Odjavi se" (onClick)="logOut()" class="app-header-nav-button"></p-button>
-      </div>
-  </div>
+    <div class="app-header-navigation">
+        <nav class="app-header-nav-links">
+            <a href="/home" class="app-header-nav-link">Home</a>
+            <a *ngIf="authService.isAdmin()" href="/Proizvodi" class="app-header-nav-link">Shop</a>
+            <a *ngIf="authService.isAdmin()" href="/Transakcije" class="app-header-nav-link">Transakcije</a>
+        </nav>
+        <div class="app-header-badge-container">
+            <button pButton class="app-header-logout-button" (click)="logOut()">
+                <i class="pi pi-sign-out"></i>
+                <span>Odjavi se</span>
+            </button>
+        </div>
+    </div>
 </header>

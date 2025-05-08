@@ -114,6 +114,8 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         return;
       }
 
+      this.register = new ShopRegisterService();
+
       this.saveKupac().then(() => {
         this.initializeStavkeFromKosarica();
         this.updateTotalCost();
@@ -229,7 +231,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       }
 
       await new Promise(resolve => setTimeout(resolve, 300));
-
       const verifiedKupac = await firstValueFrom(this.kupciService.getKupacById(savedKupac.id));
 
       if (!verifiedKupac?.id) {

@@ -1,6 +1,18 @@
 <div class="povijest-transakcija-card">
     <div class="povijest-transakcija-table-wrapper">
+
         <h2 class="povijest-transakcija-naslov">Povijest transakcija</h2>
+
+        <div class="search-racun-inline custom-search">
+            <i class="pi pi-search search-icon"></i>
+            <input
+                type="text"
+                placeholder="Pretraži po broju računa"
+                [formControl]="searchControl"
+                class="search-input"
+                />
+        </div>
+
         <p-table class="povijest-transakcija-table" [value]="zaglavlja" [paginator]="true" [rows]="20">
             <ng-template pTemplate="header">
                 <tr>
