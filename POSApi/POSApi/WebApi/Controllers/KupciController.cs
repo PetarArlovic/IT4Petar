@@ -17,12 +17,12 @@ namespace POSApi.WebApi.Controllers
     public class KupciController : ControllerBase
     {
 
-        private readonly IKupciService _service;
+        private readonly IKupciService _kupciService;
 
         public KupciController(IKupciService service)
         {
 
-            _service = service;
+            _kupciService = service;
 
         }
 
@@ -36,7 +36,7 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<List<GetKupacDTO>>> GetAllAsync()
         {
 
-            var kupci = await _service.GetAllAsync();
+            var kupci = await _kupciService.GetAllAsync();
             return Ok(kupci);
 
         }
@@ -51,12 +51,8 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult> AddAsync(CreateKupacDTO dto)
         {
 
-            var kupac = await _service.AddAsync(dto);
-            return CreatedAtRoute(
-            routeName: "GetKupacById",
-            routeValues: new { id = kupac.Id },     
-            value: kupac);
-
+            var kupac = await _kupciService.AddAsync(dto);
+            return Ok(kupac);
 
         }
 
@@ -70,7 +66,36 @@ namespace POSApi.WebApi.Controllers
         public async Task<ActionResult<GetKupacDTO>> FindKBySIFRA(int sifra)
         {
 
-            var kupac = await _service.FindKBySIFRA(sifra);
+            var kupac = await _kupciService.FindKBySIFRA(sifra);
+            return Ok(kupac);
+
+        }
+
+
+        /// <summary>
+        /// Updates "Kupci"
+        /// </summary>
+        /// <returns></returns>
+        [HttpPut("{sifra}")]
+        public async Task<ActionResult> UpdateAsync(int sifra, UpdateKupacDTO dto)
+        {
+
+            var kupac = await _kupciService.UpdateAsync(sifra, dto);
+            return NoContent();
+
+        }
+
+
+        //////////////
+        /// <summary>
+        /// Gets "Kupac" by his Id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
+        {
+
+            var kupac = await _kupciService.GetByIdAsync(id);
             return Ok(kupac);
 
         }

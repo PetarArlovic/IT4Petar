@@ -9,6 +9,7 @@ namespace POSApi.WebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Admin")]
+
     public class Zaglavlje_racunaAdminController : ControllerBase
     {
 

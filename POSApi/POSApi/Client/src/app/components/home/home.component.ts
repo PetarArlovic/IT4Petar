@@ -101,11 +101,13 @@ export class HomeComponent implements OnInit {
 
     if (existing) {
       existing.kolicina++;
+      existing.vrijednost = (existing.cijena - (existing.cijena * (existing.popust / 100))) * existing.kolicina;
       this.kosarica = [...this.kosarica];
     } else {
       const novaStavka: CartProizvodDTO = {
         ...proizvod,
         kolicina: 1,
+        vrijednost: (proizvod.cijena - (proizvod.cijena * (proizvod.popust / 100))),
         popust: proizvod.popust || 0,
       };
       this.kosarica = [...this.kosarica, novaStavka];
@@ -116,7 +118,7 @@ export class HomeComponent implements OnInit {
 
   private recalculateTotal() {
     this.totalCost = this.kosarica
-    .reduce((sum, stavka: CartProizvodDTO) => sum + stavka.cijena * stavka.kolicina * (1 - stavka.popust / 100), 0);
+      .reduce((sum, stavka: CartProizvodDTO) => sum + (stavka.vrijednost || 0), 0);
   }
 }
 

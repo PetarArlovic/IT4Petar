@@ -31,4 +31,6 @@ export interface UpdateProizvodDTO {
 export interface CartProizvodDTO extends GetProizvodDTO {
     kolicina: number;
     popust: number;
+    vrijednost: number;
+    iznos_popusta?: number;
 }

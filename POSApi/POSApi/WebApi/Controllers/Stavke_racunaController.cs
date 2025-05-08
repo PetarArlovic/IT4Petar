@@ -15,7 +15,7 @@ namespace POSApi.WebApi.Controllers
 
         private readonly IStavke_racunaService _service;
 
-        public Stavke_racunaController(IStavke_racunaService service, ILogger<Stavke_racunaController> logger)
+        public Stavke_racunaController(IStavke_racunaService service)
         {
 
             _service = service;
@@ -37,20 +37,6 @@ namespace POSApi.WebApi.Controllers
 
         }
 
-
-        //////////////
-        /// <summary>
-        /// Gets "Stavke racuna" by its Id
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<ActionResult<GetStavke_racunaDTO>> GetByIdAsync(int id)
-        {
-
-            var stavke = await _service.GetByIdAsync(id);
-            return Ok(stavke);
-
-        }
 
 
         //////////////

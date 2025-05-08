@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using POSApi.Application.DTO.Zaglavlje_racunaDTO;
 using POSApi.Application.Services.Interfaces;

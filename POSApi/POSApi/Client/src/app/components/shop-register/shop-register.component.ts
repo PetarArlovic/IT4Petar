@@ -287,6 +287,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
           cijena: proizvod.cijena,
           stanje: proizvod.stanje - stavka.kolicina,
           popust: proizvod.popust,
+
           proizvodSlikaUrl: proizvod.proizvodSlikaUrl
         };
 

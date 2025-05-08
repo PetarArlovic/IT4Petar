@@ -13,6 +13,7 @@
                 />
         </div>
 
+        <!-- Table Content -->
         <p-table class="povijest-transakcija-table" [value]="zaglavlja" [paginator]="true" [rows]="20">
             <ng-template pTemplate="header">
                 <tr>
@@ -43,6 +44,7 @@
         </p-table>
     </div>
 
+    <!-- Dialogue Content -->
     <p-dialog class="povijest-transakcija-dialog" header="Stavke računa" [(visible)]="displayDialog" [modal]="true">
         <div *ngIf="selectedZaglavlje">
             <h3>Račun br. {{selectedZaglavlje.broj}}</h3>

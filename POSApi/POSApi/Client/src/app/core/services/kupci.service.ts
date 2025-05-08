@@ -23,7 +23,7 @@ export class KupciService {
   }
 
   updateKupac(sifra: number, kupac: UpdateKupacDTO): Observable<void>{
-    return this.http.put<void>(`${this.baseUrl}/api/kupciAdmin/${sifra}`, kupac)
+    return this.http.put<void>(`${this.baseUrl}/api/kupci/${sifra}`, kupac)
   }
 
   deleteKupac(sifra: number): Observable<void>{
@@ -31,7 +31,7 @@ export class KupciService {
   }
 
   getKupacById(id: number): Observable<GetKupacDTO>{
-    return this.http.get<GetKupacDTO>(`${this.baseUrl}/api/kupciAdmin/${id}`)
+    return this.http.get<GetKupacDTO>(`${this.baseUrl}/api/kupci/${id}`)
   }
 
   findKupacBySifra(sifra: number): Observable<GetKupacDTO>{

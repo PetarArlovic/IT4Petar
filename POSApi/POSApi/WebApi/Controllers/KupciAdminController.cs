@@ -32,7 +32,7 @@ namespace POSApi.WebApi.Controllers
         /// Gets "Kupac" by his Id
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}", Name = "GetKupacById")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<GetKupacDTO>> GetByIdAsync(int id)
         {
 

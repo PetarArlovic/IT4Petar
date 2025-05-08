@@ -10,6 +10,7 @@ namespace POSApi.Application.Services.Interfaces
         Task<bool> UpdateAsync(int sifra, UpdateKupacDTO entity);
         Task<bool> DeleteAsync(int sifra);
         Task<GetKupacDTO> FindKBySIFRA(int sifra);
+        Task<GetKupacDTO?> GetByIdAsync(int id);
 
     }
 }

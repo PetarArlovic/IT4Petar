@@ -43,32 +43,6 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<GetZaglavlje_racunaDTO> GetByIdAsync(int id)
-        {
-            try
-            {
-
-                var zaglavlje = await _repo.GetByIdAsync(id);
-                if (zaglavlje == null)
-                {
-                    _logger.LogInformation("Zaglavlje_racuna sa id-jem:" + id +  "ne postoji");
-                    throw new Exception("Zaglavlje_racuna sa id-jem: " + id + " ne postoji");
-                }
-
-                return _mapper.Map<GetZaglavlje_racunaDTO>(zaglavlje);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError(ex, "Greška prilikom učitavanja zaglavlja:");
-                throw;
-
-            }
-        }
-
-
         public async Task<GetZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO dto)
         {
 

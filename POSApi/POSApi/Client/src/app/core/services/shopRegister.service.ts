@@ -18,21 +18,20 @@ export class ShopRegisterService {
   }
 
   addStavka(stavka: GetStavke_racunaDTO) {
-    const ukupnoBezPopusta = stavka.cijena * stavka.kolicina;
-    stavka.iznos_popusta = (stavka.popust / 100) * ukupnoBezPopusta;
-    stavka.vrijednost = ukupnoBezPopusta - stavka.iznos_popusta;
+    const cijenaSPopustom = stavka.cijena - (stavka.cijena * (stavka.popust / 100));
+    stavka.vrijednost = cijenaSPopustom * stavka.kolicina;
+    stavka.iznos_popusta = (stavka.cijena - cijenaSPopustom) * stavka.kolicina;
 
     this.stavke.push(stavka);
+    this.updateTotals();
+  }
+
+  updateTotals() {
+    this.totalCost = this.stavke.reduce((sum, stavka) => sum + stavka.vrijednost, 0);
+    this.totalDiscount = this.stavke.reduce((sum, stavka) => sum + stavka.iznos_popusta, 0);
   }
 
   calculateTotal(): number {
-    const total = this.stavke.reduce((sum, stavka) => {
-      const ukupnoBezPopusta = stavka.cijena * stavka.kolicina;
-      const iznosPopusta = (stavka.popust / 100) * ukupnoBezPopusta;
-      const ukupno = ukupnoBezPopusta - iznosPopusta;
-      return sum + ukupno;
-    }, 0);
-
-    return parseFloat(total.toFixed(2));
+    return parseFloat(this.totalCost.toFixed(2));
   }
 }

@@ -31,8 +31,10 @@ namespace POSApi.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<List<GetProizvodDTO>>> GetAllAsync()
         {
+
             var proizvodi = await _proizvodiService.GetAllAsync();
             return Ok(proizvodi);
+
         }
 
 
@@ -44,8 +46,10 @@ namespace POSApi.WebApi.Controllers
         [HttpPut("{sifra}")]
         public async Task<ActionResult> UpdateAsync(int sifra, UpdateProizvodDTO dto)
         {
+
             var proizvod = await _proizvodiService.UpdateAsync(sifra, dto);
             return NoContent();
+
         }
 
 
@@ -57,8 +61,10 @@ namespace POSApi.WebApi.Controllers
         [HttpGet("sifra/{sifra}")]
         public async Task<ActionResult<GetProizvodDTO>> FindPBySIFRA(int sifra)
         {
+
             var proizvod = await _proizvodiService.FindPBySIFRA(sifra);
             return Ok(proizvod);
+
         }
 
 
@@ -70,8 +76,10 @@ namespace POSApi.WebApi.Controllers
         [HttpGet("naziv/{naziv}")]
         public async Task<ActionResult<GetProizvodDTO>> FindProizvodByNaziv(string naziv)
         {
+
             var proizvod = await _proizvodiService.FindProizvodByNaziv(naziv);
             return Ok(proizvod);
+
         }
     }
 }

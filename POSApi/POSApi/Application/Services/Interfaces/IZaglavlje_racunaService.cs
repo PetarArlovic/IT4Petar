@@ -6,7 +6,6 @@ namespace POSApi.Application.Services.Interfaces
     {
 
         Task<List<GetZaglavlje_racunaDTO>> GetAllZaglavljaAsync();
-        Task<GetZaglavlje_racunaDTO?> GetByIdAsync(int id);
         Task<GetZaglavlje_racunaDTO> AddAsync(CreateZaglavlje_racunaDTO entity);
         Task<bool> UpdateAsync(int broj, UpdateZaglavlje_racunaDTO entity);
         Task<bool> DeleteAsync(int broj);

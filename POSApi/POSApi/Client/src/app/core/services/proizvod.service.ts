@@ -22,7 +22,7 @@ export class ProizvodiService {
   }
 
   updateProizvod(sifra: number, proizvod: UpdateProizvodDTO): Observable<void> {
-    return this.http.put<void>(`${this.baseUrl}/api/proizvodiAdmin/${sifra}`, proizvod);
+    return this.http.put<void>(`${this.baseUrl}/api/proizvodi/${sifra}`, proizvod);
   }
 
   deleteProizvod(sifra: number): Observable<void> {
