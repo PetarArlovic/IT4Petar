@@ -76,7 +76,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{sifra}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> UpdateAsync(int sifra, UpdateProizvodDTO dto)
         {
 

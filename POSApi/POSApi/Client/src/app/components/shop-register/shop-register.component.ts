@@ -15,9 +15,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
-import { CartProizvodDTO, GetProizvodDTO } from '../../models/proizvodi';
+import { CartProizvodDTO, GetProizvodDTO, UpdateProizvodDTO } from '../../models/proizvodi';
 import { BadgeModule } from 'primeng/badge';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { ProizvodiService } from '../../core/services/proizvod.service';
 
 @Component({
   selector: 'app-shop-register',
@@ -55,12 +56,14 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     totalCost: number = 0;
     displayDialog: boolean = false;
     napomena: string = '';
-    showCart = false;
+    showCart: boolean = false;
+
 
     constructor(
       private stavkeRacunaService: StavkeRacunaService,
       private zaglavljeRacunaService: ZaglavljeRacunaService,
       private kupciService: KupciService,
+      private proizvodiService: ProizvodiService,
       private fb: FormBuilder,
       private register: ShopRegisterService
     ){
@@ -90,6 +93,15 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
           console.error('Greška prilikom dohvaćanja kupaca:', err);
         }
       });
+
+      this.proizvodiService.getAllProizvodi().subscribe({
+        next: (data) => {
+          this.proizvodi = data;
+        },
+        error: (err) => {
+          console.error('Greška prilikom dohvaćanja proizvoda:', err);
+        }
+      });
     }
 
 
@@ -102,7 +114,8 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       this.totalCost = this.register.calculateTotal();
     }
 
-    CreateNewBill(): void {
+    async CreateNewBill(): Promise<void> {
+
 
       if (this.kosarica.length === 0) {
         alert('Morate dodati barem jedan proizvod u košaricu prije nego što možete napraviti račun!');
@@ -114,16 +127,26 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         return;
       }
 
-      this.register = new ShopRegisterService();
+      if (!this.checkStockBeforeIssue()) {
+        return;
+      }
 
-      this.saveKupac().then(() => {
+      try {
+        await this.updateProductStock();
+        this.register = new ShopRegisterService();
+
+        await this.saveKupac();
         this.initializeStavkeFromKosarica();
         this.updateTotalCost();
-        this.addStavkeToRacun();
-      }).finally(() => {
+        await this.addStavkeToRacun();
+
         this.resetFormAndCart();
         this.displayDialog = true;
-      });
+
+      } catch (err) {
+        console.error('Greška pri kreiranju računa:', err);
+        alert('Došlo je do greške pri kreiranju računa!');
+      }
     }
 
     addStavkeToRacun(): void {
@@ -166,6 +189,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       this.kosarica.splice(index, 1);
       this.updateTotalCost();
       this.initializeStavkeFromKosarica();
+      this.showCart = true;
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -250,12 +274,56 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     }
   }
 
+  async updateProductStock(): Promise<void> {
+    try {
+      for (const stavka of this.kosarica) {
+        const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);
+        if (!proizvod) continue;
+
+        const updatedProizvod: UpdateProizvodDTO = {
+          sifra: proizvod.sifra,
+          naziv: proizvod.naziv,
+          jedinica_mjere: proizvod.jedinica_mjere,
+          cijena: proizvod.cijena,
+          stanje: proizvod.stanje - stavka.kolicina,
+          popust: proizvod.popust,
+          proizvodSlikaUrl: proizvod.proizvodSlikaUrl
+        };
+
+        await firstValueFrom(this.proizvodiService.updateProizvod(proizvod.sifra, updatedProizvod));
+      }
+    } catch (err) {
+      console.error('Greška pri ažuriranju stanja:', err);
+      throw err;
+    }
+  }
+
+  checkStockBeforeIssue(): boolean {
+    for (const stavka of this.kosarica) {
+      const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);
+      if (!proizvod) {
+        alert(`Proizvod sa šifrom ${stavka.sifra} nije pronađen.`);
+        return false;
+      }
+      if (proizvod.stanje < stavka.kolicina) {
+        alert(`Nema dovoljno zaliha za proizvod ${proizvod.naziv}. Trenutno stanje: ${proizvod.stanje}, tražena količina: ${stavka.kolicina}`);
+        return false;
+      }
+    }
+    return true;
+  }
+
   resetFormAndCart(): void {
     this.kosarica = [];
     this.kupacForm.reset();
     this.totalCost = 0;
   }
+
+  toggleCart() {
+    this.showCart = !this.showCart;
+  }
 }
+
 
 
 

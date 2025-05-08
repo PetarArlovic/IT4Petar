@@ -74,7 +74,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> AddAsync(CreateStavke_racunaDTO dto)
         {
 
@@ -89,7 +89,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPut("{broj}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> UpdateAsync(int broj, UpdateStavke_racunaDTO dto)
         {
 
@@ -104,7 +104,7 @@ namespace POSApi.WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpDelete("{broj}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<ActionResult> DeleteAsync(int broj)
         {
 

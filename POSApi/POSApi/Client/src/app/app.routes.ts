@@ -25,6 +25,7 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [authGuard],
+    data: { userAllowed: true }
     },
 
     {

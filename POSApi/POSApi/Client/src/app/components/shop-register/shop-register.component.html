@@ -18,6 +18,13 @@
     <!-- Cart Panel -->
     <p-overlayPanel #op [dismissable]="true">
         <div class="cart-table-container">
+            <div class="cart-header">
+                <h3 class="close-button-header">Košarica</h3>
+                <p-button icon="pi pi-times"
+                        (click)="op.hide()"
+                        class="close-cart-button">
+                </p-button>
+            </div>
             <p-table [value]="kosarica" [responsive]="true" styleClass="p-datatable-sm p-datatable-striped">
                 <ng-template pTemplate="header">
                     <tr>
@@ -40,7 +47,7 @@
                             <button pButton
                                     icon="pi pi-trash"
                                     class="p-button-rounded p-button-danger p-button-text"
-                                    (click)="removeStavkaFromRegister(i); op.hide()">
+                                    (click)="removeStavkaFromRegister(i)">
                             </button>
                         </td>
                     </tr>
