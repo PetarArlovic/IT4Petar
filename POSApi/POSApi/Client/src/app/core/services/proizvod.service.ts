@@ -41,5 +41,3 @@ export class ProizvodiService {
     return this.http.get<GetProizvodDTO>(`${this.baseUrl}/api/proizvodi/naziv/${naziv}`)
   }
 }
-
-//' '<>[]{}

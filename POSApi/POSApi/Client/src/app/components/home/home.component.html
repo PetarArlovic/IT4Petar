@@ -2,6 +2,8 @@
 
     <div class="shop-products-column">
         <h4 class="products-shop-title m-0">Proizvodi</h4>
+
+        <!-- Search bar -->
         <div class="search-bar-inline-h custom-search">
             <i class="pi pi-search search-icon"></i>
             <input
@@ -12,6 +14,7 @@
                 />
         </div>
 
+        <!-- Card and ing -->
         <div *ngIf="proizvodi && proizvodi.length > 0" class="shop-product-list">
             <div *ngFor="let proizvod of proizvodi" class="shop-product-item">
                 <p-card >
@@ -24,6 +27,7 @@
                         />
                     </ng-template>
 
+                    <!-- Card info -->
                     <div class="shop-product-details">
                         <h2>{{ proizvod.naziv }}</h2>
                         <div class="shop-product-info">
@@ -33,6 +37,7 @@
                         <p class="product-code">Šifra: <span>{{ proizvod.sifra }}</span></p>
                     </div>
 
+                    <!-- Button -->
                     <ng-template pTemplate="footer">
                         <p-button label="Dodaj u košaricu" icon="pi pi-shopping-cart"
                             (click)="addToCart(proizvod)">

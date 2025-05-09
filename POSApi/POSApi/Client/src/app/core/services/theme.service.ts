@@ -16,7 +16,7 @@ export class ThemeService {
 
     const href = `${this.themePath}/${theme}/theme.css`;
 
-    console.log('Loading theme:', href);  // Ispis za provjeru
+    console.log('Loading theme:', href);  // Provjera
 
     if (themeLink) {
       themeLink.href = href;

@@ -1,3 +1,5 @@
+import { GetProizvodDTO } from "./proizvodi";
+
 export interface CreateStavke_racunaDTO {
     kolicina: number;
     cijena: number;
@@ -18,6 +20,7 @@ export interface GetStavke_racunaDTO {
     broj: number;
     proizvodId: number;
     naziv?: string;
+    proizvod?: GetProizvodDTO
 }
 
 export interface UpdateStavke_racunaDTO {

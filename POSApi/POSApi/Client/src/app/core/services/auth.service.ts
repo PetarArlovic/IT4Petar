@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../../models/auth';
-import { Observable, pipe, tap } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -43,5 +42,3 @@ export class AuthService {
     return userRole === 'Admin';
   }
 }
-
-//<!--  ' '  <>  []  {}  || -->

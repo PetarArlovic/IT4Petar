@@ -9,6 +9,7 @@ export interface CreateProizvodDTO {
 }
 
 export interface GetProizvodDTO {
+    id: number;
     sifra: number;
     naziv: string;
     jedinica_mjere: string;
@@ -33,4 +34,5 @@ export interface CartProizvodDTO extends GetProizvodDTO {
     popust: number;
     vrijednost: number;
     iznos_popusta?: number;
+    sifra: number;
 }

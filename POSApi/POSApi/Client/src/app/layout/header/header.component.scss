@@ -86,7 +86,7 @@
 }
 
 .app-header-logout-button {
-  background-color: #4083c7 !important;  // Plava boja kao na ostalim dugmadi
+  background-color: #4083c7 !important;
   border: none !important;
   color: #ffffff !important;
   font-weight: 600;
@@ -101,7 +101,6 @@
   &:hover {
     background-color: #ffffff !important;
     color: #4083c7 !important;
-    transform: scale(1.03);
   }
 
   &:focus {

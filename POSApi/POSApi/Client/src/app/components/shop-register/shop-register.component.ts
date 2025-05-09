@@ -201,6 +201,9 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     }
 
     initializeStavkeFromKosarica(): void {
+
+      console.log('--- Početak initializeStavkeFromKosarica ---');
+      console.log('Sadržaj košarice:', JSON.stringify(this.kosarica, null, 2));
       this.register = new ShopRegisterService();
       this.kosarica.forEach((proizvod, index) => {
         const ukupnoBezPopusta = proizvod.cijena * proizvod.kolicina;

@@ -339,8 +339,8 @@
 :host ::ng-deep {
     .p-overlaypanel {
         &-mask {
-            background-color: rgba(0, 0, 0, 0.1) !important; /* Svijetlija pozadina */
-            backdrop-filter: blur(2px); /* Blag blur efekt */
+            background-color: rgba(0, 0, 0, 0.1) !important;
+            backdrop-filter: blur(2px);
         }
     }
 }

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ProizvodiService } from '../../core/services/proizvod.service';
 import { CartProizvodDTO, GetProizvodDTO } from '../../models/proizvodi';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
@@ -63,6 +63,7 @@ export class HomeComponent implements OnInit {
                 });
               }
             });
+
           } else {
             this.proizvodiService.findProizvodByNaziv(nazivProizvoda).subscribe({
               next: (proizvod) => {
@@ -83,7 +84,7 @@ export class HomeComponent implements OnInit {
           });
         }
     });
-}
+  }
 
 
   loadProizvodi(): void {
@@ -121,11 +122,3 @@ export class HomeComponent implements OnInit {
       .reduce((sum, stavka: CartProizvodDTO) => sum + (stavka.vrijednost || 0), 0);
   }
 }
-
-
-
-
-
-
-
-//<!--  ' '  <div>  []  {}  || -->

@@ -46,7 +46,3 @@ const getRolesFromToken = (decodedToken: DecodedToken): string[] => {
   if (typeof roleClaim === 'string') return [roleClaim]
   return [];
 }
-
-
-
-//' '<>[]{}

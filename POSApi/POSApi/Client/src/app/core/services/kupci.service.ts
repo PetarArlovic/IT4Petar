@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GetProizvodDTO } from '../../models/proizvodi';
 import { Observable } from 'rxjs';
 import { CreateKupacDTO, GetKupacDTO, UpdateKupacDTO } from '../../models/kupci';
 
@@ -38,8 +37,3 @@ export class KupciService {
   return this.http.get<GetKupacDTO>(`${this.baseUrl}/api/kupci//sifra/${sifra}`)
   }
 }
-
-
-
-
-//' '<>[]{}

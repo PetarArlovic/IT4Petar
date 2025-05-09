@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, ObservedValueOf } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CreateStavke_racunaDTO, GetStavke_racunaDTO, UpdateStavke_racunaDTO } from '../../models/stavke_racuna';
-import { GetProizvodDTO } from '../../models/proizvodi';
 
 @Injectable({
   providedIn: 'root'
@@ -38,9 +37,3 @@ export class StavkeRacunaService {
     return this.http.get<GetStavke_racunaDTO[]>(`${this.baseUrl}/api/stavke_racuna/BROJ/${broj}`);
   }
 }
-
-
-
-
-
-//' '<>[]{}

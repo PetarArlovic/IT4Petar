@@ -43,7 +43,7 @@ form {
     }
 
     small.p-error {
-      color: #4083c7;  /* Tamno siva boja za tekst poruka */
+      color: #4083c7;
     }
 
     input {
@@ -120,6 +120,7 @@ form {
 ::ng-deep .p-button.custom-register-button:hover {
   background-color: #ffffff;
   color: #4083c7;
+  border-color: #4083c7 !important;
 }
 
 ::ng-deep .p-card .p-card-header {
