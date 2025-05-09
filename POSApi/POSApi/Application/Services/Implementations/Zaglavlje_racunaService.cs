@@ -31,7 +31,6 @@ namespace POSApi.Application.Services.Implementations
             {
 
                 var zaglavlja = await _zaglavljeRepo.GetAllZaglavljaAsync();
-                _logger.LogInformation("Zaglavlja su uspješno učitana.");
                 return _mapper.Map<List<GetZaglavlje_racunaDTO>>(zaglavlja);
 
             }

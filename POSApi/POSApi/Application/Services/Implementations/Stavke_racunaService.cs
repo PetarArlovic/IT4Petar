@@ -35,7 +35,6 @@ namespace POSApi.Application.Services.Implementations
             {
 
                 var stavke = await _stavkeRepo.GetAllStavkeAsync();
-                _logger.LogInformation("Stavke su uspješno učitane.");
                 return _mapper.Map<List<GetStavke_racunaDTO>>(stavke);
 
             }

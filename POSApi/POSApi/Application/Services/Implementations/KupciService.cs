@@ -32,7 +32,6 @@ namespace POSApi.Application.Services.Implementations
             {
 
                 var kupci = await _repo.GetAllAsync();
-                _logger.LogInformation("Kupci su uspješno učitani.");
                 return _mapper.Map<List<GetKupacDTO>>(kupci);
 
             }

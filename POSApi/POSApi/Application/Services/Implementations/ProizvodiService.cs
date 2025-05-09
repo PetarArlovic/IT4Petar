@@ -31,7 +31,6 @@ namespace POSApi.Application.Services.Implementations
             {
 
                 var proizvodi = await _repo.GetAllAsync();
-                _logger.LogInformation("Proizvodi su uspješno učitani.");
                 return _mapper.Map<List<GetProizvodDTO>>(proizvodi);
 
             }
