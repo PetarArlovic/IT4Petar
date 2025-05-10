@@ -163,9 +163,11 @@ namespace POSApi.Application.Services.Implementations
 
         private async Task<int> GenerateNewBroj()
         {
+
             var allZaglavlja = await _repo.GetAllAsync();
             var maxSifra = allZaglavlja.Any() ? allZaglavlja.Max(z => z.BROJ) : 0;
             return maxSifra + 1;
+
         }
     }
 }

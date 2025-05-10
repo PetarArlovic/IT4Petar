@@ -40,11 +40,11 @@ namespace POSApi.WebApi.Controllers
         /// Updates "Proizvod"
         /// </summary>
         /// <returns></returns>
-        [HttpPut("{sifra}")]
-        public async Task<ActionResult> UpdateAsync(int sifra, UpdateProizvodDTO dto)
+        [HttpPut("updateStanje/{sifra}")]
+        public async Task<ActionResult> UpdateAsync(int sifra, [FromBody] int novoStanje)
         {
 
-            var proizvod = await _proizvodiService.UpdateAsync(sifra, dto);
+            await _proizvodiService.UpdateStanjeProizvodaAsync(sifra, novoStanje);
             return NoContent();
 
         }

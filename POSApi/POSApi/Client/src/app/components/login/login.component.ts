@@ -40,7 +40,6 @@ export class LoginComponent {
     const {email, password} = this.loginForm.value;
     this.authService.loginUser({email: email, password: password}).subscribe(
       (response: any) => {
-          console.log('Login response:', response);
           sessionStorage.setItem('token', response.token);
           this.router.navigate(['/home'])
       },

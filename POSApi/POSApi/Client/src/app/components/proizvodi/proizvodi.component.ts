@@ -169,7 +169,6 @@ export class ProizvodiComponent implements OnInit{
   }
 
   editProizvod(proizvod: GetProizvodDTO): void{
-    console.log('editProizvod called', proizvod);
     this.selectedProizvod = proizvod;
     this.proizvodForm.patchValue({
       sifra: proizvod.sifra,
@@ -195,7 +194,6 @@ export class ProizvodiComponent implements OnInit{
   }
 
   openNew(): void {
-    console.log('openNew called');
     this.proizvodForm.reset();
     this.selectedProizvod = null;
     this.proizvodDialog = true;

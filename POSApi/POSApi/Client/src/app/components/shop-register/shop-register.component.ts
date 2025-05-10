@@ -279,29 +279,39 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
   }
 
   async updateProductStock(): Promise<void> {
-    try {
-      for (const stavka of this.kosarica) {
-        const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);
-        if (!proizvod) continue;
-
-        const updatedProizvod: UpdateProizvodDTO = {
-          sifra: proizvod.sifra,
-          naziv: proizvod.naziv,
-          jedinica_mjere: proizvod.jedinica_mjere,
-          cijena: proizvod.cijena,
-          stanje: proizvod.stanje - stavka.kolicina,
-          popust: proizvod.popust,
-
-          proizvodSlikaUrl: proizvod.proizvodSlikaUrl
-        };
-
-        await firstValueFrom(this.proizvodiService.updateProizvod(proizvod.sifra, updatedProizvod));
+  try {
+    console.log('Početak ažuriranja stanja proizvoda...');
+    
+    for (const stavka of this.kosarica) {
+      const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);
+      if (!proizvod) {
+        console.warn(`Proizvod sa šifrom ${stavka.sifra} nije pronađen`);
+        continue;
       }
-    } catch (err) {
-      console.error('Greška pri ažuriranju stanja:', err);
-      throw err;
+
+      // Provjera izračuna novog stanja
+      const novoStanje = proizvod.stanje - stavka.kolicina;
+
+      // Debugging: Provjeri stanje prije nego ga pošalješ
+      console.log(`Novo stanje za proizvod ${proizvod.naziv}: ${novoStanje}`);
+      
+      // Ako je novo stanje 0, to može biti problem u logici.
+      if (novoStanje === 0) {
+        console.warn(`Novo stanje je 0 za proizvod ${proizvod.naziv}`);
+      }
+
+      await firstValueFrom(
+        this.proizvodiService.updateStanjeProizvoda(proizvod.sifra, novoStanje)
+      );
+
+      // Ažurirajte lokalno stanje
+      proizvod.stanje = novoStanje;
     }
+  } catch (err) {
+    console.error('Greška pri ažuriranju stanja:', err);
+    throw err;
   }
+}
 
   checkStockBeforeIssue(): boolean {
     for (const stavka of this.kosarica) {

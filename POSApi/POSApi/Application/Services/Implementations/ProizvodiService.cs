@@ -75,40 +75,11 @@ namespace POSApi.Application.Services.Implementations
         }
 
 
-        public async Task<CreateProizvodDTO> AddAsync(CreateProizvodDTO dto)
+
+        public async Task<bool> UpdateStanjeProizvodaAsync(int sifra, int novoStanje)
         {
             try
             {
-
-                var existingproizvod = await _proizvodiRepo.FindPBySIFRA(dto.sifra);
-
-                if (existingproizvod != null)
-                {
-                    _logger.LogInformation("Proizvod sa sifrom" + dto.sifra + " vec postoji");
-                    throw new InvalidOperationException("Proizvod sa sifrom" + dto.sifra + " vec postoji");
-                }
-
-                var proizvod = _mapper.Map<Proizvod>(dto);
-                await _repo.AddAsync(proizvod);
-                return _mapper.Map<CreateProizvodDTO>(proizvod);
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError(ex, "Greška prilikom dodavanja proizvoda");
-                throw;
-
-            }
-        }
-
-
-        public async Task<bool> UpdateAsync(int sifra, UpdateProizvodDTO dto)
-        {
-            try
-            {
-
 
                 var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
 
@@ -118,8 +89,17 @@ namespace POSApi.Application.Services.Implementations
                     throw new Exception("Proizvod sa id-em: " + sifra + " ne postoji");
                 }
 
-                _mapper.Map(dto, proizvod);
+                _logger.LogInformation($"Ažuriranje stanja za proizvod {proizvod.NAZIV}. Stara količina: {proizvod.STANJE}, nova količina: {novoStanje}");
+
+                if (novoStanje < 0)
+                {
+                    _logger.LogError($"Pokušaj postavljanja negativnog stanja za proizvod {sifra}");
+                    return false;
+                }
+
+                proizvod.STANJE = novoStanje;
                 await _repo.UpdateAsync(proizvod);
+
                 return true;
 
             }
@@ -128,34 +108,6 @@ namespace POSApi.Application.Services.Implementations
             {
 
                 _logger.LogError(ex, "Greška prilikom ažuriranja proizvoda");
-                throw;
-
-            }
-        }
-
-
-        public async Task<bool> DeleteAsync(int sifra)
-        {
-            try
-            {
-
-                var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
-
-                if (proizvod == null)
-                {
-                    _logger.LogError("Proizvod sa id-em: " + sifra + " ne postoji");
-                    throw new Exception("Proizvod sa id-em: " + sifra + " ne postoji");
-                }
-
-                await _repo.DeleteAsync(proizvod);
-                return true;
-
-            }
-
-            catch (Exception ex)
-            {
-
-                _logger.LogError(ex, "Greška prilikom brisanja proizvoda");
                 throw;
 
             }
