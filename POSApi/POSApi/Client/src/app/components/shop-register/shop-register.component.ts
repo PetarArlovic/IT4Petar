@@ -110,13 +110,13 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         this.updateTotalCost();
     }
 
+
     updateTotalCost(): void {
       this.totalCost = this.register.calculateTotal();
     }
 
+
     async CreateNewBill(): Promise<void> {
-
-
       if (this.kosarica.length === 0) {
         alert('Morate dodati barem jedan proizvod u košaricu prije nego što možete napraviti račun!');
         return;
@@ -149,6 +149,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       }
     }
 
+
     addStavkeToRacun(): void {
       if (!this.brojRacuna) return
         this.register.stavke.forEach((stavka) => {
@@ -176,6 +177,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     });
   }
 
+
     resetTransaction(): void {
       this.register = new ShopRegisterService();
       this.stavke = [];
@@ -185,12 +187,14 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       this.displayDialog = false;
     }
 
+
     removeStavkaFromRegister(index: number) {
       this.kosarica.splice(index, 1);
       this.updateTotalCost();
       this.initializeStavkeFromKosarica();
       this.showCart = true;
     }
+
 
     ngOnChanges(changes: SimpleChanges): void {
       if (changes['kosarica']) {
@@ -200,10 +204,8 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       }
     }
 
-    initializeStavkeFromKosarica(): void {
 
-      console.log('--- Početak initializeStavkeFromKosarica ---');
-      console.log('Sadržaj košarice:', JSON.stringify(this.kosarica, null, 2));
+    initializeStavkeFromKosarica(): void {
       this.register = new ShopRegisterService();
       this.kosarica.forEach((proizvod, index) => {
         const ukupnoBezPopusta = proizvod.cijena * proizvod.kolicina;
@@ -244,6 +246,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       }
     }
 
+
     async saveKupac(): Promise<void> {
     const noviKupac: CreateKupacDTO = {
       naziv: this.kupacForm.value.naziv,
@@ -278,10 +281,11 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     }
   }
 
+
   async updateProductStock(): Promise<void> {
   try {
     console.log('Početak ažuriranja stanja proizvoda...');
-    
+
     for (const stavka of this.kosarica) {
       const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);
       if (!proizvod) {
@@ -289,13 +293,8 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         continue;
       }
 
-      // Provjera izračuna novog stanja
       const novoStanje = proizvod.stanje - stavka.kolicina;
 
-      // Debugging: Provjeri stanje prije nego ga pošalješ
-      console.log(`Novo stanje za proizvod ${proizvod.naziv}: ${novoStanje}`);
-      
-      // Ako je novo stanje 0, to može biti problem u logici.
       if (novoStanje === 0) {
         console.warn(`Novo stanje je 0 za proizvod ${proizvod.naziv}`);
       }
@@ -304,7 +303,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         this.proizvodiService.updateStanjeProizvoda(proizvod.sifra, novoStanje)
       );
 
-      // Ažurirajte lokalno stanje
       proizvod.stanje = novoStanje;
     }
   } catch (err) {
@@ -312,6 +310,7 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     throw err;
   }
 }
+
 
   checkStockBeforeIssue(): boolean {
     for (const stavka of this.kosarica) {
@@ -328,11 +327,13 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
     return true;
   }
 
+
   resetFormAndCart(): void {
     this.kosarica = [];
     this.kupacForm.reset();
     this.totalCost = 0;
   }
+
 
   toggleCart() {
     this.showCart = !this.showCart;

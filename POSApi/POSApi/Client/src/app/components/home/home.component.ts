@@ -34,6 +34,7 @@ export class HomeComponent implements OnInit {
     ngOnInit(): void {
       this.loadProizvodi();
 
+      //Search bar.
       this.searchControl.valueChanges
         .pipe(debounceTime(300), distinctUntilChanged())
         .subscribe((input: string) => {

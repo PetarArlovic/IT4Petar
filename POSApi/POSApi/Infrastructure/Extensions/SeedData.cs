@@ -20,6 +20,7 @@ namespace POSApi.Infrastructure.Extensions
             }
 
             var adminUser = await userManager.FindByEmailAsync("admin@gmail.com");
+
             if (adminUser == null)
             {
                 adminUser = new User
@@ -36,7 +37,9 @@ namespace POSApi.Infrastructure.Extensions
 
                 if (result.Succeeded)
                 {
+
                     await userManager.AddToRoleAsync(adminUser, "Admin");
+
                 }
             }
         }

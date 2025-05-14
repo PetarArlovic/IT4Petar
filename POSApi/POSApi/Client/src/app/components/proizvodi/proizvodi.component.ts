@@ -28,6 +28,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     CommonModule,
     FileUploadModule
   ],
+
   templateUrl: './proizvodi.component.html',
   styleUrl: './proizvodi.component.scss'
 })
@@ -114,6 +115,7 @@ export class ProizvodiComponent implements OnInit{
     });
   }
 
+
   loadProizvodi(): void {
     this.proizvodiService.getAllProizvodi().subscribe(proizvodi => {
 
@@ -123,6 +125,7 @@ export class ProizvodiComponent implements OnInit{
       }));
     });
   }
+
 
   saveProizvod(): void {
     if (this.proizvodForm.valid){
@@ -146,6 +149,7 @@ export class ProizvodiComponent implements OnInit{
     }
   }
 
+
   addProizvod(proizvod: CreateProizvodDTO): void{
     this.proizvodiService.addProizvod(proizvod).subscribe(()=>{
       this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je dodan.' });
@@ -154,6 +158,7 @@ export class ProizvodiComponent implements OnInit{
     });
   }
 
+
   updateProizvod(sifra: number, proizvod:UpdateProizvodDTO): void{
     this.proizvodiService.updateProizvod(sifra, proizvod).subscribe(()=>{
       this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je azuriran.' });
@@ -161,12 +166,14 @@ export class ProizvodiComponent implements OnInit{
     })
   }
 
+
   deleteProizvod(sifra: number): void{
     this.proizvodiService.deleteProizvod(sifra).subscribe(()=>{
       this.messageService.add({ severity: 'success', summary: 'Uspješno', detail: 'Proizvod je obrisan.' });
       this.loadProizvodi()
     })
   }
+
 
   editProizvod(proizvod: GetProizvodDTO): void{
     this.selectedProizvod = proizvod;
@@ -182,6 +189,7 @@ export class ProizvodiComponent implements OnInit{
     this.proizvodDialog = true;
   }
 
+
   onUpload(event: Event): void {
     const fileInput = event.target as HTMLInputElement;
     if (fileInput.files && fileInput.files.length > 0) {
@@ -193,13 +201,16 @@ export class ProizvodiComponent implements OnInit{
     }
   }
 
+
   openNew(): void {
     this.proizvodForm.reset();
     this.selectedProizvod = null;
     this.proizvodDialog = true;
   }
 
+
   proizvodDialog: boolean = false;
+
 
   hideDialog(): void {
     this.proizvodDialog = false;

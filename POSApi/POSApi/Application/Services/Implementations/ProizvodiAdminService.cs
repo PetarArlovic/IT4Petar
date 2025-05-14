@@ -109,7 +109,6 @@ namespace POSApi.Application.Services.Implementations
             try
             {
 
-
                 var proizvod = await _proizvodiRepo.FindPBySIFRA(sifra);
 
                 if (proizvod == null)

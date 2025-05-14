@@ -31,5 +31,3 @@ export const appConfig: ApplicationConfig = {
         JwtInterceptor
   ]
 };
-
-//<!--  ' '  <div>  []  {}  || -->

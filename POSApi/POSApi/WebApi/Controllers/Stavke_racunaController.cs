@@ -37,7 +37,6 @@ namespace POSApi.WebApi.Controllers
         }
 
 
-
         //////////////
         /// <summary>
         /// Gets "Stavke racuna" by its "broj"

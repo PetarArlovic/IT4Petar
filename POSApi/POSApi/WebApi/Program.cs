@@ -1,32 +1,23 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using POSApi.Infrastructure.Data;
 using POSApi.Domain.Interfaces;
 using POSApi.WebApi.Mappings;
 using POSApi.Infrastructure.Repositories;
-using POSApi.Application.Services;
-using NLog;
 using NLog.Web;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 using POSApi.Application.Services.Implementations;
 using POSApi.Application.Services.Interfaces;
-using Microsoft.AspNetCore.Hosting;
 using Swashbuckle.AspNetCore.Filters;
 using POSApi.Domain.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using POSApi;
-using POSApi.Infrastructure.Extensions; 
+using POSApi.Infrastructure.Extensions;
 
 {
     var builder = WebApplication.CreateBuilder(args);
-
-    // Add services to the container.
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -128,7 +119,6 @@ builder.Services.AddSwaggerGen(options =>
     {
         Title = "API Dokumentacija",
         Version = "v1",
-        Description = "Ovo je API za moj projekt",
         Contact = new OpenApiContact
         {
             Name = "Petar Arlovic",

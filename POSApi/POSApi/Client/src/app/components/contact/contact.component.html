@@ -1,0 +1,22 @@
+<div class="kontakt-forma">
+    <h2>Kontaktirajte nas</h2>
+    <form (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        <label for="ime">Ime:</label>
+        <input type="text" id="ime" [(ngModel)]="ime" name="ime" required>
+        </div>
+
+        <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+        <label for="poruka">Poruka:</label>
+        <textarea id="poruka" [(ngModel)]="poruka" name="poruka" rows="5" required></textarea>
+        </div>
+
+        <button type="submit">Pošalji</button>
+    </form>
+</div>
+
