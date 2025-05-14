@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using POSApi.Infrastructure.Extensions;
+using Microsoft.Extensions.FileProviders;
 
 {
     var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +40,18 @@ builder.Services.AddScoped<IProizvodiService, ProizvodiService>();
 builder.Services.AddScoped<IKupciService, KupciService>();
 builder.Services.AddScoped<IStavke_racunaService, Stavke_racunaService>();
 builder.Services.AddScoped<IZaglavlje_racunaService, Zaglavlje_racunaService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontendApp",
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:4200", "http://localhost:4200", "https://localhost:4000;", "http://localhost:4001") // Angular app address
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
@@ -146,39 +159,25 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontendApp",
-        builder =>
-        {
-            builder.WithOrigins("https://localhost:4200") // Angular app address
-                   .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .AllowCredentials();
-        });
-});
-
+//BUILD
 var app = builder.Build();
 
+app.Use(async (context, next) => {
+    Console.WriteLine($"Request received for: {context.Request.Path}");
+    await next();
+});
 
-//DataSeed
-
-using (var scope = app.Services.CreateScope()) 
+using (var scope = app.Services.CreateScope()) //DataSeed
 {
     var services = scope.ServiceProvider;
     await SeedDataExtensions.SeedData(services);
 }
 
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-
 }
-
-app.UseDefaultFiles();
-
-app.UseStaticFiles();  
 
 app.UseRouting();
 
@@ -190,10 +189,32 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+var angularFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "API", "publish", "wwwroot", "browser");
+
+if (!Directory.Exists(angularFilesPath))
+{
+    angularFilesPath = Path.Combine(Directory.GetCurrentDirectory(), "..", "API", "wwwroot", "browser");
+}
+
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+    FileProvider = new PhysicalFileProvider(angularFilesPath),
+    RequestPath = ""
+});
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(angularFilesPath),
+    RequestPath = ""
+});
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
-    endpoints.MapFallbackToFile("index.html");
+    endpoints.MapFallbackToFile("index.html", new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(angularFilesPath)
+    });
 });
 
 app.Run();

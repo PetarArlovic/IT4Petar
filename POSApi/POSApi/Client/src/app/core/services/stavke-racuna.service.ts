@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateStavke_racunaDTO, GetStavke_racunaDTO, UpdateStavke_racunaDTO } from '../../models/stavke_racuna';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StavkeRacunaService {
 
-  private baseUrl = 'https://localhost:4000';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

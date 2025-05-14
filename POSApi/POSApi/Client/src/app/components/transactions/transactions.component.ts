@@ -43,13 +43,14 @@ export class TransactionsComponent implements OnInit {
   ngOnInit(): void {
       this.loadTransactions();
 
+      //Search bar.
       this.searchControl.valueChanges
-    .pipe(debounceTime(500), distinctUntilChanged())
-    .subscribe((value) => {
-      if (!value || value.trim() === '') {
-        this.zaglavlja = this.filteredZaglavlja;
-        return;
-      }
+        .pipe(debounceTime(500), distinctUntilChanged())
+        .subscribe((value) => {
+          if (!value || value.trim() === '') {
+            this.zaglavlja = this.filteredZaglavlja;
+            return;
+          }
 
       const brojRacuna = Number(value);
       if (isNaN(brojRacuna)) {
@@ -86,10 +87,10 @@ export class TransactionsComponent implements OnInit {
     });
   }
 
+
   loadTransactions(): void {
     this.zaglavljeService.getAllZaglavlja().subscribe({
       next: (data) => {
-        console.log('Zaglavlja:', data);
         this.zaglavlja = data;
         this.filteredZaglavlja = data;
       },
@@ -98,6 +99,7 @@ export class TransactionsComponent implements OnInit {
       }
     });
   }
+
 
   showStavke(zaglavlje: GetZaglavlje_racunaDTO): void {
     this.selectedZaglavlje = zaglavlje;

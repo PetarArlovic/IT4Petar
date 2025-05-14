@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateZaglavlje_racunaDTO, GetZaglavlje_racunaDTO, UpdateZaglavlje_racunaDTO } from '../../models/zaglavlje_racuna';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ZaglavljeRacunaService {
 
-  private baseUrl = 'https://localhost:4000';
+  private baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 

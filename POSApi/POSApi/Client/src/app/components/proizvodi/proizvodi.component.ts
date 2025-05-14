@@ -10,9 +10,7 @@ import { DialogModule } from 'primeng/dialog';
 import { CardModule } from 'primeng/card';
 import { CommonModule } from '@angular/common';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { jwtDecode } from 'jwt-decode';
 import { Router } from '@angular/router';
-import { DecodedToken } from '../../models/decodeToken';
 import { FileUploadModule } from 'primeng/fileupload';
 
 

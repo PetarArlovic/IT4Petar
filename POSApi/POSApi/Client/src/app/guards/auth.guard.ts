@@ -1,7 +1,8 @@
-import { inject } from '@angular/core';
+import { DecodedToken } from '../models/decodeToken';
 import { ActivatedRouteSnapshot, CanActivateFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
-import { DecodedToken } from '../models/decodeToken';
+import { inject } from '@angular/core';
+
 
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
@@ -30,7 +31,6 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
     else {
       return router.createUrlTree(['/login']);
     }
-
   }
 
   catch (error) {

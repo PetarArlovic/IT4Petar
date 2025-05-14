@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ThemeService } from './core/services/theme.service';
 import { HeaderComponent } from './layout/header/header.component';
+import { environment } from './environments/environment';
 
 
 @Component({
@@ -24,7 +25,7 @@ import { HeaderComponent } from './layout/header/header.component';
 })
 export class AppComponent {
 
-  baseUrl = 'https://localhost:4000/api/'
+  baseUrl = environment.apiUrl
   private http = inject(HttpClient);
   title = 'Client';
 

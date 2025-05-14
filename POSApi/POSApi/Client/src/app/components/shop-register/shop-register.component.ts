@@ -166,7 +166,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
 
         this.stavkeRacunaService.addStavkeRacuna(novaStavka).subscribe({
         next: (result) => {
-          console.log('Stavka dodana na račun:', result);
           alert('Novi račun kreiran!');
         },
         error: (err) => {
@@ -200,7 +199,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
       if (changes['kosarica']) {
         this.initializeStavkeFromKosarica();
         this.updateTotalCost();
-        console.log('Košarica je ažurirana: ', this.kosarica);
       }
     }
 
@@ -268,8 +266,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
         throw new Error('Greška: Kupac nije uspješno potvrđen.');
       }
 
-      console.log('Kupac spremljen s ID:', savedKupac.id);
-
       this.zaglavlje.kupacId = savedKupac.id;
       this.zaglavlje.napomena = this.kupacForm.value.napomena || '';
 
@@ -284,7 +280,6 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
 
   async updateProductStock(): Promise<void> {
   try {
-    console.log('Početak ažuriranja stanja proizvoda...');
 
     for (const stavka of this.kosarica) {
       const proizvod = this.proizvodi.find(p => p.sifra === stavka.sifra);

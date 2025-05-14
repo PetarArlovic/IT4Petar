@@ -2,16 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CreateKupacDTO, GetKupacDTO, UpdateKupacDTO } from '../../models/kupci';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class KupciService {
 
-  private baseUrl = 'https://localhost:4000';
+  private baseUrl = environment.apiUrl
 
   constructor(private http: HttpClient) { }
-
 
   getAllKupci(): Observable<GetKupacDTO[]>{
     return this.http.get<GetKupacDTO[]>(`${this.baseUrl}/api/kupci`);
