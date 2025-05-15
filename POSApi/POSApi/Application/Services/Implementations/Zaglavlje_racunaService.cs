@@ -158,7 +158,6 @@ namespace POSApi.Application.Services.Implementations
                 throw;
 
             }
-
         }
 
         private async Task<int> GenerateNewBroj()

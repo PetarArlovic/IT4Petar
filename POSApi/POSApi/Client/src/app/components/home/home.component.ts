@@ -98,6 +98,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
+
   addToCart(proizvod: GetProizvodDTO) {
     const existing = this.kosarica.find(p => p.sifra === proizvod.sifra);
 
@@ -117,6 +118,7 @@ export class HomeComponent implements OnInit {
 
     this.recalculateTotal();
   }
+
 
   private recalculateTotal() {
     this.totalCost = this.kosarica

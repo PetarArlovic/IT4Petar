@@ -46,7 +46,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowFrontendApp",
         builder =>
         {
-            builder.WithOrigins("https://localhost:4200", "http://localhost:4200", "https://localhost:4000;", "http://localhost:4001") // Angular app address
+            builder.WithOrigins("https://localhost:4200", "http://localhost:4200", "https://localhost:5000;", "http://localhost:5000") // Angular app address
                    .AllowAnyHeader()
                    .AllowAnyMethod()
                    .AllowCredentials();

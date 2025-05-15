@@ -246,10 +246,10 @@ export class ShopRegisterComponent implements OnInit, OnChanges {
 
 
     async saveKupac(): Promise<void> {
-    const noviKupac: CreateKupacDTO = {
-      naziv: this.kupacForm.value.naziv,
-      adresa: this.kupacForm.value.adresa,
-      mjesto: this.kupacForm.value.mjesto
+      const noviKupac: CreateKupacDTO = {
+        naziv: this.kupacForm.value.naziv,
+        adresa: this.kupacForm.value.adresa,
+        mjesto: this.kupacForm.value.mjesto
     };
 
     try {
